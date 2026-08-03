@@ -1,0 +1,23 @@
+<view
+  wx:if="{{visible}}"
+  class="overlay {{motionOff ? 'motion-off' : ''}}"
+  catchtouchmove="stopPropagation"
+  bindtap="cancel"
+>
+  <view class="sheet" catchtap="stopPropagation">
+    <view class="sheet__mark {{danger ? 'sheet__mark--danger' : ''}}">
+      {{danger ? '慎' : '问'}}
+    </view>
+    <view class="sheet__title">{{title}}</view>
+    <view class="sheet__message">{{message}}</view>
+    <view class="sheet__actions">
+      <button class="button button--cancel" bindtap="cancel">取消</button>
+      <button
+        class="button {{danger ? 'button--danger' : 'button--confirm'}}"
+        bindtap="confirm"
+      >
+        {{confirmText}}
+      </button>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,196 @@
+<view class="result-page {{motionOff ? 'motion-off' : ''}}">
+  <view wx:if="{{loading}}" class="loading-state">
+    <view class="loading-state__ring"></view>
+    <view class="loading-state__text">正在整理观象内容</view>
+  </view>
+
+  <view wx:elif="{{error}}" class="page-shell">
+    <view class="page-content">
+      <view class="error-view panel">
+        <view class="error-view__mark">缺</view>
+        <view class="error-view__title">结果没有完整加载</view>
+        <view class="error-view__text">{{error}}</view>
+        <button class="secondary-button" bindtap="modifyQuestion">返回重新生成</button>
+        <button class="ghost-button" bindtap="goHome">回到首页</button>
+      </view>
+    </view>
+  </view>
+
+  <view wx:elif="{{blocked}}" class="blocked-view">
+    <view class="blocked-view__halo"></view>
+    <view class="blocked-view__content">
+      <view class="blocked-view__mark">止</view>
+      <view class="blocked-view__eyebrow">现实安全优先</view>
+      <view class="blocked-view__title">{{blockTitle}}</view>
+      <view class="blocked-view__message">{{blockMessage}}</view>
+      <view class="blocked-view__guidance">
+        <view class="blocked-view__guidance-title">现在可以先做</view>
+        <view class="blocked-view__guidance-item"><view class="blocked-view__step">1</view><text>暂停用卦象替代专业判断。</text></view>
+        <view class="blocked-view__guidance-item"><view class="blocked-view__step">2</view><text>保存相关事实、材料或身体状况记录。</text></view>
+        <view class="blocked-view__guidance-item"><view class="blocked-view__step">3</view><text>联系可信赖的人或具备资质的专业人士。</text></view>
+      </view>
+      <button class="secondary-button" bindtap="modifyQuestion">返回修改问题</button>
+      <button class="ghost-button" bindtap="goHome">回到首页</button>
+      <view class="blocked-view__note">本次问题不会生成卦象结果，也不会自动保存为记录。</view>
+    </view>
+  </view>
+
+  <scroll-view wx:else class="result-scroll" scroll-y enhanced show-scrollbar="{{false}}">
+    <view class="result-hero scene-upper--{{upperScene}} scene-lower--{{lowerScene}}">
+      <view class="scene-layer scene-layer--upper">
+        <view class="scene-upper__mark"></view>
+        <view class="scene-upper__trace"></view>
+      </view>
+      <view class="scene-layer scene-layer--lower">
+        <view class="scene-lower__shape"></view>
+        <view class="scene-lower__trace"></view>
+      </view>
+      <view class="result-hero__glow"></view>
+      <view class="result-hero__meta">{{modeLabel}} · {{dateText}}</view>
+      <view class="result-hero__symbol">{{symbol}}</view>
+      <hexagram-symbol
+        upper="{{upperTrigram}}"
+        lower="{{lowerTrigram}}"
+        changing-line="{{changingLine}}"
+      />
+      <view class="result-hero__name">{{name}}</view>
+      <view class="result-hero__pinyin">{{pinyin}}</view>
+      <view class="keyword-row">
+        <view wx:for="{{keywords}}" wx:key="*this" class="keyword">{{item}}</view>
+      </view>
+      <view class="result-hero__trigrams">{{upperTrigram}}上 · {{lowerTrigram}}下</view>
+    </view>
+
+    <view class="result-body">
+      <view class="summary-card panel">
+        <view class="summary-card__eyebrow">当前之象</view>
+        <view class="summary-card__text">{{summary}}</view>
+      </view>
+
+      <view wx:if="{{reflection}}" class="reflection-card">
+        <view class="reflection-card__mark">问</view>
+        <view>
+          <view class="reflection-card__title">今日反思</view>
+          <view class="reflection-card__text">{{reflection}}</view>
+        </view>
+      </view>
+
+      <view class="section-heading">
+        <view class="section-heading__title">看清当前处境</view>
+        <view class="section-heading__meta">{{categoryLabel}}</view>
+      </view>
+
+      <view class="insight-list">
+        <view class="insight">
+          <view class="insight__index">一</view>
+          <view class="insight__body">
+            <view class="insight__title">主要矛盾</view>
+            <view class="insight__text">{{mainConflict}}</view>
+          </view>
+        </view>
+        <view class="insight">
+          <view class="insight__index insight__index--green">得</view>
+          <view class="insight__body">
+            <view class="insight__title">有利条件</view>
+            <view class="insight__text">{{advantage}}</view>
+          </view>
+        </view>
+        <view class="insight insight--risk">
+          <view class="insight__index insight__index--red">慎</view>
+          <view class="insight__body">
+            <view class="insight__title">风险提醒</view>
+            <view class="insight__text">{{riskNotice}}</view>
+          </view>
+        </view>
+      </view>
+
+      <view class="section-heading">
+        <view class="section-heading__title">下一步行动</view>
+        <view class="section-heading__meta">从小而可验开始</view>
+      </view>
+
+      <view class="action-list">
+        <view wx:for="{{actions}}" wx:key="*this" class="action-item">
+          <view class="action-item__time">
+            {{actions.length === 1 ? "今天" : index === 0 ? "今天" : index === 1 ? "七天内" : "重新判断"}}
+          </view>
+          <view class="action-item__dot"></view>
+          <view class="action-item__text">{{item}}</view>
+        </view>
+      </view>
+
+      <view class="section-heading">
+        <view class="section-heading__title">文化原意</view>
+        <button class="section-link" bindtap="openHexagram">查看完整六爻 →</button>
+      </view>
+
+      <view class="culture-card panel">
+        <view class="culture-card__source">《周易》卦辞</view>
+        <view class="culture-card__traditional">{{traditional}}</view>
+        <view class="culture-card__divider"></view>
+        <view class="culture-card__plain">{{plain}}</view>
+      </view>
+
+      <view class="result-actions">
+        <button
+          class="primary-button"
+          disabled="{{saving}}"
+          loading="{{saving}}"
+          bindtap="manualSave"
+        >
+          {{saved ? "已保存 · 再次更新" : "保存本次观象"}}
+        </button>
+        <view class="result-actions__row">
+          <button class="secondary-button" bindtap="toggleFavorite">
+            {{isFavorite ? "已收藏此卦" : "收藏此卦"}}
+          </button>
+          <button
+            class="secondary-button"
+            disabled="{{shareGenerating}}"
+            loading="{{shareGenerating}}"
+            bindtap="generateShareCard"
+          >生成分享卡</button>
+        </view>
+        <button class="share-button" open-type="share">分享文化卡片给朋友</button>
+        <button
+          class="not-save-button"
+          disabled="{{saving || removing || (!saved && doNotSave)}}"
+          loading="{{removing}}"
+          bindtap="askRemoveRecord"
+        >{{saved ? "移除本条记录" : doNotSave ? "本次已不保存" : "本次不保存"}}</button>
+      </view>
+
+      <view class="disclaimer">{{disclaimer}}</view>
+      <button class="home-link" bindtap="goHome">完成，回到首页</button>
+      <button class="history-link" bindtap="openHistory">查看我的记录</button>
+      <view class="safe-bottom"></view>
+    </view>
+  </scroll-view>
+
+  <canvas
+    wx:if="{{!blocked && !error}}"
+    type="2d"
+    id="shareCanvas"
+    class="share-canvas"
+  ></canvas>
+
+  <view wx:if="{{sharePreviewVisible}}" class="share-preview" bindtap="closeSharePreview">
+    <view class="share-preview__sheet" catchtap="stopPropagation">
+      <image class="share-preview__image" src="{{shareCardPath}}" mode="widthFix" bindtap="previewShareCard" />
+      <view class="share-preview__hint">点击卡片可放大预览</view>
+      <button class="share-preview__button" open-type="share">转发这张文化卡片</button>
+      <button class="share-preview__close" bindtap="closeSharePreview">关闭</button>
+    </view>
+  </view>
+
+  <confirm-sheet
+    visible="{{removeConfirmVisible}}"
+    title="{{removeConfirmTitle}}"
+    message="{{removeConfirmMessage}}"
+    confirm-text="{{saved ? '确认移除' : '确认不保存'}}"
+    danger="{{true}}"
+    motion-off="{{motionOff}}"
+    bindcancel="closeRemoveConfirm"
+    bindconfirm="confirmRemoveRecord"
+  />
+</view>

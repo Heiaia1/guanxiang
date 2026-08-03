@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "我的记录",
+  "navigationBarBackgroundColor": "#101415",
+  "navigationBarTextStyle": "white",
+  "usingComponents": {
+    "hexagram-symbol": "/components/hexagram-symbol/hexagram-symbol",
+    "confirm-sheet": "/components/confirm-sheet/confirm-sheet"
+  }
+}

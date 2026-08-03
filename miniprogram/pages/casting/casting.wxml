@@ -1,0 +1,118 @@
+<view class="casting {{lowPower || !animations ? 'casting--quiet' : ''}} {{motionOff ? 'motion-off' : ''}}">
+  <view class="sky-glow"></view>
+  <view
+    wx:for="{{particles}}"
+    wx:key="*this"
+    class="particle particle--{{index + 1}}"
+  ></view>
+
+  <view class="casting__nav">
+    <button class="casting__back" bindtap="retry" aria-label="返回">←</button>
+    <view class="casting__brand">观象录</view>
+    <button class="casting__home" bindtap="goHome">首页</button>
+  </view>
+
+  <view class="casting__main">
+    <view class="casting__eyebrow">
+      {{dailyMode ? "今日观象" : mode === "coin" ? "铜钱互动" : mode === "context" ? "情境成象" : "选择方式"}}
+    </view>
+    <view class="casting__title">
+      {{error ? "暂未成象" : completed ? "象已成" : started ? "六爻渐明" : "以何种方式观象？"}}
+    </view>
+    <view class="casting__status">{{error || statusText}}</view>
+
+    <view wx:if="{{!started && !error}}" class="mode-list">
+      <button
+        class="mode-card pressable {{mode === 'context' ? 'mode-card--selected' : ''}}"
+        bindtap="chooseContext"
+      >
+        <view class="mode-card__icon mode-card__icon--context">
+          <view></view><view></view><view></view>
+        </view>
+        <view class="mode-card__body">
+          <view class="mode-card__title">情境成象</view>
+          <view class="mode-card__tag">推荐</view>
+          <view class="mode-card__text">依据你填写的现实条件形成上下卦，结果稳定一致。</view>
+        </view>
+      </button>
+      <button
+        class="mode-card pressable {{mode === 'coin' ? 'mode-card--selected' : ''}}"
+        bindtap="chooseCoin"
+      >
+        <view class="mode-card__icon mode-card__icon--coin">泉</view>
+        <view class="mode-card__body">
+          <view class="mode-card__title">铜钱互动</view>
+          <view class="mode-card__tag mode-card__tag--muted">文化体验</view>
+          <view class="mode-card__text">完成六次传统投掷，用于反思，不构成现实预测。</view>
+        </view>
+      </button>
+      <button class="primary-button begin-button" disabled="{{!mode}}" bindtap="begin">
+        {{mode === "coin" ? "准备三枚铜钱" : mode === "context" ? "开始成象" : "请先选择方式"}}
+      </button>
+    </view>
+
+    <view wx:if="{{started && !error}}" class="ritual-stage">
+      <view
+        wx:if="{{mode === 'coin'}}"
+        class="coin-stage"
+        bindtap="tapCoin"
+        bindtouchstart="coinTouchStart"
+        bindtouchmove="coinTouchMove"
+        bindtouchend="coinTouchEnd"
+        bindtouchcancel="coinTouchCancel"
+      >
+        <view class="coin-row {{spinning ? 'coin-row--spinning' : ''}}">
+          <view wx:for="{{coinValues}}" wx:key="id" class="coin coin--{{index + 1}}">
+            <view class="coin__rim"></view>
+            <view class="coin__hole"></view>
+            <view class="coin__text">{{item.value === 3 ? "乾" : "坤"}}</view>
+          </view>
+        </view>
+        <view class="coin-stage__plate"></view>
+      </view>
+
+      <view class="line-stage">
+        <view class="line-stage__stack">
+          <view
+            wx:for="{{lines}}"
+            wx:key="index"
+            class="cast-line {{item.changing ? 'cast-line--changing' : ''}}"
+          >
+            <block wx:if="{{item.yin}}">
+              <view class="cast-line__segment"></view>
+              <view class="cast-line__gap"></view>
+              <view class="cast-line__segment"></view>
+            </block>
+            <view wx:else class="cast-line__solid"></view>
+            <view class="cast-line__index">{{item.index}}</view>
+          </view>
+          <view
+            wx:for="{{6 - lines.length}}"
+            wx:key="*this"
+            class="cast-line cast-line--empty"
+          >
+            <view class="cast-line__placeholder"></view>
+          </view>
+        </view>
+      </view>
+
+      <button
+        wx:if="{{mode === 'coin' && castCount < 6}}"
+        class="coin-action"
+        disabled="{{spinning}}"
+        bindtap="tossCoin"
+      >
+        {{spinning ? "铜钱旋转中…" : castCount === 0 ? "轻触或上滑投掷" : "继续轻触或上滑"}}
+      </button>
+      <view wx:else class="casting__progress-text">{{castCount}} / 6</view>
+      <view class="culture-note">传统文化互动体验 · 不构成未来预测</view>
+    </view>
+
+    <view wx:if="{{error}}" class="error-card">
+      <view class="error-card__mark">止</view>
+      <view class="error-card__text">{{error}}</view>
+      <button class="secondary-button" bindtap="retry">返回检查</button>
+      <button class="ghost-button" bindtap="goHome">回到首页</button>
+    </view>
+  </view>
+</view>

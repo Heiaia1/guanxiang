@@ -1,0 +1,14 @@
+<view class="symbol {{compact ? 'symbol--compact' : ''}}" aria-label="六爻卦象图">
+  <view
+    wx:for="{{visualLines}}"
+    wx:key="position"
+    class="yao {{item.changing ? 'yao--changing' : ''}}"
+  >
+    <block wx:if="{{item.yin}}">
+      <view class="yao__segment"></view>
+      <view class="yao__gap"></view>
+      <view class="yao__segment"></view>
+    </block>
+    <view wx:else class="yao__solid"></view>
+  </view>
+</view>

@@ -1,0 +1,57 @@
+<view class="page-shell {{motionOff ? 'motion-off' : ''}}">
+  <view class="ink-orb ink-orb--one"></view>
+  <view class="page-content">
+    <view class="eyebrow">第二步 · {{categoryLabel}}</view>
+    <view class="page-title">把问题写具体一点</view>
+    <view class="page-subtitle">描述正在发生的事实，比只问“会不会”更容易得到有用的行动建议。</view>
+
+    <view class="editor panel {{error ? 'editor--error' : ''}}">
+      <textarea
+        class="editor__textarea"
+        value="{{question}}"
+        maxlength="100"
+        auto-height
+        cursor-spacing="24"
+        placeholder="{{questionPrompt}}"
+        placeholder-class="editor__placeholder"
+        bindinput="onInput"
+      />
+      <view class="editor__footer">
+        <view class="editor__privacy">只保存在你的手机中</view>
+        <view class="editor__count {{count >= 90 ? 'editor__count--warn' : ''}}">{{count}} / 100</view>
+      </view>
+    </view>
+    <view wx:if="{{error}}" class="error-text">{{error}}</view>
+
+    <view class="privacy-note">
+      <view class="privacy-note__icon">隐</view>
+      <view>
+        <view class="privacy-note__title">请勿填写身份信息</view>
+        <view class="privacy-note__text">{{inputNotice}}</view>
+      </view>
+    </view>
+
+    <view class="examples-title">可以这样描述</view>
+    <view class="examples">
+      <button
+        class="example-chip pressable"
+        data-example="这件事信息还不完整，我应该先验证哪个条件？"
+        bindtap="useExample"
+      >信息不足时怎么推进</button>
+      <button
+        class="example-chip pressable"
+        data-example="我想拒绝一个不合适的请求，怎样表达边界更清楚？"
+        bindtap="useExample"
+      >怎样表达边界</button>
+    </view>
+
+    <button
+      class="primary-button submit-button"
+      disabled="{{submitting}}"
+      loading="{{submitting}}"
+      bindtap="submit"
+    >
+      继续梳理现状
+    </button>
+  </view>
+</view>

@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "卦象详情",
+  "navigationBarBackgroundColor": "#101415",
+  "navigationBarTextStyle": "white",
+  "enableShareAppMessage": true,
+  "usingComponents": {
+    "hexagram-symbol": "/components/hexagram-symbol/hexagram-symbol"
+  }
+}

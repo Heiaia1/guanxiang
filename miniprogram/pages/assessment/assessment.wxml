@@ -1,0 +1,49 @@
+<view class="assessment {{motionOff ? 'motion-off' : ''}}">
+  <view class="assessment__header">
+    <view class="assessment__step">{{currentIndex + 1}} / {{questions.length}}</view>
+    <view class="assessment__progress">
+      <view class="assessment__progress-value" style="width: {{progress}}%"></view>
+    </view>
+    <view class="assessment__hint">根据现实情况选择，没有“正确答案”</view>
+  </view>
+
+  <scroll-view class="assessment__scroll" scroll-y enhanced show-scrollbar="{{false}}">
+    <view class="assessment__content">
+      <view class="eyebrow">第三步 · 梳理现状</view>
+      <view class="assessment__title">{{current.title}}</view>
+      <view class="assessment__description">{{current.description}}</view>
+
+      <view class="option-list">
+        <button
+          wx:for="{{current.options}}"
+          wx:key="id"
+          class="option pressable {{selectedId === item.id ? 'option--selected' : ''}}"
+          data-id="{{item.id}}"
+          bindtap="selectOption"
+        >
+          <view class="option__radio">
+            <view wx:if="{{selectedId === item.id}}" class="option__radio-dot"></view>
+          </view>
+          <view class="option__body">
+            <view class="option__label">{{item.label}}</view>
+            <view wx:if="{{item.note}}" class="option__note">{{item.note}}</view>
+          </view>
+        </button>
+      </view>
+    </view>
+  </scroll-view>
+
+  <view class="assessment__footer">
+    <button class="assessment__back" bindtap="previous">
+      {{currentIndex === 0 ? "返回修改问题" : "上一题"}}
+    </button>
+    <button
+      class="assessment__next"
+      disabled="{{!selectedId || finishing}}"
+      loading="{{finishing}}"
+      bindtap="next"
+    >
+      {{currentIndex === questions.length - 1 ? "进入观象" : "下一题"}}
+    </button>
+  </view>
+</view>

@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "设置与隐私",
+  "navigationBarBackgroundColor": "#101415",
+  "navigationBarTextStyle": "white",
+  "usingComponents": {
+    "confirm-sheet": "/components/confirm-sheet/confirm-sheet",
+    "legal-document-sheet": "/components/legal-document-sheet/legal-document-sheet"
+  }
+}

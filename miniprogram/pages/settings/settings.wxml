@@ -1,0 +1,172 @@
+<view class="page-shell settings-page {{motionOff ? 'motion-off' : ''}}">
+  <view class="ink-orb ink-orb--one"></view>
+  <view class="page-content">
+    <view class="eyebrow">体验与数据</view>
+    <view class="page-title">设置</view>
+    <view class="page-subtitle">所有偏好与记录只保存在当前设备的小程序存储中。</view>
+
+    <view wx:if="{{storageError}}" class="storage-warning panel">
+      <view class="storage-warning__title">本地数据保护已启用</view>
+      <view class="storage-warning__text">{{storageError}}</view>
+      <view class="storage-warning__actions">
+        <button class="secondary-button" bindtap="retryStorage">重新读取</button>
+        <button wx:if="{{settingsReadFailed}}" class="ghost-button" bindtap="resetLocalSettings">恢复默认设置</button>
+      </view>
+    </view>
+
+    <view class="settings-section">
+      <view class="settings-section__title">体验偏好</view>
+      <view class="settings-list panel">
+        <view class="setting-row">
+          <view class="setting-row__icon">动</view>
+          <view class="setting-row__body">
+            <view class="setting-row__title">页面动画</view>
+            <view class="setting-row__note">水墨、粒子与六爻生成动效</view>
+          </view>
+          <switch
+            checked="{{settings.animations}}"
+            color="#9d8757"
+            data-key="animations"
+            bindchange="updateToggle"
+          />
+        </view>
+        <view class="setting-row">
+          <view class="setting-row__icon">声</view>
+          <view class="setting-row__body">
+            <view class="setting-row__title">交互音效</view>
+            <view class="setting-row__note">六爻生成时的轻柔程序音</view>
+          </view>
+          <switch
+            checked="{{settings.sound}}"
+            color="#9d8757"
+            data-key="sound"
+            bindchange="updateToggle"
+          />
+        </view>
+        <view class="setting-row">
+          <view class="setting-row__icon">触</view>
+          <view class="setting-row__body">
+            <view class="setting-row__title">轻微震动</view>
+            <view class="setting-row__note">铜钱落定时提供一次触感反馈</view>
+          </view>
+          <switch
+            checked="{{settings.vibration}}"
+            color="#9d8757"
+            data-key="vibration"
+            bindchange="updateToggle"
+          />
+        </view>
+        <view class="setting-row">
+          <view class="setting-row__icon">省</view>
+          <view class="setting-row__body">
+            <view class="setting-row__title">省电模式</view>
+            <view class="setting-row__note">减少持续粒子、阴影与透明叠加</view>
+          </view>
+          <switch
+            checked="{{settings.lowPower}}"
+            color="#9d8757"
+            data-key="lowPower"
+            bindchange="updateToggle"
+          />
+        </view>
+      </view>
+    </view>
+
+    <view class="settings-section">
+      <view class="settings-section__title">本地数据</view>
+      <view class="settings-list panel">
+        <view class="setting-row">
+          <view class="setting-row__icon">存</view>
+          <view class="setting-row__body">
+            <view class="setting-row__title">自动保存结果</view>
+            <view class="setting-row__note">结果生成后自动加入本机记录，仍可手动更新</view>
+          </view>
+          <switch
+            checked="{{settings.autoSave}}"
+            color="#9d8757"
+            data-key="autoSave"
+            bindchange="updateToggle"
+          />
+        </view>
+        <view class="data-row">
+          <view>
+            <view class="data-row__title">观象记录</view>
+            <view class="data-row__note">{{recordSummary}}</view>
+          </view>
+          <button class="data-row__clear" bindtap="askClear">
+            {{recordsReadFailed ? "清理异常数据" : recordCount ? "清空" : "清理草稿"}}
+          </button>
+        </view>
+      </view>
+    </view>
+
+    <view class="settings-section">
+      <view class="settings-section__title">隐私与说明</view>
+      <view class="document-list panel">
+        <view class="document-item">
+          <button class="document-item__head" data-document="privacy" bindtap="openLegal">
+            <view>
+              <view class="document-item__title">隐私保护说明</view>
+              <view class="document-item__summary">完整查看收集范围、保存期限、删除与分享边界</view>
+            </view>
+            <view class="document-item__arrow">→</view>
+          </button>
+        </view>
+        <view class="document-item">
+          <button class="document-item__head" data-document="agreement" bindtap="openLegal">
+            <view>
+              <view class="document-item__title">用户协议</view>
+              <view class="document-item__summary">完整查看服务范围、使用规则与责任边界</view>
+            </view>
+            <view class="document-item__arrow">→</view>
+          </button>
+        </view>
+        <view class="document-item">
+          <button class="document-item__head" data-section="content" bindtap="toggleSection">
+            <view>
+              <view class="document-item__title">内容与古籍说明</view>
+              <view class="document-item__summary">原文出处与现代解释方式</view>
+            </view>
+            <view class="document-item__arrow">{{expanded === "content" ? "−" : "+"}}</view>
+          </button>
+          <view wx:if="{{expanded === 'content'}}" class="document-item__content">
+            卦辞与爻辞来自《周易》传统文本；现代白话、风险提示、现实案例与行动建议为本项目独立整理。传统内容仅作为文化背景，不把古籍句子直接解释为用户未来会发生的事件。不同版本文字可能存在差异，文化馆以本程序所载版本为准。
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="settings-section">
+      <view class="settings-section__title">关于观象录</view>
+      <view class="about-card panel">
+        <view class="about-card__seal">象</view>
+        <view class="about-card__body">
+          <view class="about-card__title">观象录 · 本地版</view>
+          <view class="about-card__version">版本 1.0.0</view>
+          <view class="about-card__text">借古人的象，理清今天的事。</view>
+        </view>
+      </view>
+      <button class="replay-button" bindtap="replayGuide">重新查看首次使用说明</button>
+    </view>
+
+    <view class="settings-footer">无账号 · 无服务器 · 无广告 · 无付费预测</view>
+  </view>
+
+  <confirm-sheet
+    visible="{{confirmVisible}}"
+    title="{{confirmTitle}}"
+    message="{{confirmMessage}}"
+    confirm-text="确认清空"
+    danger="{{true}}"
+    motion-off="{{motionOff}}"
+    bindcancel="closeConfirm"
+    bindconfirm="confirmClear"
+  />
+
+  <legal-document-sheet
+    visible="{{legalVisible}}"
+    document="{{activeDocument}}"
+    motion-off="{{motionOff}}"
+    bindclose="closeLegal"
+  />
+</view>

@@ -1,0 +1,6 @@
+{
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "legal-document-sheet": "/components/legal-document-sheet/legal-document-sheet"
+  }
+}

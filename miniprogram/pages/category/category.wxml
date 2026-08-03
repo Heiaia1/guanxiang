@@ -1,0 +1,33 @@
+<view class="page-shell {{motionOff ? 'motion-off' : ''}}">
+  <view class="ink-orb ink-orb--one"></view>
+  <view class="page-content">
+    <view class="eyebrow">第一步 · 情境</view>
+    <view class="page-title">你想理清哪一类事？</view>
+    <view class="page-subtitle">选择最接近的一项即可，后续分析会围绕现实条件展开。</view>
+
+    <view class="category-list">
+      <button
+        wx:for="{{categories}}"
+        wx:key="id"
+        class="category-card pressable {{selected === item.id ? 'category-card--selected' : ''}}"
+        data-category="{{item.id}}"
+        disabled="{{navigating}}"
+        bindtap="selectCategory"
+      >
+        <view class="category-card__mark">{{item.mark}}</view>
+        <view class="category-card__body">
+          <view class="category-card__top">
+            <view class="category-card__title">{{item.title}}</view>
+            <view class="category-card__arrow">→</view>
+          </view>
+          <view class="category-card__description">{{item.description}}</view>
+          <view class="category-card__prompt">{{item.prompt}}</view>
+        </view>
+      </button>
+    </view>
+
+    <view class="toast-note">
+      如果问题同时涉及多个领域，优先选择“你最需要采取行动”的那一项。
+    </view>
+  </view>
+</view>

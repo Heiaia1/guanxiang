@@ -1,0 +1,82 @@
+<view class="page-shell library-page {{motionOff ? 'motion-off' : ''}}">
+  <view class="ink-orb ink-orb--one"></view>
+  <view class="page-content">
+    <view class="library-hero">
+      <view class="eyebrow">六十四卦 · 文化馆</view>
+      <view class="page-title">从象意中理解变化</view>
+      <view class="page-subtitle">每一卦都包含传统原文、现代解释、常见风险与可执行启示。</view>
+    </view>
+
+    <view class="search-box">
+      <view class="search-box__icon"></view>
+      <input
+        class="search-box__input"
+        value="{{query}}"
+        placeholder="搜索卦名、拼音或关键词"
+        placeholder-class="search-box__placeholder"
+        confirm-type="search"
+        bindinput="onSearch"
+      />
+      <button wx:if="{{query}}" class="search-box__clear" bindtap="clearSearch">×</button>
+    </view>
+
+    <view class="scope-tabs">
+      <button
+        class="scope-tab {{scope === 'all' ? 'scope-tab--active' : ''}}"
+        data-scope="all"
+        bindtap="setScope"
+      >全部 64</button>
+      <button
+        class="scope-tab {{scope === 'favorites' ? 'scope-tab--active' : ''}}"
+        data-scope="favorites"
+        bindtap="setScope"
+      >我的收藏 {{favoriteCount}}</button>
+    </view>
+
+    <view wx:if="{{error}}" class="library-error">{{error}}</view>
+
+    <view wx:elif="{{visibleHexagrams.length}}" class="hexagram-grid">
+      <view
+        wx:for="{{visibleHexagrams}}"
+        wx:key="id"
+        class="hexagram-card pressable"
+        data-id="{{item.id}}"
+        bindtap="openDetail"
+      >
+        <view class="hexagram-card__top">
+          <view class="hexagram-card__id">{{item.displayId}}</view>
+          <button
+            class="hexagram-card__favorite {{item.isFavorite ? 'hexagram-card__favorite--active' : ''}}"
+            data-id="{{item.id}}"
+            catchtap="toggleFavorite"
+            aria-label="{{item.isFavorite ? '取消收藏' : '收藏'}}"
+          >{{item.isFavorite ? "◆" : "◇"}}</button>
+        </view>
+        <view class="hexagram-card__visual">
+          <hexagram-symbol
+            upper="{{item.upperTrigram}}"
+            lower="{{item.lowerTrigram}}"
+            compact="{{true}}"
+          />
+        </view>
+        <view class="hexagram-card__name">{{item.name}}</view>
+        <view class="hexagram-card__pinyin">{{item.pinyin}}</view>
+        <view class="hexagram-card__keyword">{{item.keywords[0]}} · {{item.keywords[1]}}</view>
+        <view class="hexagram-card__trigram">{{item.upperTrigram}}上 {{item.lowerTrigram}}下</view>
+      </view>
+    </view>
+
+    <view wx:else class="empty-library">
+      <view class="empty-library__symbol">○</view>
+      <view class="empty-library__title">
+        {{scope === "favorites" ? "还没有收藏卦象" : "没有找到匹配内容"}}
+      </view>
+      <view class="empty-library__text">
+        {{scope === "favorites" ? "浏览文化馆时点击菱形即可收藏。" : "试试卦名、拼音或“沟通”等关键词。"}}
+      </view>
+      <button wx:if="{{query}}" class="secondary-button" bindtap="clearSearch">清除搜索</button>
+    </view>
+
+    <view class="library-footer">古籍原文标注出处 · 现代解释用于现实反思</view>
+  </view>
+</view>

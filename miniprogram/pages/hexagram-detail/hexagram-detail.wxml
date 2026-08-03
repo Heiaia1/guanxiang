@@ -1,0 +1,104 @@
+<view wx:if="{{loading}}" class="detail-loading {{motionOff ? 'motion-off' : ''}}">正在翻阅文化内容…</view>
+
+<view wx:elif="{{error}}" class="page-shell {{motionOff ? 'motion-off' : ''}}">
+  <view class="page-content">
+    <view class="detail-error panel">
+      <view class="detail-error__mark">缺</view>
+      <view class="detail-error__text">{{error}}</view>
+      <button class="secondary-button" bindtap="backToLibrary">返回文化馆</button>
+    </view>
+  </view>
+</view>
+
+<scroll-view wx:else class="detail-scroll {{motionOff ? 'motion-off' : ''}}" scroll-y enhanced show-scrollbar="{{false}}">
+  <view class="detail-hero">
+    <view class="detail-hero__number">NO. {{hexagram.id}}</view>
+    <button
+      class="detail-hero__favorite {{isFavorite ? 'detail-hero__favorite--active' : ''}}"
+      bindtap="toggleFavorite"
+    >{{isFavorite ? "◆ 已收藏" : "◇ 收藏"}}</button>
+    <view class="detail-hero__symbol">{{hexagram.symbol}}</view>
+    <hexagram-symbol
+      upper="{{hexagram.upperTrigram}}"
+      lower="{{hexagram.lowerTrigram}}"
+    />
+    <view class="detail-hero__name">{{hexagram.name}}</view>
+    <view class="detail-hero__pinyin">{{hexagram.pinyin}}</view>
+    <view class="detail-hero__trigram">{{hexagram.upperTrigram}}上 · {{hexagram.lowerTrigram}}下</view>
+    <view class="keyword-row">
+      <view wx:for="{{hexagram.keywords}}" wx:key="*this" class="keyword">{{item}}</view>
+    </view>
+  </view>
+
+  <view class="detail-body">
+    <view class="detail-summary">{{hexagram.summary}}</view>
+
+    <view class="section-heading">
+      <view class="section-heading__title">传统原意</view>
+      <view class="section-heading__meta">《周易》卦辞</view>
+    </view>
+    <view class="text-panel panel">
+      <view class="text-panel__traditional">{{hexagram.traditional}}</view>
+      <view class="text-panel__line"></view>
+      <view class="text-panel__plain">{{hexagram.plain}}</view>
+    </view>
+
+    <view class="section-heading">
+      <view class="section-heading__title">六爻次第</view>
+      <view class="section-heading__meta">从下向上阅读</view>
+    </view>
+    <view class="line-list">
+      <view
+        wx:for="{{lines}}"
+        wx:key="position"
+        class="line-item {{activeLine === item.position ? 'line-item--active' : ''}}"
+        data-position="{{item.position}}"
+        bindtap="toggleLine"
+      >
+        <view class="line-item__top">
+          <view class="line-item__position">{{item.position}}</view>
+          <view class="line-item__label">{{item.label}}</view>
+          <view class="line-item__arrow">{{activeLine === item.position ? "−" : "+"}}</view>
+        </view>
+        <view wx:if="{{activeLine === item.position}}" class="line-item__content">
+          <view class="line-item__traditional">{{item.traditional}}</view>
+          <view class="line-item__plain">{{item.plain}}</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="section-heading">
+      <view class="section-heading__title">现实启示</view>
+      <view class="section-heading__meta">不是未来预言</view>
+    </view>
+    <view class="reality-grid">
+      <view class="reality-card reality-card--advantage">
+        <view class="reality-card__title">可利用的条件</view>
+        <view wx:for="{{hexagram.advantages}}" wx:key="*this" class="reality-card__item">
+          <view class="reality-card__dot"></view><text>{{item}}</text>
+        </view>
+      </view>
+      <view class="reality-card reality-card--risk">
+        <view class="reality-card__title">容易忽略的风险</view>
+        <view wx:for="{{hexagram.risks}}" wx:key="*this" class="reality-card__item">
+          <view class="reality-card__dot"></view><text>{{item}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="section-heading">
+      <view class="section-heading__title">可以采取的行动</view>
+    </view>
+    <view class="detail-actions panel">
+      <view wx:for="{{hexagram.actions}}" wx:key="*this" class="detail-action">
+        <view class="detail-action__index">0{{index + 1}}</view>
+        <view class="detail-action__text">{{item}}</view>
+      </view>
+    </view>
+
+    <button class="primary-button observe-button" bindtap="startObservation">带着现实问题去观象</button>
+    <button class="share-detail" open-type="share">分享这条文化内容</button>
+    <view class="detail-disclaimer">文化解释用于学习与自我反思，不代表未来必然发生。</view>
+    <view class="safe-bottom"></view>
+  </view>
+</scroll-view>

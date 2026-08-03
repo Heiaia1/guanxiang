@@ -1,0 +1,342 @@
+page {
+  overflow: hidden;
+}
+
+.detail-scroll {
+  height: 100vh;
+}
+
+.detail-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  color: rgba(234, 229, 216, 0.5);
+  background: #101415;
+}
+
+.detail-error {
+  margin-top: 24vh;
+  padding: 44rpx 30rpx;
+  text-align: center;
+}
+
+.detail-error__mark {
+  color: #b39a65;
+  font-family: "STKaiti", "KaiTi", serif;
+  font-size: 52rpx;
+}
+
+.detail-error__text {
+  margin: 20rpx 0 32rpx;
+  color: rgba(234, 229, 216, 0.58);
+  line-height: 1.65;
+}
+
+.detail-hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 720rpx;
+  padding: 52rpx 32rpx 64rpx;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(179, 154, 101, 0.12), transparent 31%),
+    linear-gradient(160deg, rgba(102, 132, 122, 0.16), transparent 62%),
+    #111819;
+}
+
+.detail-hero::before {
+  position: absolute;
+  top: 100rpx;
+  left: 50%;
+  width: 430rpx;
+  height: 430rpx;
+  border: 1rpx solid rgba(179, 154, 101, 0.11);
+  border-radius: 50%;
+  content: "";
+  transform: translateX(-50%);
+}
+
+.detail-hero__number {
+  align-self: flex-start;
+  color: rgba(179, 154, 101, 0.52);
+  font-size: 19rpx;
+  letter-spacing: 4rpx;
+}
+
+.detail-hero__favorite {
+  position: absolute;
+  top: 38rpx;
+  right: 30rpx;
+  padding: 14rpx 20rpx;
+  border: 1rpx solid rgba(234, 229, 216, 0.11);
+  border-radius: 28rpx;
+  color: rgba(234, 229, 216, 0.42);
+  font-size: 21rpx;
+}
+
+.detail-hero__favorite--active {
+  color: #c3aa70;
+  border-color: rgba(179, 154, 101, 0.34);
+  background: rgba(179, 154, 101, 0.08);
+}
+
+.detail-hero__symbol {
+  position: absolute;
+  right: -4rpx;
+  bottom: 52rpx;
+  color: rgba(179, 154, 101, 0.08);
+  font-size: 190rpx;
+}
+
+.detail-hero hexagram-symbol {
+  position: relative;
+  margin-top: 80rpx;
+}
+
+.detail-hero__name {
+  position: relative;
+  margin-top: 34rpx;
+  color: #f1e9d9;
+  font-family: "STKaiti", "KaiTi", serif;
+  font-size: 76rpx;
+  letter-spacing: 10rpx;
+  text-indent: 10rpx;
+}
+
+.detail-hero__pinyin {
+  color: rgba(234, 229, 216, 0.34);
+  font-size: 19rpx;
+  letter-spacing: 4rpx;
+}
+
+.detail-hero__trigram {
+  margin-top: 14rpx;
+  color: rgba(179, 154, 101, 0.62);
+  font-size: 21rpx;
+  letter-spacing: 3rpx;
+}
+
+.keyword-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10rpx;
+  margin-top: 22rpx;
+}
+
+.keyword {
+  padding: 8rpx 17rpx;
+  border-radius: 20rpx;
+  color: #a7b9b1;
+  font-size: 20rpx;
+  background: rgba(102, 132, 122, 0.12);
+}
+
+.detail-body {
+  margin-top: -26rpx;
+  padding: 38rpx 30rpx calc(30rpx + env(safe-area-inset-bottom));
+  border-radius: 30rpx 30rpx 0 0;
+  background: #101415;
+}
+
+.detail-summary {
+  padding: 10rpx 8rpx 18rpx;
+  color: #dfd8ca;
+  font-family: "STKaiti", "KaiTi", serif;
+  font-size: 31rpx;
+  line-height: 1.75;
+}
+
+.text-panel {
+  padding: 30rpx 28rpx;
+}
+
+.text-panel__traditional {
+  color: #e9e1d2;
+  font-family: "STKaiti", "KaiTi", serif;
+  font-size: 29rpx;
+  line-height: 1.75;
+}
+
+.text-panel__line {
+  width: 54rpx;
+  height: 2rpx;
+  margin: 24rpx 0;
+  background: rgba(179, 154, 101, 0.42);
+}
+
+.text-panel__plain {
+  color: rgba(234, 229, 216, 0.56);
+  font-size: 23rpx;
+  line-height: 1.78;
+}
+
+.line-list {
+  overflow: hidden;
+  border: 1rpx solid rgba(234, 229, 216, 0.09);
+  border-radius: 24rpx;
+  background: rgba(26, 34, 34, 0.7);
+}
+
+.line-item {
+  padding: 0 24rpx;
+  border-bottom: 1rpx solid rgba(234, 229, 216, 0.07);
+}
+
+.line-item:last-child {
+  border-bottom: 0;
+}
+
+.line-item--active {
+  background: rgba(179, 154, 101, 0.055);
+}
+
+.line-item__top {
+  display: flex;
+  align-items: center;
+  min-height: 92rpx;
+}
+
+.line-item__position {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42rpx;
+  height: 42rpx;
+  border: 1rpx solid rgba(179, 154, 101, 0.28);
+  border-radius: 50%;
+  color: rgba(179, 154, 101, 0.74);
+  font-size: 18rpx;
+}
+
+.line-item__label {
+  flex: 1;
+  margin-left: 18rpx;
+  color: #ded7c9;
+  font-size: 25rpx;
+}
+
+.line-item__arrow {
+  color: rgba(234, 229, 216, 0.34);
+  font-size: 30rpx;
+}
+
+.line-item__content {
+  padding: 0 0 28rpx 60rpx;
+}
+
+.line-item__traditional {
+  color: rgba(179, 154, 101, 0.8);
+  font-family: "STKaiti", "KaiTi", serif;
+  font-size: 25rpx;
+  line-height: 1.65;
+}
+
+.line-item__plain {
+  margin-top: 12rpx;
+  color: rgba(234, 229, 216, 0.52);
+  font-size: 22rpx;
+  line-height: 1.7;
+}
+
+.reality-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14rpx;
+}
+
+.reality-card {
+  padding: 26rpx;
+  border: 1rpx solid rgba(102, 132, 122, 0.28);
+  border-radius: 22rpx;
+  background: rgba(102, 132, 122, 0.07);
+}
+
+.reality-card--risk {
+  border-color: rgba(154, 79, 68, 0.28);
+  background: rgba(154, 79, 68, 0.055);
+}
+
+.reality-card__title {
+  margin-bottom: 17rpx;
+  color: #dce3de;
+  font-size: 24rpx;
+  font-weight: 600;
+}
+
+.reality-card--risk .reality-card__title {
+  color: #dfc5bf;
+}
+
+.reality-card__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14rpx;
+  margin-top: 11rpx;
+  color: rgba(234, 229, 216, 0.52);
+  font-size: 22rpx;
+  line-height: 1.55;
+}
+
+.reality-card__dot {
+  flex: 0 0 8rpx;
+  width: 8rpx;
+  height: 8rpx;
+  margin-top: 13rpx;
+  border-radius: 50%;
+  background: #738e84;
+}
+
+.reality-card--risk .reality-card__dot {
+  background: #9a4f44;
+}
+
+.detail-actions {
+  padding: 8rpx 26rpx;
+}
+
+.detail-action {
+  display: flex;
+  align-items: flex-start;
+  gap: 20rpx;
+  padding: 24rpx 0;
+  border-bottom: 1rpx solid rgba(234, 229, 216, 0.07);
+}
+
+.detail-action:last-child {
+  border-bottom: 0;
+}
+
+.detail-action__index {
+  color: rgba(179, 154, 101, 0.6);
+  font-size: 19rpx;
+  letter-spacing: 2rpx;
+}
+
+.detail-action__text {
+  color: rgba(234, 229, 216, 0.64);
+  font-size: 23rpx;
+  line-height: 1.6;
+}
+
+.observe-button {
+  margin-top: 46rpx;
+}
+
+.share-detail {
+  width: 100%;
+  padding: 25rpx;
+  color: #93a9a0;
+  font-size: 22rpx;
+}
+
+.detail-disclaimer {
+  padding: 20rpx;
+  color: rgba(234, 229, 216, 0.28);
+  font-size: 19rpx;
+  line-height: 1.55;
+  text-align: center;
+}

@@ -1,0 +1,194 @@
+.library-page {
+  padding-top: 30rpx;
+}
+
+.library-hero {
+  padding: 10rpx 4rpx 18rpx;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  height: 92rpx;
+  margin-top: 26rpx;
+  padding: 0 22rpx;
+  border: 1rpx solid rgba(234, 229, 216, 0.12);
+  border-radius: 46rpx;
+  background: rgba(27, 35, 35, 0.82);
+}
+
+.search-box__icon {
+  position: relative;
+  width: 30rpx;
+  height: 30rpx;
+  margin-right: 16rpx;
+  border: 2rpx solid rgba(179, 154, 101, 0.6);
+  border-radius: 50%;
+}
+
+.search-box__icon::after {
+  position: absolute;
+  right: -9rpx;
+  bottom: -6rpx;
+  width: 13rpx;
+  height: 2rpx;
+  background: rgba(179, 154, 101, 0.6);
+  content: "";
+  transform: rotate(45deg);
+}
+
+.search-box__input {
+  flex: 1;
+  height: 100%;
+  color: #e9e2d4;
+  font-size: 26rpx;
+}
+
+.search-box__placeholder {
+  color: rgba(234, 229, 216, 0.3);
+}
+
+.search-box__clear {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56rpx;
+  height: 56rpx;
+  color: rgba(234, 229, 216, 0.45);
+  font-size: 36rpx;
+}
+
+.scope-tabs {
+  display: flex;
+  gap: 12rpx;
+  margin-top: 20rpx;
+}
+
+.scope-tab {
+  padding: 16rpx 24rpx;
+  border-radius: 30rpx;
+  color: rgba(234, 229, 216, 0.42);
+  font-size: 22rpx;
+}
+
+.scope-tab--active {
+  color: #d8c78f;
+  background: rgba(179, 154, 101, 0.12);
+}
+
+.library-error {
+  margin-top: 34rpx;
+  padding: 28rpx;
+  border: 1rpx solid rgba(154, 79, 68, 0.32);
+  border-radius: 22rpx;
+  color: #d5a098;
+  text-align: center;
+  background: rgba(154, 79, 68, 0.08);
+}
+
+.hexagram-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16rpx;
+  margin-top: 28rpx;
+}
+
+.hexagram-card {
+  position: relative;
+  min-height: 348rpx;
+  padding: 20rpx;
+  border: 1rpx solid rgba(234, 229, 216, 0.09);
+  border-radius: 24rpx;
+  text-align: center;
+  background: linear-gradient(150deg, rgba(30, 39, 39, 0.9), rgba(17, 23, 24, 0.94));
+}
+
+.hexagram-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hexagram-card__id {
+  color: rgba(179, 154, 101, 0.54);
+  font-size: 19rpx;
+  letter-spacing: 3rpx;
+}
+
+.hexagram-card__favorite {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48rpx;
+  height: 48rpx;
+  color: rgba(234, 229, 216, 0.28);
+  font-size: 26rpx;
+}
+
+.hexagram-card__favorite--active {
+  color: #bfa66e;
+}
+
+.hexagram-card__visual {
+  display: flex;
+  justify-content: center;
+  margin-top: 4rpx;
+}
+
+.hexagram-card__name {
+  margin-top: 18rpx;
+  color: #eee6d7;
+  font-family: "STKaiti", "KaiTi", serif;
+  font-size: 42rpx;
+}
+
+.hexagram-card__pinyin {
+  margin-top: 2rpx;
+  color: rgba(234, 229, 216, 0.28);
+  font-size: 17rpx;
+  letter-spacing: 2rpx;
+}
+
+.hexagram-card__keyword {
+  margin-top: 13rpx;
+  color: #9eafa8;
+  font-size: 20rpx;
+}
+
+.hexagram-card__trigram {
+  margin-top: 8rpx;
+  color: rgba(234, 229, 216, 0.32);
+  font-size: 18rpx;
+}
+
+.empty-library {
+  padding: 100rpx 26rpx;
+  text-align: center;
+}
+
+.empty-library__symbol {
+  color: rgba(179, 154, 101, 0.44);
+  font-family: serif;
+  font-size: 100rpx;
+}
+
+.empty-library__title {
+  margin-top: 18rpx;
+  color: #e5ded0;
+  font-size: 30rpx;
+  font-weight: 600;
+}
+
+.empty-library__text {
+  margin: 12rpx auto 28rpx;
+  color: rgba(234, 229, 216, 0.44);
+  font-size: 23rpx;
+  line-height: 1.6;
+}
+
+.library-footer {
+  padding: 54rpx 0 16rpx;
+  color: rgba(234, 229, 216, 0.26);
+  font-size: 19rpx;
+  text-align: center;
+}

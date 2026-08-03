@@ -1,0 +1,99 @@
+<view class="page-shell home {{lowPower || !animationsEnabled ? 'home--quiet' : ''}} {{motionOff ? 'motion-off' : ''}}">
+  <view class="ink-orb ink-orb--one"></view>
+  <view class="ink-orb ink-orb--two"></view>
+  <view class="mountain mountain--back"></view>
+  <view class="mountain mountain--front"></view>
+
+  <view class="page-content">
+    <view class="home__top">
+      <view>
+        <view class="eyebrow">GUAN XIANG</view>
+        <view class="home__title">观象录</view>
+      </view>
+      <button class="settings-button pressable" disabled="{{navigating}}" bindtap="openSettings" aria-label="打开设置">
+        <view class="settings-button__ring"></view>
+        <view class="settings-button__dot"></view>
+      </button>
+    </view>
+
+    <view class="hero panel">
+      <view class="hero__halo"></view>
+      <view class="hero__date">今日 · {{greeting}}</view>
+      <view class="hero__copy">不问远处的定数，只看当下有哪些条件可以改变。</view>
+      <button class="hero__action pressable" disabled="{{navigating}}" bindtap="openDaily">
+        <view>
+          <view class="hero__action-title">今日观象</view>
+          <view class="hero__action-note">选择此刻状态，得到一个行动提醒</view>
+        </view>
+        <view class="hero__arrow">→</view>
+      </button>
+    </view>
+
+    <button class="ask-card pressable" disabled="{{navigating}}" bindtap="askQuestion">
+      <view class="ask-card__seal">问</view>
+      <view class="ask-card__body">
+        <view class="ask-card__title">问一件事</view>
+        <view class="ask-card__text">用五个现实问题，理清当前处境</view>
+      </view>
+      <view class="ask-card__arrow">↗</view>
+    </button>
+
+    <view class="section-heading">
+      <view class="section-heading__title">继续探索</view>
+      <view class="section-heading__meta">内容均离线可用</view>
+    </view>
+
+    <view class="path-grid">
+      <button class="path-card pressable" disabled="{{navigating}}" bindtap="openLibrary">
+        <view class="path-card__visual path-card__visual--library">
+          <view class="mini-line"></view>
+          <view class="mini-line mini-line--yin"><view></view><view></view></view>
+          <view class="mini-line"></view>
+        </view>
+        <view class="path-card__title">六十四卦</view>
+        <view class="path-card__meta">{{favoriteCount}} 个收藏</view>
+      </button>
+      <button class="path-card pressable" disabled="{{navigating}}" bindtap="openHistory">
+        <view class="path-card__visual path-card__visual--history">
+          <view class="orbit"></view>
+          <view class="orbit-dot"></view>
+        </view>
+        <view class="path-card__title">我的记录</view>
+        <view class="path-card__meta">{{recordCount}} 次反思</view>
+      </button>
+    </view>
+
+    <view class="home__footer">
+      <view class="home__footer-mark">易</view>
+      <view>传统文化互动 · 现实行动参考</view>
+    </view>
+  </view>
+
+  <view
+    wx:if="{{dailyVisible}}"
+    class="daily-overlay"
+    catchtouchmove="stopPropagation"
+    bindtap="closeDaily"
+  >
+    <view class="daily-sheet" catchtap="stopPropagation">
+      <view class="daily-sheet__handle"></view>
+      <view class="daily-sheet__eyebrow">今日观象</view>
+      <view class="daily-sheet__title">你此刻更接近哪种状态？</view>
+      <view class="daily-sheet__note">只选当下最真实的一项，不需要填写任何个人信息。</view>
+      <view class="state-grid">
+        <button
+          wx:for="{{dailyStates}}"
+          wx:key="id"
+          class="state-card pressable"
+          data-state="{{item.id}}"
+          disabled="{{creatingDaily || navigating}}"
+          bindtap="chooseDaily"
+        >
+          <view class="state-card__name">{{item.label}}</view>
+          <view class="state-card__note">{{item.note}}</view>
+        </button>
+      </view>
+      <button class="daily-sheet__cancel" bindtap="closeDaily">暂不选择</button>
+    </view>
+  </view>
+</view>

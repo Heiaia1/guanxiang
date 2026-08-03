@@ -1,0 +1,105 @@
+.motion-off,
+.motion-off view,
+.motion-off button {
+  animation: none !important;
+  transition: none !important;
+}
+
+.overlay {
+  position: fixed;
+  z-index: 80;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: 32rpx 28rpx calc(28rpx + env(safe-area-inset-bottom));
+  background: rgba(5, 8, 9, 0.76);
+  backdrop-filter: blur(12rpx);
+  animation: fade-in 180ms ease-out;
+}
+
+.sheet {
+  width: 100%;
+  padding: 42rpx 34rpx 30rpx;
+  border: 1rpx solid rgba(179, 154, 101, 0.3);
+  border-radius: 34rpx;
+  color: #eae5d8;
+  text-align: center;
+  background: linear-gradient(150deg, #202929, #121718);
+  box-shadow: 0 -20rpx 80rpx rgba(0, 0, 0, 0.42);
+  animation: rise 220ms ease-out;
+}
+
+.sheet__mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 68rpx;
+  height: 68rpx;
+  margin: 0 auto 22rpx;
+  border: 1rpx solid rgba(179, 154, 101, 0.5);
+  border-radius: 50%;
+  color: #c7ad74;
+  background: rgba(179, 154, 101, 0.1);
+}
+
+.sheet__mark--danger {
+  color: #dda39a;
+  border-color: rgba(154, 79, 68, 0.55);
+  background: rgba(154, 79, 68, 0.12);
+}
+
+.sheet__title {
+  font-size: 34rpx;
+  font-weight: 600;
+}
+
+.sheet__message {
+  max-width: 570rpx;
+  margin: 18rpx auto 34rpx;
+  color: rgba(234, 229, 216, 0.62);
+  font-size: 25rpx;
+  line-height: 1.65;
+}
+
+.sheet__actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18rpx;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 88rpx;
+  border-radius: 44rpx;
+  font-size: 27rpx;
+}
+
+.button--cancel {
+  color: rgba(234, 229, 216, 0.66);
+  border: 1rpx solid rgba(234, 229, 216, 0.12);
+}
+
+.button--confirm {
+  color: #111718;
+  background: linear-gradient(135deg, #d5bf89, #a98d55);
+}
+
+.button--danger {
+  color: #f3ded9;
+  background: #864840;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(50rpx);
+  }
+}

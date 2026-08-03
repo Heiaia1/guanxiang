@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "moduleDetection": "force",
+    "allowJs": false,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitAny": false,
+    "noImplicitThis": false,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "lib": [
+      "ES2020",
+      "DOM"
+    ],
+    "types": []
+  },
+  "include": [
+    "miniprogram/**/*.ts",
+    "miniprogram/types/**/*.d.ts"
+  ]
+}

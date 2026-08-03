@@ -1,0 +1,229 @@
+page {
+  min-height: 100%;
+  color: #eae5d8;
+  background:
+    radial-gradient(circle at 82% 8%, rgba(102, 132, 122, 0.2), transparent 34%),
+    radial-gradient(circle at 8% 78%, rgba(179, 154, 101, 0.1), transparent 38%),
+    #101415;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 28rpx;
+}
+
+view,
+text,
+button,
+input,
+textarea,
+scroll-view,
+canvas,
+switch {
+  box-sizing: border-box;
+}
+
+.motion-off,
+.motion-off view,
+.motion-off text,
+.motion-off button,
+.motion-off input,
+.motion-off textarea,
+.motion-off scroll-view,
+.motion-off canvas,
+.motion-off image,
+.motion-off switch {
+  animation: none !important;
+  transition: none !important;
+}
+
+button {
+  margin: 0;
+  padding: 0;
+  color: inherit;
+  line-height: 1.2;
+  background: transparent;
+  border-radius: 0;
+}
+
+button::after {
+  border: 0;
+}
+
+.page-shell {
+  position: relative;
+  min-height: 100vh;
+  padding: 40rpx 32rpx calc(52rpx + env(safe-area-inset-bottom));
+  overflow: hidden;
+}
+
+.page-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 760rpx;
+  margin: 0 auto;
+}
+
+.eyebrow {
+  color: #b39a65;
+  font-size: 22rpx;
+  font-weight: 600;
+  letter-spacing: 8rpx;
+}
+
+.page-title {
+  margin-top: 14rpx;
+  color: #f3eee2;
+  font-family: "STKaiti", "KaiTi", "PingFang SC", serif;
+  font-size: 56rpx;
+  font-weight: 600;
+  letter-spacing: 4rpx;
+  line-height: 1.18;
+}
+
+.page-subtitle {
+  margin-top: 18rpx;
+  color: rgba(234, 229, 216, 0.66);
+  font-size: 27rpx;
+  line-height: 1.7;
+}
+
+.panel {
+  border: 1rpx solid rgba(179, 154, 101, 0.22);
+  border-radius: 28rpx;
+  background: linear-gradient(145deg, rgba(31, 40, 40, 0.94), rgba(17, 22, 23, 0.94));
+  box-shadow: 0 20rpx 60rpx rgba(0, 0, 0, 0.24);
+  backdrop-filter: blur(18rpx);
+}
+
+.primary-button,
+.secondary-button,
+.ghost-button,
+.danger-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 96rpx;
+  padding: 0 32rpx;
+  border-radius: 48rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  letter-spacing: 2rpx;
+  transition: transform 160ms ease, opacity 160ms ease;
+}
+
+.primary-button {
+  color: #121718;
+  background: linear-gradient(135deg, #d8c28e, #aa8e55);
+  box-shadow: 0 14rpx 36rpx rgba(179, 154, 101, 0.2);
+}
+
+.secondary-button {
+  color: #eae5d8;
+  border: 1rpx solid rgba(102, 132, 122, 0.7);
+  background: rgba(102, 132, 122, 0.16);
+}
+
+.ghost-button {
+  min-height: 80rpx;
+  color: rgba(234, 229, 216, 0.72);
+  border: 1rpx solid rgba(234, 229, 216, 0.13);
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.danger-button {
+  color: #e8b3ab;
+  border: 1rpx solid rgba(154, 79, 68, 0.46);
+  background: rgba(154, 79, 68, 0.13);
+}
+
+.primary-button[disabled],
+.secondary-button[disabled],
+.ghost-button[disabled] {
+  opacity: 0.38;
+}
+
+.primary-button:active,
+.secondary-button:active,
+.ghost-button:active,
+.danger-button:active,
+.pressable:active {
+  transform: scale(0.975);
+  opacity: 0.9;
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 44rpx 2rpx 20rpx;
+}
+
+.section-heading__title {
+  color: #eee7d8;
+  font-size: 31rpx;
+  font-weight: 600;
+}
+
+.section-heading__meta {
+  color: rgba(234, 229, 216, 0.46);
+  font-size: 23rpx;
+}
+
+.gold {
+  color: #bfa66f;
+}
+
+.muted {
+  color: rgba(234, 229, 216, 0.58);
+}
+
+.ink-orb {
+  position: absolute;
+  z-index: 0;
+  border-radius: 50%;
+  filter: blur(4rpx);
+  pointer-events: none;
+}
+
+.ink-orb--one {
+  top: 10%;
+  right: -150rpx;
+  width: 420rpx;
+  height: 420rpx;
+  border: 1rpx solid rgba(102, 132, 122, 0.15);
+  background: radial-gradient(circle, rgba(102, 132, 122, 0.14), transparent 66%);
+  animation: drift 12s ease-in-out infinite;
+}
+
+.ink-orb--two {
+  bottom: 8%;
+  left: -210rpx;
+  width: 520rpx;
+  height: 520rpx;
+  border: 1rpx solid rgba(179, 154, 101, 0.1);
+  background: radial-gradient(circle, rgba(179, 154, 101, 0.08), transparent 68%);
+  animation: drift 16s ease-in-out infinite reverse;
+}
+
+.toast-note {
+  padding: 22rpx 26rpx;
+  border-left: 4rpx solid #66847a;
+  border-radius: 6rpx 18rpx 18rpx 6rpx;
+  color: rgba(234, 229, 216, 0.7);
+  font-size: 24rpx;
+  line-height: 1.65;
+  background: rgba(102, 132, 122, 0.1);
+}
+
+.safe-bottom {
+  height: calc(16rpx + env(safe-area-inset-bottom));
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-28rpx, 24rpx, 0) scale(1.08);
+  }
+}

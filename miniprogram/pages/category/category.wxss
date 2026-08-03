@@ -1,0 +1,73 @@
+.category-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+  margin: 46rpx 0 30rpx;
+}
+
+.category-card {
+  display: flex;
+  width: 100%;
+  min-height: 166rpx;
+  padding: 25rpx 24rpx;
+  border: 1rpx solid rgba(234, 229, 216, 0.1);
+  border-radius: 25rpx;
+  text-align: left;
+  background: linear-gradient(135deg, rgba(30, 39, 39, 0.91), rgba(17, 23, 24, 0.92));
+  transition: border-color 180ms ease, background 180ms ease, transform 160ms ease;
+}
+
+.category-card--selected {
+  border-color: rgba(179, 154, 101, 0.55);
+  background: linear-gradient(135deg, rgba(179, 154, 101, 0.13), rgba(22, 30, 30, 0.95));
+}
+
+.category-card__mark {
+  display: flex;
+  flex: 0 0 74rpx;
+  align-items: center;
+  justify-content: center;
+  width: 74rpx;
+  height: 74rpx;
+  border: 1rpx solid rgba(179, 154, 101, 0.36);
+  border-radius: 22rpx 8rpx 22rpx 8rpx;
+  color: #c4ab71;
+  font-family: "STKaiti", "KaiTi", serif;
+  font-size: 34rpx;
+  background: rgba(179, 154, 101, 0.06);
+}
+
+.category-card__body {
+  flex: 1;
+  min-width: 0;
+  margin-left: 22rpx;
+}
+
+.category-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.category-card__title {
+  color: #eee7d9;
+  font-size: 30rpx;
+  font-weight: 600;
+}
+
+.category-card__arrow {
+  color: rgba(179, 154, 101, 0.65);
+  font-size: 34rpx;
+}
+
+.category-card__description {
+  margin-top: 8rpx;
+  color: rgba(234, 229, 216, 0.5);
+  font-size: 23rpx;
+}
+
+.category-card__prompt {
+  margin-top: 12rpx;
+  color: rgba(102, 132, 122, 0.95);
+  font-size: 21rpx;
+}

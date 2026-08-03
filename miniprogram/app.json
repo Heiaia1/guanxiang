@@ -1,0 +1,26 @@
+{
+  "pages": [
+    "pages/launch/launch",
+    "pages/guide/guide",
+    "pages/home/home",
+    "pages/category/category",
+    "pages/question/question",
+    "pages/assessment/assessment",
+    "pages/casting/casting",
+    "pages/result/result",
+    "pages/library/library",
+    "pages/hexagram-detail/hexagram-detail",
+    "pages/history/history",
+    "pages/settings/settings"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#101415",
+    "navigationBarTitleText": "观象录",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#101415"
+  },
+  "style": "v2",
+  "lazyCodeLoading": "requiredComponents",
+  "sitemapLocation": "sitemap.json"
+}

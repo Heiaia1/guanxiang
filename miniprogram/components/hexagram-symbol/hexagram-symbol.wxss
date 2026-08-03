@@ -1,0 +1,54 @@
+.symbol {
+  display: flex;
+  flex-direction: column;
+  gap: 18rpx;
+  width: 260rpx;
+  padding: 12rpx 0;
+}
+
+.symbol--compact {
+  gap: 8rpx;
+  width: 116rpx;
+  padding: 0;
+}
+
+.yao {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 20rpx;
+  filter: drop-shadow(0 0 12rpx rgba(179, 154, 101, 0.2));
+}
+
+.symbol--compact .yao {
+  height: 9rpx;
+}
+
+.yao__solid,
+.yao__segment {
+  height: 100%;
+  border-radius: 12rpx;
+  background: linear-gradient(90deg, #8e7443, #d7c28c, #9e814b);
+}
+
+.yao__solid {
+  width: 100%;
+}
+
+.yao__segment {
+  flex: 1;
+}
+
+.yao__gap {
+  width: 34rpx;
+}
+
+.symbol--compact .yao__gap {
+  width: 15rpx;
+}
+
+.yao--changing .yao__solid,
+.yao--changing .yao__segment {
+  background: linear-gradient(90deg, #82433b, #c77567, #8e493f);
+  box-shadow: 0 0 20rpx rgba(154, 79, 68, 0.3);
+}

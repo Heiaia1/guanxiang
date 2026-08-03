@@ -1,0 +1,50 @@
+<view
+  wx:if="{{visible && document}}"
+  class="legal-overlay {{motionOff ? 'motion-off' : ''}}"
+  bindtap="close"
+  catchtouchmove="stopPropagation"
+>
+  <view class="legal-sheet" catchtap="stopPropagation">
+    <view class="legal-sheet__header">
+      <view>
+        <view class="legal-sheet__eyebrow">本地完整文本</view>
+        <view class="legal-sheet__title">{{document.title}}</view>
+      </view>
+      <button class="legal-sheet__close" bindtap="close" aria-label="关闭完整说明">×</button>
+    </view>
+    <scroll-view class="legal-scroll" scroll-y enhanced show-scrollbar="{{false}}">
+      <view class="legal-meta">
+        <view>版本：{{document.documentVersion}}</view>
+        <view>发布日期：{{document.publishedDate}}</view>
+        <view>生效日期：{{document.effectiveDate}}</view>
+        <view>适用版本：{{document.appliesTo}}</view>
+      </view>
+      <view class="legal-summary">{{document.summary}}</view>
+      <view
+        wx:for="{{document.sections}}"
+        wx:for-item="section"
+        wx:key="title"
+        class="legal-section"
+      >
+        <view class="legal-section__title">{{section.title}}</view>
+        <view
+          wx:for="{{section.paragraphs}}"
+          wx:for-item="paragraph"
+          wx:key="*this"
+          class="legal-section__paragraph"
+        >{{paragraph}}</view>
+        <view
+          wx:for="{{section.bullets}}"
+          wx:for-item="bullet"
+          wx:key="*this"
+          class="legal-section__bullet"
+        >
+          <view class="legal-section__dot"></view>
+          <text>{{bullet}}</text>
+        </view>
+      </view>
+      <view class="legal-end">— 完整文本结束 —</view>
+      <view class="safe-bottom"></view>
+    </scroll-view>
+  </view>
+</view>

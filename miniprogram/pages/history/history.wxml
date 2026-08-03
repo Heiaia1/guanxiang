@@ -1,0 +1,116 @@
+<view class="page-shell history-page {{motionOff ? 'motion-off' : ''}}">
+  <view class="ink-orb ink-orb--two"></view>
+  <view class="page-content">
+    <view class="history-header">
+      <view>
+        <view class="eyebrow">本地观象日记</view>
+        <view class="page-title">我的记录</view>
+      </view>
+      <button wx:if="{{recordCount}}" class="clear-button" bindtap="askClear">清空</button>
+    </view>
+
+    <view class="history-summary panel">
+      <view class="history-summary__item">
+        <view class="history-summary__number">{{recordCount}}</view>
+        <view class="history-summary__label">全部记录</view>
+      </view>
+      <view class="history-summary__divider"></view>
+      <view class="history-summary__item">
+        <view class="history-summary__number">{{favoriteCount}}</view>
+        <view class="history-summary__label">重点回看</view>
+      </view>
+      <view class="history-summary__privacy">
+        <view class="history-summary__lock">隐</view>
+        <view>内容仅存本机</view>
+      </view>
+    </view>
+
+    <view class="scope-tabs">
+      <button
+        class="scope-tab {{scope === 'all' ? 'scope-tab--active' : ''}}"
+        data-scope="all"
+        bindtap="setScope"
+      >全部</button>
+      <button
+        class="scope-tab {{scope === 'favorites' ? 'scope-tab--active' : ''}}"
+        data-scope="favorites"
+        bindtap="setScope"
+      >重点回看</button>
+    </view>
+
+    <view wx:if="{{error}}" class="history-error panel">
+      <view class="history-error__title">本地记录没有安全读取</view>
+      <view class="history-error__text">{{error}}</view>
+      <view class="history-error__actions">
+        <button class="secondary-button" bindtap="retryLoad">重新读取</button>
+        <button wx:if="{{storageFailed}}" class="ghost-button" bindtap="openSettings">前往设置处理</button>
+      </view>
+    </view>
+
+    <view wx:elif="{{visibleRecords.length}}" class="timeline">
+      <view wx:for="{{visibleRecords}}" wx:key="id" class="record-row">
+        <view class="record-date">
+          <view class="record-date__day">{{item.day}}</view>
+          <view class="record-date__year">{{item.year}}</view>
+          <view class="record-date__time">{{item.time}}</view>
+        </view>
+        <view class="timeline__rail">
+          <view class="timeline__dot"></view>
+        </view>
+        <view class="record-card panel pressable" data-id="{{item.id}}" bindtap="openRecord">
+          <view class="record-card__top">
+            <view class="record-card__mode">{{item.modeLabel}} · {{item.categoryLabel}}</view>
+            <view class="record-card__menu">
+              <button
+                class="record-card__favorite {{item.isFavorite ? 'record-card__favorite--active' : ''}}"
+                data-id="{{item.id}}"
+                catchtap="toggleRecordFavorite"
+              >{{item.isFavorite ? "◆" : "◇"}}</button>
+              <button class="record-card__delete" data-id="{{item.id}}" catchtap="askDelete">删</button>
+            </view>
+          </view>
+          <view class="record-card__main">
+            <view class="record-card__symbol">
+              <hexagram-symbol
+                upper="{{item.upperTrigram}}"
+                lower="{{item.lowerTrigram}}"
+                changing-line="{{item.changingLine}}"
+                compact="{{true}}"
+              />
+            </view>
+            <view class="record-card__content">
+              <view class="record-card__name">{{item.hexagramName}}</view>
+              <view class="record-card__question">{{item.questionPreview}}</view>
+            </view>
+          </view>
+          <view class="record-card__summary">{{item.resultSummary}}</view>
+          <view class="record-card__open">查看完整记录 →</view>
+        </view>
+      </view>
+    </view>
+
+    <view wx:else class="history-empty">
+      <view class="history-empty__rings"><view></view><view></view><view></view></view>
+      <view class="history-empty__title">
+        {{scope === "favorites" ? "还没有重点记录" : "还没有观象记录"}}
+      </view>
+      <view class="history-empty__text">
+        {{scope === "favorites" ? "在记录右上角点击菱形，标记需要继续回看的内容。" : "完成一次情境观象或今日观象后，可以将结果保存在这里。"}}
+      </view>
+      <button wx:if="{{scope === 'all'}}" class="primary-button" bindtap="startObservation">问一件事</button>
+      <button wx:else class="secondary-button" data-scope="all" bindtap="setScope">查看全部记录</button>
+      <button class="history-empty__library" bindtap="openLibrary">先去六十四卦文化馆</button>
+    </view>
+  </view>
+
+  <confirm-sheet
+    visible="{{confirmVisible}}"
+    title="{{confirmTitle}}"
+    message="{{confirmMessage}}"
+    confirm-text="{{confirmText}}"
+    danger="{{true}}"
+    motion-off="{{motionOff}}"
+    bindcancel="closeConfirm"
+    bindconfirm="confirmAction"
+  />
+</view>

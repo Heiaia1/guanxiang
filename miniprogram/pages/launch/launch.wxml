@@ -1,0 +1,23 @@
+<view class="launch {{reducedMotion ? 'launch--reduced' : ''}} {{motionOff ? 'motion-off' : ''}}">
+  <view class="mist mist--one"></view>
+  <view class="mist mist--two"></view>
+  <view class="ritual">
+    <view class="ripple ripple--one"></view>
+    <view class="ripple ripple--two"></view>
+    <view class="light-seed"></view>
+    <view class="hexagram">
+      <view class="line line--1"></view>
+      <view class="line line--2 line--yin"><view></view><view></view></view>
+      <view class="line line--3"></view>
+      <view class="line line--4 line--yin"><view></view><view></view></view>
+      <view class="line line--5"></view>
+      <view class="line line--6"></view>
+    </view>
+  </view>
+  <view class="brand {{leaving ? 'brand--leaving' : ''}}">
+    <view class="brand__name">观象录</view>
+    <view class="brand__rule"></view>
+    <view class="brand__slogan">借古人的象，理清今天的事</view>
+  </view>
+  <button class="skip" bindtap="skip">跳过</button>
+</view>

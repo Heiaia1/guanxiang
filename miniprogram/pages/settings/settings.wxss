@@ -1,0 +1,215 @@
+.settings-page {
+  padding-top: 30rpx;
+}
+
+.storage-warning {
+  margin-top: 28rpx;
+  padding: 28rpx;
+  border-color: rgba(154, 79, 68, 0.34);
+  background: rgba(154, 79, 68, 0.08);
+}
+
+.storage-warning__title {
+  color: #e8b3ab;
+  font-size: 29rpx;
+  font-weight: 600;
+}
+
+.storage-warning__text {
+  margin-top: 14rpx;
+  color: rgba(234, 229, 216, 0.66);
+  line-height: 1.7;
+  white-space: pre-line;
+}
+
+.storage-warning__actions {
+  display: flex;
+  gap: 16rpx;
+  margin-top: 24rpx;
+}
+
+.storage-warning__actions .secondary-button,
+.storage-warning__actions .ghost-button {
+  flex: 1;
+  min-height: 76rpx;
+  padding: 0 18rpx;
+  font-size: 24rpx;
+}
+
+.settings-section {
+  margin-top: 42rpx;
+}
+
+.settings-section__title {
+  margin: 0 6rpx 16rpx;
+  color: rgba(234, 229, 216, 0.52);
+  font-size: 22rpx;
+  letter-spacing: 3rpx;
+}
+
+.settings-list,
+.document-list {
+  overflow: hidden;
+}
+
+.setting-row,
+.data-row {
+  display: flex;
+  align-items: center;
+  min-height: 116rpx;
+  padding: 20rpx 24rpx;
+  border-bottom: 1rpx solid rgba(234, 229, 216, 0.07);
+}
+
+.setting-row:last-child,
+.data-row:last-child {
+  border-bottom: 0;
+}
+
+.setting-row__icon {
+  display: flex;
+  flex: 0 0 52rpx;
+  align-items: center;
+  justify-content: center;
+  width: 52rpx;
+  height: 52rpx;
+  border: 1rpx solid rgba(179, 154, 101, 0.28);
+  border-radius: 16rpx;
+  color: rgba(179, 154, 101, 0.78);
+  font-family: "STKaiti", "KaiTi", serif;
+  font-size: 23rpx;
+}
+
+.setting-row__body {
+  flex: 1;
+  min-width: 0;
+  margin: 0 18rpx;
+}
+
+.setting-row__title,
+.data-row__title {
+  color: #e4ddcf;
+  font-size: 25rpx;
+  font-weight: 500;
+}
+
+.setting-row__note,
+.data-row__note {
+  margin-top: 7rpx;
+  color: rgba(234, 229, 216, 0.36);
+  font-size: 19rpx;
+  line-height: 1.45;
+}
+
+.setting-row switch {
+  transform: scale(0.78);
+  transform-origin: right center;
+}
+
+.data-row {
+  justify-content: space-between;
+}
+
+.data-row__clear {
+  padding: 15rpx 10rpx 15rpx 28rpx;
+  color: #c98377;
+  font-size: 22rpx;
+}
+
+.document-item {
+  border-bottom: 1rpx solid rgba(234, 229, 216, 0.07);
+}
+
+.document-item:last-child {
+  border-bottom: 0;
+}
+
+.document-item__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 108rpx;
+  padding: 20rpx 24rpx;
+  text-align: left;
+}
+
+.document-item__title {
+  color: #e2dbcd;
+  font-size: 25rpx;
+}
+
+.document-item__summary {
+  margin-top: 7rpx;
+  color: rgba(234, 229, 216, 0.34);
+  font-size: 19rpx;
+}
+
+.document-item__arrow {
+  color: rgba(179, 154, 101, 0.64);
+  font-size: 32rpx;
+}
+
+.document-item__content {
+  padding: 0 26rpx 28rpx;
+  color: rgba(234, 229, 216, 0.5);
+  font-size: 22rpx;
+  line-height: 1.78;
+}
+
+.about-card {
+  display: flex;
+  align-items: center;
+  padding: 28rpx;
+}
+
+.about-card__seal {
+  display: flex;
+  flex: 0 0 82rpx;
+  align-items: center;
+  justify-content: center;
+  width: 82rpx;
+  height: 82rpx;
+  border: 3rpx double rgba(154, 79, 68, 0.55);
+  color: #c67e71;
+  font-family: "STKaiti", "KaiTi", serif;
+  font-size: 36rpx;
+  transform: rotate(4deg);
+}
+
+.about-card__body {
+  margin-left: 25rpx;
+}
+
+.about-card__title {
+  color: #e9e1d3;
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+.about-card__version {
+  margin-top: 5rpx;
+  color: rgba(179, 154, 101, 0.55);
+  font-size: 18rpx;
+}
+
+.about-card__text {
+  margin-top: 10rpx;
+  color: rgba(234, 229, 216, 0.4);
+  font-size: 21rpx;
+}
+
+.replay-button {
+  width: 100%;
+  padding: 25rpx;
+  color: rgba(102, 132, 122, 0.92);
+  font-size: 22rpx;
+}
+
+.settings-footer {
+  padding: 50rpx 0 18rpx;
+  color: rgba(234, 229, 216, 0.25);
+  font-size: 18rpx;
+  letter-spacing: 2rpx;
+  text-align: center;
+}

@@ -1,0 +1,79 @@
+<scroll-view class="guide {{motionOff ? 'motion-off' : ''}}" scroll-y enhanced show-scrollbar="{{false}}">
+  <view class="guide__hero">
+    <view class="seal">象</view>
+    <view class="eyebrow">开始之前</view>
+    <view class="guide__title">观象，不替你作决定</view>
+    <view class="guide__lead">
+      这里借《周易》的象意，帮你整理事实、风险与下一步行动。
+    </view>
+  </view>
+
+  <view class="guide__body">
+    <view class="principle">
+      <view class="principle__index">一</view>
+      <view class="principle__content">
+        <view class="principle__title">传统文化互动</view>
+        <view class="principle__text">卦象提供反思视角，不预测未来必然发生的事。</view>
+      </view>
+    </view>
+    <view class="principle">
+      <view class="principle__index">二</view>
+      <view class="principle__content">
+        <view class="principle__title">只保存在本机</view>
+        <view class="principle__text">问题、选择和记录不上传服务器；你可以随时删除。</view>
+      </view>
+    </view>
+    <view class="principle">
+      <view class="principle__index">三</view>
+      <view class="principle__content">
+        <view class="principle__title">现实判断优先</view>
+        <view class="principle__text">医疗、法律、投资或人身安全问题，应寻求专业帮助。</view>
+      </view>
+    </view>
+
+    <view class="notice">
+      <view class="notice__title">理性使用提示</view>
+      <view class="notice__text">
+        本程序不提供改运、消灾、吉凶预测或专业建议，也不会要求填写姓名、生辰、地址等身份信息。
+      </view>
+    </view>
+
+    <view class="legal-links">
+      <button
+        wx:for="{{legalDocuments}}"
+        wx:key="id"
+        class="legal-link"
+        data-document="{{item.id}}"
+        bindtap="openLegal"
+      >
+        <view>
+          <view class="legal-link__title">{{item.title}}</view>
+          <view class="legal-link__summary">{{item.summary}}</view>
+        </view>
+        <view class="legal-link__arrow">查看全文 →</view>
+      </button>
+    </view>
+
+    <button class="consent {{accepted ? 'consent--checked' : ''}}" bindtap="toggleAccepted">
+      <view class="consent__box">{{accepted ? "✓" : ""}}</view>
+      <view class="consent__label">我已阅读并同意隐私说明和用户协议</view>
+    </button>
+
+    <button
+      class="primary-button"
+      disabled="{{!accepted || submitting}}"
+      loading="{{submitting}}"
+      bindtap="enter"
+    >
+      {{reviewMode ? "已了解，返回设置" : "我已了解，开始体验"}}
+    </button>
+    <button class="leave-button" bindtap="leave">{{reviewMode ? "返回设置" : "暂不进入"}}</button>
+  </view>
+</scroll-view>
+
+<legal-document-sheet
+  visible="{{legalVisible}}"
+  document="{{activeDocument}}"
+  motion-off="{{motionOff}}"
+  bindclose="closeLegal"
+/>
