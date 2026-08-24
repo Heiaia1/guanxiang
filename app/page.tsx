@@ -3,7 +3,7 @@ const releasePageUrl = 'https://github.com/Heiaia1/guanxiang/releases/latest';
 
 const features = [
   { number: '01', title: '三种观象方式', description: '情境观象、今日观象与三枚铜钱互动，按你的当下需要选择。' },
-  { number: '02', title: '完整周易内容', description: '六十四卦、三百八十四爻与二十四篇札记，均可离线阅读。' },
+  { number: '02', title: '九宫式信息秩序', description: '以方位、时机与进退为视觉线索，把复杂处境整理成可以理解的层次。' },
   { number: '03', title: '隐私留在本机', description: '无需登录、没有广告、无联网权限，问题与记录只保存在你的手机。' },
 ];
 
@@ -11,8 +11,8 @@ export default function Home() {
   return (
     <main>
       <nav className="nav shell" aria-label="主导航">
-        <a className="brand" href="#top" aria-label="观象录首页">
-          <span className="brand-mark" aria-hidden="true">䷀</span><span>观象录</span>
+        <a className="brand" href="#top" aria-label="风后奇门主题首页">
+          <span className="brand-mark" aria-hidden="true">九</span><span>风后奇门</span>
         </a>
         <div className="nav-links">
           <a href="#features">功能</a><a href="#install">安装说明</a>
@@ -22,9 +22,9 @@ export default function Home() {
 
       <section className="hero shell" id="top">
         <div className="hero-copy">
-          <p className="eyebrow"><span /> Android 免费版 · v1.1.0</p>
-          <h1>观照当下，<br /><em>自有答案。</em></h1>
-          <p className="hero-description">一款以《周易》为文化背景的个人反思工具。不是预测未来，而是帮你看清处境、整理思路，找到下一步行动。</p>
+          <p className="eyebrow"><span /> 风后奇门主题 · Android 免费版</p>
+          <h1>风起九宫，<br /><em>门开万象。</em></h1>
+          <p className="hero-description">取风后奇门的九宫方位与时空秩序为视觉灵感，帮助你安定心绪、审视处境，找到此刻可以执行的下一步。</p>
           <div className="hero-actions">
             <a className="primary-button" href={androidDownloadUrl}>
               <span className="android-icon" aria-hidden="true">↓</span>
@@ -35,17 +35,19 @@ export default function Home() {
           <ul className="trust-row" aria-label="应用特点"><li>完全免费</li><li>无需登录</li><li>断网可用</li></ul>
         </div>
 
-        <div className="hero-visual" aria-label="观象录 App 界面示意">
+        <div className="hero-visual qimen-visual" aria-label="风后奇门主题界面意象">
           <div className="orbit orbit-one" /><div className="orbit orbit-two" />
           <div className="seal" aria-hidden="true">观<br />象</div>
           <div className="phone">
             <div className="phone-speaker" />
             <div className="phone-screen">
-              <div className="app-topline"><span>观象录</span><i /></div>
-              <p className="app-date">甲辰 · 七月廿一</p><p className="app-greeting">静下来，看看此刻</p>
-              <div className="hexagram" aria-hidden="true"><b /><b /><b className="broken" /><b /><b className="broken" /><b /></div>
-              <h2>风火家人</h2><p className="app-caption">诚意 · 秩序 · 各安其位</p>
-              <button type="button" tabIndex={-1}>开始观象</button>
+              <div className="app-topline"><span>风后奇门</span><i /></div>
+              <p className="app-date">甲辰 · 七月廿一 · 巽位</p><p className="app-greeting">定方位 · 观时机 · 明进退</p>
+              <div className="qimen-board" aria-hidden="true">
+                <b>杜</b><b>景</b><b>死</b><b>伤</b><b className="center">中</b><b>惊</b><b>生</b><b>休</b><b>开</b>
+              </div>
+              <h2>休门得位</h2><p className="app-caption">静守 · 蓄势 · 先整后动</p>
+              <button type="button" tabIndex={-1}>开启九宫</button>
               <div className="app-nav"><span>今日</span><span>问事</span><span>札记</span></div>
             </div>
           </div>
@@ -56,13 +58,13 @@ export default function Home() {
       <section className="manifesto">
         <div className="shell manifesto-inner">
           <p>我们不替你做决定</p>
-          <blockquote>“答案不在卦中，<br />而在你重新看见的自己。”</blockquote>
-          <span>观象录只提供另一种观看当下的角度</span>
+          <blockquote>“九宫定其位，<br />八门察其机。”</blockquote>
+          <span>借方位整理处境，借时机审视进退</span>
         </div>
       </section>
 
       <section className="features shell" id="features">
-        <div className="section-heading"><p className="eyebrow"><span /> 不止于起卦</p><h2>一处安静的<br />自省空间</h2></div>
+        <div className="section-heading"><p className="eyebrow"><span /> 九宫 · 八门 · 方位</p><h2>观天时，辨方位，<br />更要看清自己</h2></div>
         <div className="feature-list">
           {features.map((feature) => (
             <article key={feature.number} className="feature-card">
@@ -75,7 +77,7 @@ export default function Home() {
       </section>
 
       <section className="install shell" id="install">
-        <div><p className="eyebrow light"><span /> 即刻开始</p><h2>把片刻清明，<br />装进口袋。</h2></div>
+        <div><p className="eyebrow light"><span /> 风后奇门主题版</p><h2>掌中起九宫，<br />心中自有方位。</h2></div>
         <div className="install-steps">
           <ol><li><span>1</span>点击下载 Android 安装包</li><li><span>2</span>按手机提示允许本次安装</li><li><span>3</span>安装完成后即可断网使用</li></ol>
           <a className="primary-button light-button" href={androidDownloadUrl}>
@@ -85,8 +87,8 @@ export default function Home() {
       </section>
 
       <footer className="shell footer">
-        <div className="brand"><span className="brand-mark" aria-hidden="true">䷀</span><span>观象录</span></div>
-        <p>传统文化学习与个人反思工具<br />不用于预测、诊断或替代专业意见</p>
+        <div className="brand"><span className="brand-mark" aria-hidden="true">九</span><span>风后奇门</span></div>
+        <p>东方时空观主题 · 传统文化学习与个人反思工具<br />不用于预测、诊断或替代专业意见</p>
         <div className="footer-links"><a href="https://github.com/Heiaia1/guanxiang/blob/main/docs/privacy-policy.md">隐私说明</a><a href="https://github.com/Heiaia1/guanxiang">项目源码</a></div>
       </footer>
     </main>

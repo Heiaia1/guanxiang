@@ -3,20 +3,20 @@ import './globals.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://guanxiang-app.scfj8gkrzf.chatgpt.site'),
-  title: '观象录｜免费下载 Android App',
-  description: '以《周易》为文化背景的个人反思工具。完全免费、无需登录、无广告、断网可用。',
+  title: '风后奇门｜免费下载 Android App',
+  description: '以风后奇门的九宫方位与时空秩序为视觉主题。完全免费、无需登录、无广告、断网可用。',
   alternates: { canonical: '/' },
   openGraph: {
-    title: '观象录｜观照当下，自有答案。',
-    description: '完全免费、无需登录、无广告、断网可用的个人反思工具。',
+    title: '风后奇门｜风起九宫，门开万象。',
+    description: '以九宫方位与时空秩序为视觉主题，完全免费、无需登录、断网可用。',
     type: 'website',
     locale: 'zh_CN',
-    images: [{ url: '/og.png', width: 1200, height: 630, alt: '观象录：观照当下，自有答案。' }],
+    images: [{ url: '/og.png', width: 1200, height: 630, alt: '风后奇门：风起九宫，门开万象。' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: '观象录｜观照当下，自有答案。',
-    description: '完全免费、无需登录、无广告、断网可用的个人反思工具。',
+    title: '风后奇门｜风起九宫，门开万象。',
+    description: '以九宫方位与时空秩序为视觉主题，完全免费、无需登录、断网可用。',
     images: ['/og.png'],
   },
 };
