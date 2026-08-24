@@ -11,13 +11,13 @@ export const metadata: Metadata = {
     description: '以九宫方位与时空秩序为视觉主题，完全免费、无需登录、断网可用。',
     type: 'website',
     locale: 'zh_CN',
-    images: [{ url: '/og.png', width: 1200, height: 630, alt: '风后奇门：风起九宫，门开万象。' }],
+    images: [{ url: '/og.jpg', width: 1200, height: 630, alt: '风后奇门：风起九宫，门开万象。' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: '风后奇门｜风起九宫，门开万象。',
     description: '以九宫方位与时空秩序为视觉主题，完全免费、无需登录、断网可用。',
-    images: ['/og.png'],
+    images: ['/og.jpg'],
   },
 };
 
