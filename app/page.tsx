@@ -1,4 +1,4 @@
-const androidDownloadUrl = '/download/android';
+const androidDownloadUrl = '/downloads/Guanxiang-Android-v1.1.0.apk';
 const releasePageUrl = 'https://github.com/Heiaia1/guanxiang/releases/latest';
 
 const features = [
@@ -16,7 +16,7 @@ export default function Home() {
         </a>
         <div className="nav-links">
           <a href="#features">功能</a><a href="#install">安装说明</a>
-          <a className="nav-download" href={androidDownloadUrl}>下载 App</a>
+          <a className="nav-download" href={androidDownloadUrl} download>下载 App</a>
         </div>
       </nav>
 
@@ -26,7 +26,7 @@ export default function Home() {
           <h1>风起九宫，<br /><em>门开万象。</em></h1>
           <p className="hero-description">取风后奇门的九宫方位与时空秩序为视觉灵感，帮助你安定心绪、审视处境，找到此刻可以执行的下一步。</p>
           <div className="hero-actions">
-            <a className="primary-button" href={androidDownloadUrl}>
+            <a className="primary-button" href={androidDownloadUrl} download>
               <span className="android-icon" aria-hidden="true">↓</span>
               <span><strong>下载 Android App</strong><small>支持 Android 7.0 及以上</small></span>
             </a>
@@ -80,7 +80,7 @@ export default function Home() {
         <div><p className="eyebrow light"><span /> 风后奇门主题版</p><h2>掌中起九宫，<br />心中自有方位。</h2></div>
         <div className="install-steps">
           <ol><li><span>1</span>点击下载 Android 安装包</li><li><span>2</span>按手机提示允许本次安装</li><li><span>3</span>安装完成后即可断网使用</li></ol>
-          <a className="primary-button light-button" href={androidDownloadUrl}>
+          <a className="primary-button light-button" href={androidDownloadUrl} download>
             <span className="android-icon" aria-hidden="true">↓</span><span><strong>免费下载 APK</strong><small>v1.1.0 · Android 7.0+</small></span>
           </a>
         </div>
