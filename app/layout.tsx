@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://guanxiang-app.scfj8gkrzf.chatgpt.site'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://guanxiang-app.scfj8gkrzf.chatgpt.site'),
   title: '风后奇门｜免费下载 Android App',
   description: '以风后奇门的九宫方位与时空秩序为视觉主题。完全免费、无需登录、无广告、断网可用。',
   alternates: { canonical: '/' },

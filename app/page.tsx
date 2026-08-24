@@ -1,4 +1,4 @@
-const androidDownloadUrl = '/downloads/Guanxiang-Android-v1.1.0.apk';
+const androidDownloadUrl = 'downloads/Guanxiang-Android-v1.1.0.apk';
 const releasePageUrl = 'https://github.com/Heiaia1/guanxiang/releases/latest';
 
 const features = [
