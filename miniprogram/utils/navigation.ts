@@ -13,6 +13,10 @@ function resolveGuideReturn(options: GuideReturnOptions = {}): string {
     return "/pages/library/library"
   }
 
+  if (options.returnTo === "wisdom") {
+    return "/pages/wisdom/wisdom"
+  }
+
   if (options.returnTo === "hexagram") {
     const id = Number(options.id)
     if (Number.isInteger(id) && id >= 1 && id <= 64) {

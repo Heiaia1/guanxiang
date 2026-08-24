@@ -199,6 +199,58 @@
   font-size: 36rpx;
 }
 
+.wisdom-preview {
+  width: 100%;
+  margin-top: 22rpx;
+  padding: 27rpx 28rpx;
+  border: 1rpx solid rgba(179, 154, 101, 0.2);
+  border-radius: 26rpx;
+  text-align: left;
+  background: linear-gradient(135deg, rgba(49, 51, 43, 0.78), rgba(22, 29, 29, 0.9));
+}
+
+.wisdom-preview__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18rpx;
+}
+
+.wisdom-preview__label {
+  color: #bca46c;
+  font-size: 19rpx;
+  letter-spacing: 2rpx;
+}
+
+.wisdom-preview__more {
+  flex: none;
+  color: rgba(234, 229, 216, 0.34);
+  font-size: 19rpx;
+}
+
+.wisdom-preview__title {
+  margin-top: 16rpx;
+  color: #eee6d7;
+  font-family: "STKaiti", "KaiTi", serif;
+  font-size: 36rpx;
+}
+
+.wisdom-preview__principle {
+  margin-top: 9rpx;
+  color: rgba(234, 229, 216, 0.57);
+  font-size: 23rpx;
+  line-height: 1.55;
+}
+
+.wisdom-preview__action {
+  margin-top: 17rpx;
+  padding-top: 15rpx;
+  border-top: 1rpx solid rgba(234, 229, 216, 0.08);
+  color: #9fafaa;
+  font-size: 21rpx;
+  line-height: 1.55;
+}
+
 .path-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

@@ -6,7 +6,7 @@ const {
   hasSeenGuide
 } = require('../../services/storage-service')
 const { getUiPreferences } = require('../../services/ui-preferences')
-const DOMAIN_RULES = require('../../data/domain-rules.json') as Record<string, {
+const DOMAIN_RULES = require('../../data/domain-rules-data') as Record<string, {
   id: string
   name: string
   description: string

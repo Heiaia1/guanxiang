@@ -1,15 +1,13 @@
 declare const require: (path: string) => any
 
 const {
-  buildDailyObservation
-} = require("../../services/analysis-engine")
-const {
   saveDraft,
   getRecords,
   getFavorites,
   hasSeenGuide
 } = require("../../services/storage-service")
 const { getUiPreferences } = require("../../services/ui-preferences")
+const { getAllWisdomNotes, getWisdomOfDay } = require("../../services/wisdom-service")
 
 const DAILY_STATES = [
   { id: "calm", label: "平静", note: "让清晰继续生长" },
@@ -38,7 +36,9 @@ Page({
     animationsEnabled: true,
     lowPower: false,
     motionOff: false,
-    greeting: "此刻，先看清一件事"
+    greeting: "此刻，先看清一件事",
+    todayWisdom: null as any,
+    wisdomCount: 0
   },
 
   onLoad() {
@@ -55,6 +55,8 @@ Page({
       const app = getApp<{ globalData: { lowPerformance: boolean } }>()
       const visual = getUiPreferences(Boolean(app.globalData.lowPerformance))
       const hour = new Date().getHours()
+      const todayWisdom = getWisdomOfDay(todayKey())
+      const wisdomCount = getAllWisdomNotes().length
       this.setData({
         recordCount: records.length,
         favoriteCount: favorites.length,
@@ -62,6 +64,8 @@ Page({
         animationsEnabled: visual.animationsEnabled,
         lowPower: visual.lowPower,
         motionOff: visual.motionOff,
+        todayWisdom,
+        wisdomCount,
         greeting:
           hour < 11 ? "晨起观心，先定今日一事" :
           hour < 18 ? "此刻，先看清一件事" :
@@ -90,6 +94,10 @@ Page({
     if (!stateInfo) return
     this.setData({ creatingDaily: true })
     try {
+      // The analysis engine loads the complete local knowledge base. Loading it
+      // only when the user starts an observation keeps the home route fast and
+      // avoids a DevTools route timeout during initial Page registration.
+      const { buildDailyObservation } = require("../../services/analysis-engine")
       const result = buildDailyObservation(state, todayKey())
       const saved = saveDraft({
         mode: "daily",
@@ -123,6 +131,10 @@ Page({
 
   openLibrary() {
     this.navigate("/pages/library/library")
+  },
+
+  openWisdom() {
+    this.navigate("/pages/wisdom/wisdom")
   },
 
   openHistory() {

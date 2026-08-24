@@ -168,11 +168,11 @@ interface ActionTemplateContent {
   reconsider: string[]
 }
 
-const HEXAGRAM_CATALOG = require('../data/hexagrams.json') as HexagramContent[]
-const SAFETY_CONTENT = require('../data/safety-words.json') as SafetyContent
-const SCENARIO_RULES = require('../data/scenario-rules.json') as Record<Category, ScenarioRule[]>
-const DOMAIN_RULES = require('../data/domain-rules.json') as Record<Category, DomainRuleContent>
-const ACTION_TEMPLATES = require('../data/action-templates.json') as Record<Category | 'universal', ActionTemplateContent>
+const HEXAGRAM_CATALOG = require('../data/hexagrams-data') as HexagramContent[]
+const SAFETY_CONTENT = require('../data/safety-words-data') as SafetyContent
+const SCENARIO_RULES = require('../data/scenario-rules-data') as Record<Category, ScenarioRule[]>
+const DOMAIN_RULES = require('../data/domain-rules-data') as Record<Category, DomainRuleContent>
+const ACTION_TEMPLATES = require('../data/action-templates-data') as Record<Category | 'universal', ActionTemplateContent>
 const DEFAULT_DISCLAIMER = String(SAFETY_CONTENT.defaultDisclaimer || '').trim() ||
   '本内容用于传统文化学习与个人反思，不代表未来必然发生，也不构成专业建议。'
 const INPUT_NOTICE = String(SAFETY_CONTENT.inputNotice || '').trim() ||
@@ -489,25 +489,46 @@ function extractContextSignals(question: string): string[] {
   return Array.from(new Set(signals)).slice(0, 4)
 }
 
-function level(value: number, lowLabel: string, middleLabel: string, highLabel: string): string {
-  if (value < 38) return lowLabel
-  if (value >= 68) return highLabel
-  return middleLabel
+function level(value: number, labels: [string, string, string, string, string]): string {
+  if (value < 20) return labels[0]
+  if (value < 40) return labels[1]
+  if (value < 60) return labels[2]
+  if (value < 80) return labels[3]
+  return labels[4]
+}
+
+function buildPriorityInsight(scores: AnalysisScores): string {
+  const candidates: Array<[number, string]> = [
+    [scores.action - scores.readiness, '行动速度快于现实准备，先补齐资源和退路'],
+    [scores.readiness - scores.action, '已有准备尚未转成行动，适合设定一个明确启动点'],
+    [scores.risk - scores.clarity, '风险感高于信息清晰度，最需要先核实关键事实'],
+    [scores.relation - scores.control, '结果较依赖他人，沟通边界和共同标准尤其重要'],
+    [scores.pressure - scores.clarity, '压力正在挤压判断空间，宜先降速再作结论'],
+    [scores.stage - scores.readiness, '事情推进快于准备程度，应检查是否遗漏关键条件'],
+    [scores.control - scores.risk, '可控空间大于当前风险，可以用小步行动获取反馈'],
+    [scores.clarity - scores.action, '事实已经相对清楚，下一步重点是把判断变成行动']
+  ]
+  candidates.sort((left, right) => right[0] - left[0])
+  if (candidates[0][0] < 12) {
+    return '各项条件相对均衡，可以选择一个低成本步骤继续验证'
+  }
+  return candidates[0][1]
 }
 
 function buildSituationSummary(scores: AnalysisScores, signals: string[]): string {
   const summary = [
-    `行动意愿${level(scores.action, '偏低', '适中', '较强')}`,
-    `准备度${level(scores.readiness, '不足', '正在形成', '较充分')}`,
-    `信息${level(scores.clarity, '仍模糊', '部分清楚', '较清楚')}`,
-    `可控程度${level(scores.control, '有限', '中等', '较高')}`,
-    `现实风险${level(scores.risk, '较低', '中等', '较高')}`,
-    `关系依赖${level(scores.relation, '较低', '中等', '较高')}`,
-    `当前压力${level(scores.pressure, '较低', '可管理', '较强')}`,
-    `事情处于${level(scores.stage, '早期', '推进阶段', '关键阶段')}`
+    `行动意愿${level(scores.action, ['很低', '偏低', '适中', '偏强', '很强'])}`,
+    `准备度${level(scores.readiness, ['明显不足', '仍有不足', '正在形成', '较充分', '很充分'])}`,
+    `信息${level(scores.clarity, ['很模糊', '偏模糊', '部分清楚', '较清楚', '非常清楚'])}`,
+    `可控程度${level(scores.control, ['很有限', '偏有限', '中等', '较高', '很高'])}`,
+    `现实风险${level(scores.risk, ['很低', '偏低', '中等', '偏高', '很高'])}`,
+    `关系依赖${level(scores.relation, ['很低', '偏低', '中等', '偏高', '很高'])}`,
+    `当前压力${level(scores.pressure, ['很低', '偏低', '可管理', '偏强', '很强'])}`,
+    `事情处于${level(scores.stage, ['起步前', '早期', '推进中', '深入阶段', '临界阶段'])}`
   ].join('、')
+  const priority = ` 当前优先关注：${buildPriorityInsight(scores)}。`
   const context = signals.length ? ` 已识别的现实条件：${signals.join('、')}。` : ''
-  return `${summary}。${context}`
+  return `${summary}。${priority}${context}`
 }
 
 function selectDomainConflict(domain: DomainRuleContent, scores: AnalysisScores): string {
@@ -591,7 +612,10 @@ function analyzeSituation(input: AnalysisInput): AnalysisResult {
   const templates = ACTION_TEMPLATES[category] || ACTION_TEMPLATES.universal
   const scenario = selectScenario(category, question)
   const contextSignals = extractContextSignals(question)
-  const seed = `${category}:${question}:${hexagramId}:${Math.round(scores.action / 10)}:${Math.round(scores.risk / 10)}`
+  const scoreFingerprint = (Object.keys(scores) as Array<keyof AnalysisScores>)
+    .map((key) => `${key}:${Math.round(scores[key] / 5)}`)
+    .join(':')
+  const seed = `${category}:${question}:${hexagramId}:${scoreFingerprint}`
   const summary = buildSituationSummary(scores, contextSignals)
   const mainConflict = scenario?.mainConflict || selectDomainConflict(domain, scores)
   const advantage = scenario?.advantage || selectText(

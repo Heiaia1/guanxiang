@@ -4,4 +4,9 @@ node_modules/
 .cache/
 .test-output/
 project.private.config.json
+微信web开发者工具/
+.devtools-profile-*/
+.playwright-cli/
+output/playwright/
+dist/
 *.log

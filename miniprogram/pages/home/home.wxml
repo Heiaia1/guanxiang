@@ -38,6 +38,21 @@
       <view class="ask-card__arrow">↗</view>
     </button>
 
+    <button
+      wx:if="{{todayWisdom}}"
+      class="wisdom-preview pressable"
+      disabled="{{navigating}}"
+      bindtap="openWisdom"
+    >
+      <view class="wisdom-preview__top">
+        <view class="wisdom-preview__label">今日一读 · {{todayWisdom.categoryLabel}}</view>
+        <view class="wisdom-preview__more">共 {{wisdomCount}} 篇 →</view>
+      </view>
+      <view class="wisdom-preview__title">{{todayWisdom.title}}</view>
+      <view class="wisdom-preview__principle">{{todayWisdom.principle}}</view>
+      <view class="wisdom-preview__action">今日可做：{{todayWisdom.action}}</view>
+    </button>
+
     <view class="section-heading">
       <view class="section-heading__title">继续探索</view>
       <view class="section-heading__meta">内容均离线可用</view>

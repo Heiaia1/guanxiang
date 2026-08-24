@@ -53,7 +53,48 @@ if (projectConfig) {
     fail('project.config.json 的 miniprogramRoot 必须指向 miniprogram/')
   }
   if (!projectConfig.appid) fail('project.config.json 缺少 appid')
+  if (projectConfig.appid === 'touristappid') {
+    fail('最新版微信开发者工具已拒绝 touristappid，请使用测试 AppID 或真实 AppID')
+  }
+  const ignoredFolders = new Set(
+    (projectConfig.packOptions?.ignore || [])
+      .filter((item) => item?.type === 'folder')
+      .map((item) => item.value)
+  )
+  for (const folder of ['.cache', '.devtools-profile-2', '.devtools-profile-3', '.devtools-profile-4', '.devtools-profile-5', '微信web开发者工具', 'node_modules', 'desktop']) {
+    if (!ignoredFolders.has(folder)) fail(`project.config.json 必须忽略开发环境目录 ${folder}`)
+  }
+  const launchConditions = projectConfig.condition?.miniprogram?.list
+  if (!Array.isArray(launchConditions) || !launchConditions.some((item) =>
+    item?.pathName === 'pages/launch/launch' && item?.query === ''
+  )) {
+    fail('project.config.json 必须保留固定启动页编译模式')
+  }
 }
+
+const desktopRoot = path.join(root, 'desktop')
+for (const file of ['index.html', 'styles.css', 'app.js', 'core.js']) {
+  exists(path.join(desktopRoot, file), `desktop/${file} 缺失`)
+}
+exists(path.join(root, '打开观象录桌面版.vbs'), 'Windows 桌面版启动器缺失')
+const desktopIndex = readText(path.join(desktopRoot, 'index.html'))
+const desktopApp = readText(path.join(desktopRoot, 'app.js'))
+const desktopStyles = readText(path.join(desktopRoot, 'styles.css'))
+const desktopCore = readText(path.join(desktopRoot, 'core.js'))
+if (!desktopIndex.includes('Content-Security-Policy')) fail('桌面版缺少内容安全策略')
+if (!desktopCore.includes('global.GX_CORE')) fail('桌面共享核心尚未生成')
+for (const route of ['home', 'daily', 'ask', 'library', 'wisdom', 'history', 'settings']) {
+  if (!desktopIndex.includes(`data-route="${route}"`)) fail(`桌面版缺少 ${route} 导航入口`)
+}
+for (const [file, content] of [
+  ['desktop/index.html', desktopIndex],
+  ['desktop/styles.css', desktopStyles],
+  ['desktop/app.js', desktopApp]
+]) {
+  if (/https?:\/\//i.test(content)) fail(`${file} 引用了远程资源，桌面版必须离线运行`)
+}
+metrics.desktopFiles = allFiles(desktopRoot).length
+metrics.desktopBytes = allFiles(desktopRoot).reduce((sum, file) => sum + fs.statSync(file).size, 0)
 
 const appConfig = readJson(path.join(miniRoot, 'app.json'))
 const expectedPages = [
@@ -65,6 +106,7 @@ const expectedPages = [
   'pages/assessment/assessment',
   'pages/casting/casting',
   'pages/result/result',
+  'pages/wisdom/wisdom',
   'pages/library/library',
   'pages/hexagram-detail/hexagram-detail',
   'pages/history/history',
@@ -73,6 +115,9 @@ const expectedPages = [
 
 if (appConfig) {
   const configured = Array.isArray(appConfig.pages) ? appConfig.pages : []
+  if (configured[0] !== 'pages/launch/launch') {
+    fail('app.json 第一页必须是稳定可见的启动页')
+  }
   for (const page of expectedPages) {
     if (!configured.includes(page)) fail(`app.json 未注册页面 ${page}`)
     for (const extension of ['ts', 'json', 'wxml', 'wxss']) {
@@ -154,13 +199,28 @@ if (!Array.isArray(questions) || questions.length !== 5) {
   fail('questions.json 必须包含五道评估题')
 } else {
   metrics.questions = questions.length
+  metrics.assessmentCombinations = questions.reduce(
+    (total, question) => total * (Array.isArray(question.options) ? question.options.length : 0),
+    1
+  )
   const ids = new Set()
   for (const question of questions) {
     if (!question.id || ids.has(question.id)) fail('questions.json 的题目 id 必须非空且唯一')
     ids.add(question.id)
-    if (!Array.isArray(question.options) || question.options.length < 4) {
-      fail(`评估题 ${question.id} 至少需要四个选项`)
+    if (!Array.isArray(question.options) || question.options.length < 6) {
+      fail(`评估题 ${question.id} 至少需要六个选项`)
       continue
+    }
+    if (question.options.some((option) =>
+      typeof option.id !== 'string' || !option.id.trim() ||
+      typeof option.label !== 'string' || !option.label.trim()
+    )) {
+      fail(`评估题 ${question.id} 存在空的选项 id 或文案`)
+    }
+    const optionIds = new Set(question.options.map((option) => option.id))
+    const optionLabels = new Set(question.options.map((option) => option.label))
+    if (optionIds.size !== question.options.length || optionLabels.size !== question.options.length) {
+      fail(`评估题 ${question.id} 的选项 id 和文案必须唯一`)
     }
     for (const option of question.options) {
       for (const key of scoreKeys) {
@@ -223,6 +283,29 @@ if (!scenarios || typeof scenarios !== 'object') {
     }
   }
   metrics.scenarios = scenarioCount
+}
+
+const wisdomNotes = readJson(path.join(miniRoot, 'data', 'wisdom-notes.json'))
+const wisdomCategories = ['decision', 'work', 'relationship', 'study', 'family', 'self']
+if (!Array.isArray(wisdomNotes) || wisdomNotes.length < 24) {
+  fail('wisdom-notes.json 至少需要 24 篇札记')
+} else {
+  metrics.wisdomNotes = wisdomNotes.length
+  const ids = new Set()
+  const categories = new Set()
+  for (const note of wisdomNotes) {
+    if (!note.id || ids.has(note.id)) fail(`wisdom-notes.json 存在重复或空 id：${note.id || 'unknown'}`)
+    ids.add(note.id)
+    categories.add(note.category)
+    for (const field of ['categoryLabel', 'title', 'source', 'principle', 'interpretation', 'reflection', 'action']) {
+      if (typeof note[field] !== 'string' || !note[field].trim()) {
+        fail(`wisdom-notes.json ${note.id || 'unknown'} 缺少 ${field}`)
+      }
+    }
+  }
+  for (const category of wisdomCategories) {
+    if (!categories.has(category)) fail(`wisdom-notes.json 缺少 ${category} 分类`)
+  }
 }
 
 const actionTemplates = readJson(path.join(miniRoot, 'data', 'action-templates.json'))
@@ -337,18 +420,26 @@ for (const file of allFiles(miniRoot).filter((item) => item.endsWith('.json'))) 
 const sourceFiles = allFiles(miniRoot).filter((file) => /\.(ts|wxml|wxss)$/.test(file))
 const runtimeSource = sourceFiles.filter((file) => file.endsWith('.ts')).map(readText).join('\n')
 for (const dataName of [
-  'hexagrams.json',
-  'trigrams.json',
-  'questions.json',
-  'domain-rules.json',
-  'action-templates.json',
-  'safety-words.json',
-  'scenario-rules.json',
-  'legal-documents.json'
+  'hexagrams',
+  'trigrams',
+  'questions',
+  'domain-rules',
+  'action-templates',
+  'safety-words',
+  'scenario-rules',
+  'legal-documents',
+  'wisdom-notes'
 ]) {
-  if (!runtimeSource.includes(`data/${dataName}`)) {
-    fail(`${dataName} 没有被运行时代码读取`)
+  exists(
+    path.join(miniRoot, 'data', `${dataName}-data.js`),
+    `${dataName}-data.js 运行时数据模块不存在`
+  )
+  if (!runtimeSource.includes(`data/${dataName}-data`)) {
+    fail(`${dataName}.json 对应的运行时数据模块没有被代码读取`)
   }
+}
+if (/require\([^\n)]*\.json["']?\)/.test(runtimeSource)) {
+  fail('运行时代码不能直接 require JSON；微信开发者工具不会把 JSON 注册为 JS 模块')
 }
 for (const file of sourceFiles) {
   const text = readText(file)

@@ -13,13 +13,18 @@ Page({
   timer: 0 as number,
 
   onLoad() {
-    const app = getApp<{ globalData: { lowPerformance: boolean } }>()
-    const lowPerformance = Boolean(app.globalData.lowPerformance)
-    const visual = getUiPreferences(lowPerformance)
-    this.setData({
-      reducedMotion: lowPerformance || visual.lowPower || visual.motionOff,
-      motionOff: visual.motionOff
-    })
+    try {
+      const app = getApp<{ globalData: { lowPerformance: boolean } }>()
+      const lowPerformance = Boolean(app.globalData.lowPerformance)
+      const visual = getUiPreferences(lowPerformance)
+      this.setData({
+        reducedMotion: lowPerformance || visual.lowPower || visual.motionOff,
+        motionOff: visual.motionOff
+      })
+    } catch (_error) {
+      // 启动页必须始终可见；本地设置损坏时使用静态低动效界面继续进入。
+      this.setData({ reducedMotion: true, motionOff: false })
+    }
   },
 
   onReady() {

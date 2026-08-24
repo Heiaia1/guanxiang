@@ -1,0 +1,148 @@
+// 此文件由 scripts/generate-data-modules.mjs 根据同名 JSON 自动生成。
+// 微信小程序运行时不能直接 require JSON，因此以 CommonJS 模块提供离线数据。
+module.exports = [
+  {
+    "id": 1,
+    "name": "乾",
+    "pinyin": "qián",
+    "symbol": "☰",
+    "binary": "111",
+    "element": "天",
+    "nature": "主动与创造",
+    "keywords": [
+      "主动",
+      "创造",
+      "持续"
+    ],
+    "summary": "强调主动承担与持续推进，同时提醒为外部条件和他人留出空间。",
+    "innerState": "目标清楚、行动意愿较强",
+    "outerState": "环境鼓励承担、开拓与建立方向",
+    "color": "#B89A63"
+  },
+  {
+    "id": 2,
+    "name": "坤",
+    "pinyin": "kūn",
+    "symbol": "☷",
+    "binary": "000",
+    "element": "地",
+    "nature": "承接与积累",
+    "keywords": [
+      "承接",
+      "积累",
+      "配合"
+    ],
+    "summary": "强调先稳定基础、接纳事实并积累条件，不把等待误解为停滞。",
+    "innerState": "愿意沉淀、观察并补足资源",
+    "outerState": "环境更适合配合、承载与稳步积累",
+    "color": "#8A806E"
+  },
+  {
+    "id": 3,
+    "name": "震",
+    "pinyin": "zhèn",
+    "symbol": "☳",
+    "binary": "001",
+    "element": "雷",
+    "nature": "启动与变化",
+    "keywords": [
+      "启动",
+      "变化",
+      "响应"
+    ],
+    "summary": "强调面对变化先恢复秩序，再用一个清晰动作启动后续进程。",
+    "innerState": "想打破停滞、开始行动",
+    "outerState": "环境出现新信号或突发变化，需要及时响应",
+    "color": "#8C644E"
+  },
+  {
+    "id": 4,
+    "name": "巽",
+    "pinyin": "xùn",
+    "symbol": "☴",
+    "binary": "110",
+    "element": "风",
+    "nature": "沟通与渐进",
+    "keywords": [
+      "沟通",
+      "渗透",
+      "渐进"
+    ],
+    "summary": "强调通过持续沟通和小步试探进入复杂环境，避免一次推动过多。",
+    "innerState": "愿意调整表达、寻找进入路径",
+    "outerState": "环境需要耐心沟通、逐步影响和反复确认",
+    "color": "#66847A"
+  },
+  {
+    "id": 5,
+    "name": "坎",
+    "pinyin": "kǎn",
+    "symbol": "☵",
+    "binary": "010",
+    "element": "水",
+    "nature": "风险与不确定",
+    "keywords": [
+      "风险",
+      "反复",
+      "验证"
+    ],
+    "summary": "强调识别未知、控制损失并用事实验证，不在压力中作不可逆决定。",
+    "innerState": "感到不确定，需要建立安全边界",
+    "outerState": "环境存在反复或信息缺口，适合分步验证",
+    "color": "#415D6E"
+  },
+  {
+    "id": 6,
+    "name": "离",
+    "pinyin": "lí",
+    "symbol": "☲",
+    "binary": "101",
+    "element": "火",
+    "nature": "看清与表达",
+    "keywords": [
+      "看清",
+      "表达",
+      "呈现"
+    ],
+    "summary": "强调把模糊问题转化为可见事实，并通过清晰表达争取理解。",
+    "innerState": "希望理解本质、表达立场",
+    "outerState": "环境重视信息、证据、展示与透明沟通",
+    "color": "#A85C4D"
+  },
+  {
+    "id": 7,
+    "name": "艮",
+    "pinyin": "gèn",
+    "symbol": "☶",
+    "binary": "100",
+    "element": "山",
+    "nature": "停止与边界",
+    "keywords": [
+      "停止",
+      "边界",
+      "复盘"
+    ],
+    "summary": "强调在边界处暂停，区分不能做、暂不做和需要重新评估的事项。",
+    "innerState": "需要收束精力、建立边界",
+    "outerState": "环境暂不适合继续扩张，应先停下检查",
+    "color": "#73766C"
+  },
+  {
+    "id": 8,
+    "name": "兑",
+    "pinyin": "duì",
+    "symbol": "☱",
+    "binary": "011",
+    "element": "泽",
+    "nature": "交流与认可",
+    "keywords": [
+      "交流",
+      "关系",
+      "认可"
+    ],
+    "summary": "强调在坦诚交流中校准期待，让承诺、反馈与实际行动保持一致。",
+    "innerState": "重视回应、连接与共同感受",
+    "outerState": "环境依赖协商、互信和清晰反馈",
+    "color": "#7C8792"
+  }
+]

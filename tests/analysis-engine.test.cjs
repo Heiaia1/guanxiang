@@ -10,7 +10,7 @@ const {
   getSafetyInputNotice
 } = require('../miniprogram/services/analysis-engine.ts')
 const { getHexagramById } = require('../miniprogram/services/hexagram-engine.ts')
-const safetyData = require('../miniprogram/data/safety-words.json')
+const safetyData = require('../miniprogram/data/safety-words-data.js')
 const domainData = require('../miniprogram/data/domain-rules.json')
 const actionData = require('../miniprogram/data/action-templates.json')
 

@@ -4,15 +4,19 @@
   "private": true,
   "description": "观象录：完全本地运行的周易文化互动与个人反思微信小程序",
   "scripts": {
+    "generate:data": "node scripts/generate-data-modules.mjs",
+    "generate:desktop": "node scripts/generate-desktop-core.mjs",
+    "generate": "npm run generate:data && npm run generate:desktop",
+    "desktop:serve": "node scripts/serve-desktop.mjs",
     "test": "node --test tests/*.test.cjs",
     "typecheck": "tsc -p tsconfig.json",
     "check": "node scripts/check-project.mjs",
-    "validate": "npm run test && npm run typecheck && npm run check"
+    "validate": "npm run generate && npm run test && npm run typecheck && npm run check"
   },
   "engines": {
     "node": ">=22.18.0"
   },
-  "license": "UNLICENSED",
+  "license": "SEE LICENSE IN LICENSE.md",
   "devDependencies": {
     "typescript": "5.9.3"
   }

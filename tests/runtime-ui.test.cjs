@@ -160,7 +160,7 @@ test('关闭动画与低性能降级保持为两个独立显示状态', () => {
   })
 })
 
-test('关闭动画设置覆盖十二个页面根节点且启动页直接进入静态态', () => {
+test('关闭动画设置覆盖全部页面根节点且启动页直接进入静态态', () => {
   const appConfig = require('../miniprogram/app.json')
   const miniRoot = path.resolve(__dirname, '..', 'miniprogram')
 
@@ -229,6 +229,17 @@ test('首页与文化馆入口在导航完成前忽略连续点击', () => {
   library.openDetail(event)
   library.openDetail(event)
   assert.equal(libraryNavigations, 1)
+})
+
+test('首页展示每日札记并能进入完整札记页', () => {
+  const notes = require('../miniprogram/data/wisdom-notes.json')
+  const homeWxml = fs.readFileSync(
+    path.resolve(__dirname, '..', 'miniprogram/pages/home/home.wxml'),
+    'utf8'
+  )
+  assert.ok(notes.length >= 24)
+  assert.match(homeWxml, /todayWisdom\.title/)
+  assert.match(homeWxml, /bindtap="openWisdom"/)
 })
 
 test('用户确认本次不保存后删除记录、抑制再次自动保存，并可手动恢复保存', () => {
@@ -354,6 +365,7 @@ test('首次说明回跳仅允许文化馆和合法卦象详情', () => {
   const { resolveGuideReturn } = require('../miniprogram/utils/navigation.ts')
 
   assert.equal(resolveGuideReturn({ returnTo: 'library' }), '/pages/library/library')
+  assert.equal(resolveGuideReturn({ returnTo: 'wisdom' }), '/pages/wisdom/wisdom')
   assert.equal(
     resolveGuideReturn({ returnTo: 'hexagram', id: '64' }),
     '/pages/hexagram-detail/hexagram-detail?id=64'
@@ -372,7 +384,7 @@ test('首次说明在勾选前提供两份本地完整文本入口', () => {
     'utf8'
   )
 
-  assert.match(guideScript, /legal-documents\.json/)
+  assert.match(guideScript, /legal-documents-data/)
   assert.match(guideWxml, /我已阅读并同意隐私说明和用户协议/)
   assert.match(guideWxml, /wx:for="\{\{legalDocuments\}\}"/)
   assert.equal(

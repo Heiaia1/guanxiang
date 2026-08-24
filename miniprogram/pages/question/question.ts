@@ -3,7 +3,7 @@ declare const require: (path: string) => any
 const { getDraft, saveDraft } = require("../../services/storage-service")
 const { analyzeSituation, getSafetyInputNotice } = require("../../services/analysis-engine")
 const { getUiPreferences } = require("../../services/ui-preferences")
-const DOMAIN_RULES = require('../../data/domain-rules.json') as Record<string, {
+const DOMAIN_RULES = require('../../data/domain-rules-data') as Record<string, {
   name: string
   questionPrompt: string
 }>

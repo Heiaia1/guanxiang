@@ -1,0 +1,94 @@
+<view class="page-shell wisdom-page {{motionOff ? 'motion-off' : ''}}">
+  <view class="ink-orb ink-orb--one"></view>
+  <view class="ink-orb ink-orb--two"></view>
+
+  <view class="page-content">
+    <view class="wisdom-hero">
+      <view class="eyebrow">观象札记 · 现实修习</view>
+      <view class="page-title">把古老的变化观，放回今日生活</view>
+      <view class="page-subtitle">六个现实主题，二十四篇短札。每篇都包含理解、反思问题与一个可执行动作。</view>
+    </view>
+
+    <view wx:if="{{featured}}" class="featured panel">
+      <view class="featured__top">
+        <view class="featured__label">今日一读</view>
+        <view class="featured__category">{{featured.categoryLabel}}</view>
+      </view>
+      <view class="featured__title">{{featured.title}}</view>
+      <view class="featured__principle">{{featured.principle}}</view>
+      <view class="featured__action">
+        <view class="featured__action-mark">行</view>
+        <view>{{featured.action}}</view>
+      </view>
+    </view>
+
+    <view class="search-box">
+      <view class="search-box__icon"></view>
+      <input
+        class="search-box__input"
+        value="{{query}}"
+        placeholder="搜索主题、问题或行动"
+        placeholder-class="search-box__placeholder"
+        confirm-type="search"
+        bindinput="onSearch"
+      />
+      <button wx:if="{{query}}" class="search-box__clear" bindtap="clearSearch">×</button>
+    </view>
+
+    <scroll-view class="category-scroll" scroll-x enhanced show-scrollbar="{{false}}">
+      <view class="category-tabs">
+        <button
+          wx:for="{{categories}}"
+          wx:key="id"
+          class="category-tab {{activeCategory === item.id ? 'category-tab--active' : ''}}"
+          data-category="{{item.id}}"
+          bindtap="setCategory"
+        >{{item.label}}</button>
+      </view>
+    </scroll-view>
+
+    <view class="result-count">找到 {{visibleNotes.length}} 篇札记</view>
+    <view wx:if="{{error}}" class="wisdom-error">{{error}}</view>
+
+    <view wx:elif="{{visibleNotes.length}}" class="note-list">
+      <view
+        wx:for="{{visibleNotes}}"
+        wx:key="id"
+        class="note-card {{expandedId === item.id ? 'note-card--open' : ''}}"
+      >
+        <button class="note-card__summary pressable" data-id="{{item.id}}" bindtap="toggleNote">
+          <view class="note-card__main">
+            <view class="note-card__meta">{{item.categoryLabel}} · {{item.source}}</view>
+            <view class="note-card__title">{{item.title}}</view>
+            <view class="note-card__principle">{{item.principle}}</view>
+          </view>
+          <view class="note-card__toggle">{{expandedId === item.id ? '−' : '+'}}</view>
+        </button>
+
+        <view wx:if="{{expandedId === item.id}}" class="note-card__details">
+          <view class="detail-block">
+            <view class="detail-block__label">今解</view>
+            <view class="detail-block__text">{{item.interpretation}}</view>
+          </view>
+          <view class="detail-block detail-block--question">
+            <view class="detail-block__label">自问</view>
+            <view class="detail-block__text">{{item.reflection}}</view>
+          </view>
+          <view class="detail-block detail-block--action">
+            <view class="detail-block__label">今日可做</view>
+            <view class="detail-block__text">{{item.action}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view wx:else class="empty-wisdom">
+      <view class="empty-wisdom__mark">观</view>
+      <view class="empty-wisdom__title">没有找到匹配札记</view>
+      <view class="empty-wisdom__text">换一个关键词，或返回“全部”继续浏览。</view>
+      <button class="secondary-button" bindtap="clearSearch">清除搜索</button>
+    </view>
+
+    <view class="wisdom-footer">内容用于文化阅读与个人反思，不替代专业意见</view>
+  </view>
+</view>

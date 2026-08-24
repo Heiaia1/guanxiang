@@ -34,9 +34,9 @@ function boundMethods(wxml) {
   return [...methods]
 }
 
-test('app.json 中的十二个页面均能加载，WXML 交互处理器全部存在', () => {
+test('app.json 中的十三个页面均能加载，WXML 交互处理器全部存在', () => {
   const appConfig = require('../miniprogram/app.json')
-  assert.equal(appConfig.pages.length, 12)
+  assert.equal(appConfig.pages.length, 13)
 
   for (const page of appConfig.pages) {
     let definition = null
@@ -82,6 +82,27 @@ test('小程序入口可注册 App 并含有全局数据', () => {
   assert.ok(definition)
   assert.ok(definition.globalData)
   assert.equal(typeof definition.onLaunch, 'function')
+})
+
+test('开发者工具与小程序都固定从可见启动页进入', () => {
+  const projectConfig = require('../project.config.json')
+  const appConfig = require('../miniprogram/app.json')
+  const modes = projectConfig.condition?.miniprogram?.list || []
+
+  assert.equal(appConfig.pages[0], 'pages/launch/launch')
+  assert.notEqual(projectConfig.appid, 'touristappid')
+  assert.ok(modes.some((item) =>
+    item.pathName === 'pages/launch/launch' && item.query === ''
+  ))
+
+  const ignored = new Set(
+    projectConfig.packOptions.ignore
+      .filter((item) => item.type === 'folder')
+      .map((item) => item.value)
+  )
+  for (const folder of ['.cache', '.devtools-profile-2', '.devtools-profile-3', '.devtools-profile-4', '.devtools-profile-5', '微信web开发者工具', 'node_modules', 'desktop']) {
+    assert.ok(ignored.has(folder), `开发者工具不应扫描 ${folder}`)
+  }
 })
 
 test('问题输入页展示安全词库提供的输入提示', () => {

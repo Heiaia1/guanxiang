@@ -57,7 +57,9 @@ test('合法评估组合能覆盖八个基础卦、六个变化阶段和足够�
 
 test('完整组合不会被压缩成少量重复现实解读', () => {
   const narratives = new Map()
-  for (const selections of allSelections()) {
+  const summaries = new Set()
+  const selectionsList = allSelections()
+  for (const selections of selectionsList) {
     const scored = scoreAssessment(selections)
     const result = analyzeSituation({
       category: 'career',
@@ -65,10 +67,12 @@ test('完整组合不会被压缩成少量重复现实解读', () => {
       answers: scored.scores
     })
     const narrative = [result.summary, result.mainConflict, result.advantage, result.riskNotice, ...result.actions].join('|')
+    summaries.add(result.summary)
     narratives.set(narrative, (narratives.get(narrative) || 0) + 1)
   }
 
-  assert.ok(narratives.size >= 100, `只生成 ${narratives.size} 种现实解读`)
-  const maxShare = Math.max(...narratives.values()) / 1536
-  assert.ok(maxShare < 0.1, `最大重复组占 ${(maxShare * 100).toFixed(1)}%`)
+  assert.ok(summaries.size >= 600, `只生成 ${summaries.size} 种状态摘要`)
+  assert.ok(narratives.size >= 4000, `只生成 ${narratives.size} 种现实解读`)
+  const maxShare = Math.max(...narratives.values()) / selectionsList.length
+  assert.ok(maxShare < 0.04, `最大重复组占 ${(maxShare * 100).toFixed(1)}%`)
 })

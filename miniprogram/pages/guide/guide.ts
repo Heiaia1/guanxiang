@@ -3,7 +3,7 @@ declare const require: (path: string) => any
 const { hasSeenGuide, markGuideSeen } = require("../../services/storage-service")
 const { getUiPreferences } = require("../../services/ui-preferences")
 const { resolveGuideReturn } = require("../../utils/navigation")
-const LEGAL_CONTENT = require("../../data/legal-documents.json") as {
+const LEGAL_CONTENT = require("../../data/legal-documents-data") as {
   documents: any[]
 }
 
@@ -60,15 +60,25 @@ Page({
       } else if (this.data.returnUrl !== "/pages/home/home") {
         wx.redirectTo({
           url: this.data.returnUrl,
-          fail: () => wx.reLaunch({ url: "/pages/home/home" })
+          fail: () => this.openHome()
         })
       } else {
-        wx.reLaunch({ url: "/pages/home/home" })
+        this.openHome()
       }
     } catch (_error) {
       this.setData({ submitting: false })
       wx.showToast({ title: "本地设置保存失败，请重试", icon: "none" })
     }
+  },
+
+  openHome() {
+    wx.reLaunch({
+      url: "/pages/home/home",
+      fail: () => {
+        this.setData({ submitting: false })
+        wx.showToast({ title: "首页打开失败，请重试", icon: "none" })
+      }
+    })
   },
 
   leave() {

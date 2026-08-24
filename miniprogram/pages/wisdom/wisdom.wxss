@@ -1,0 +1,309 @@
+.wisdom-page {
+  padding-top: 30rpx;
+}
+
+.wisdom-hero {
+  padding: 10rpx 4rpx 16rpx;
+}
+
+.featured {
+  position: relative;
+  margin-top: 28rpx;
+  padding: 30rpx;
+  overflow: hidden;
+}
+
+.featured::after {
+  position: absolute;
+  top: -66rpx;
+  right: -46rpx;
+  width: 210rpx;
+  height: 210rpx;
+  border: 1rpx solid rgba(179, 154, 101, 0.14);
+  border-radius: 50%;
+  content: "";
+}
+
+.featured__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.featured__label {
+  color: #c2aa72;
+  font-size: 21rpx;
+  font-weight: 600;
+  letter-spacing: 5rpx;
+}
+
+.featured__category {
+  color: rgba(234, 229, 216, 0.38);
+  font-size: 20rpx;
+}
+
+.featured__title {
+  margin-top: 22rpx;
+  color: #f1e9da;
+  font-family: "STKaiti", "KaiTi", serif;
+  font-size: 44rpx;
+}
+
+.featured__principle {
+  margin-top: 14rpx;
+  color: rgba(234, 229, 216, 0.68);
+  font-size: 25rpx;
+  line-height: 1.7;
+}
+
+.featured__action {
+  display: flex;
+  gap: 16rpx;
+  align-items: flex-start;
+  margin-top: 24rpx;
+  padding: 20rpx;
+  border-radius: 18rpx;
+  color: #c5d0cb;
+  font-size: 23rpx;
+  line-height: 1.6;
+  background: rgba(102, 132, 122, 0.13);
+}
+
+.featured__action-mark {
+  display: flex;
+  flex: 0 0 40rpx;
+  align-items: center;
+  justify-content: center;
+  width: 40rpx;
+  height: 40rpx;
+  border: 1rpx solid rgba(179, 154, 101, 0.38);
+  color: #c2aa72;
+  font-family: "STKaiti", "KaiTi", serif;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  height: 88rpx;
+  margin-top: 24rpx;
+  padding: 0 22rpx;
+  border: 1rpx solid rgba(234, 229, 216, 0.12);
+  border-radius: 44rpx;
+  background: rgba(27, 35, 35, 0.82);
+}
+
+.search-box__icon {
+  position: relative;
+  width: 28rpx;
+  height: 28rpx;
+  margin-right: 16rpx;
+  border: 2rpx solid rgba(179, 154, 101, 0.6);
+  border-radius: 50%;
+}
+
+.search-box__icon::after {
+  position: absolute;
+  right: -9rpx;
+  bottom: -6rpx;
+  width: 13rpx;
+  height: 2rpx;
+  background: rgba(179, 154, 101, 0.6);
+  content: "";
+  transform: rotate(45deg);
+}
+
+.search-box__input {
+  flex: 1;
+  height: 100%;
+  color: #e9e2d4;
+  font-size: 25rpx;
+}
+
+.search-box__placeholder {
+  color: rgba(234, 229, 216, 0.3);
+}
+
+.search-box__clear {
+  width: 52rpx;
+  height: 52rpx;
+  color: rgba(234, 229, 216, 0.45);
+  font-size: 34rpx;
+}
+
+.category-scroll {
+  width: 100%;
+  margin-top: 20rpx;
+  white-space: nowrap;
+}
+
+.category-tabs {
+  display: inline-flex;
+  gap: 10rpx;
+  padding-right: 26rpx;
+}
+
+.category-tab {
+  flex: none;
+  padding: 15rpx 23rpx;
+  border: 1rpx solid rgba(234, 229, 216, 0.08);
+  border-radius: 28rpx;
+  color: rgba(234, 229, 216, 0.48);
+  font-size: 22rpx;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.category-tab--active {
+  border-color: rgba(179, 154, 101, 0.36);
+  color: #dec990;
+  background: rgba(179, 154, 101, 0.13);
+}
+
+.result-count {
+  margin: 24rpx 4rpx 14rpx;
+  color: rgba(234, 229, 216, 0.34);
+  font-size: 20rpx;
+}
+
+.note-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14rpx;
+}
+
+.note-card {
+  border: 1rpx solid rgba(234, 229, 216, 0.09);
+  border-radius: 23rpx;
+  overflow: hidden;
+  background: linear-gradient(145deg, rgba(29, 38, 38, 0.9), rgba(17, 23, 24, 0.94));
+}
+
+.note-card--open {
+  border-color: rgba(179, 154, 101, 0.26);
+}
+
+.note-card__summary {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 170rpx;
+  padding: 24rpx;
+  text-align: left;
+}
+
+.note-card__main {
+  flex: 1;
+  min-width: 0;
+}
+
+.note-card__meta {
+  color: rgba(179, 154, 101, 0.65);
+  font-size: 18rpx;
+}
+
+.note-card__title {
+  margin-top: 9rpx;
+  color: #eee7d8;
+  font-family: "STKaiti", "KaiTi", serif;
+  font-size: 35rpx;
+}
+
+.note-card__principle {
+  margin-top: 9rpx;
+  color: rgba(234, 229, 216, 0.52);
+  font-size: 22rpx;
+  line-height: 1.5;
+}
+
+.note-card__toggle {
+  display: flex;
+  flex: 0 0 54rpx;
+  align-items: center;
+  justify-content: center;
+  width: 54rpx;
+  height: 54rpx;
+  margin-left: 18rpx;
+  border: 1rpx solid rgba(179, 154, 101, 0.24);
+  border-radius: 50%;
+  color: #bfa66f;
+  font-size: 32rpx;
+}
+
+.note-card__details {
+  padding: 0 24rpx 26rpx;
+  border-top: 1rpx solid rgba(234, 229, 216, 0.07);
+}
+
+.detail-block {
+  padding-top: 22rpx;
+}
+
+.detail-block__label {
+  color: #b8a16c;
+  font-size: 20rpx;
+  font-weight: 600;
+  letter-spacing: 3rpx;
+}
+
+.detail-block__text {
+  margin-top: 9rpx;
+  color: rgba(234, 229, 216, 0.66);
+  font-size: 24rpx;
+  line-height: 1.72;
+}
+
+.detail-block--question,
+.detail-block--action {
+  margin-top: 18rpx;
+  padding: 20rpx;
+  border-radius: 16rpx;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.detail-block--question .detail-block__label {
+  color: #96aaa2;
+}
+
+.detail-block--action {
+  background: rgba(102, 132, 122, 0.11);
+}
+
+.wisdom-error {
+  padding: 28rpx;
+  border: 1rpx solid rgba(154, 79, 68, 0.32);
+  border-radius: 22rpx;
+  color: #d5a098;
+  text-align: center;
+  background: rgba(154, 79, 68, 0.08);
+}
+
+.empty-wisdom {
+  padding: 78rpx 26rpx;
+  text-align: center;
+}
+
+.empty-wisdom__mark {
+  color: rgba(179, 154, 101, 0.44);
+  font-family: "STKaiti", "KaiTi", serif;
+  font-size: 82rpx;
+}
+
+.empty-wisdom__title {
+  margin-top: 12rpx;
+  color: #e5ded0;
+  font-size: 29rpx;
+  font-weight: 600;
+}
+
+.empty-wisdom__text {
+  margin: 12rpx auto 28rpx;
+  color: rgba(234, 229, 216, 0.44);
+  font-size: 23rpx;
+  line-height: 1.6;
+}
+
+.wisdom-footer {
+  padding: 48rpx 0 12rpx;
+  color: rgba(234, 229, 216, 0.28);
+  font-size: 19rpx;
+  text-align: center;
+}

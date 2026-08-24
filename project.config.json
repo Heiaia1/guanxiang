@@ -3,26 +3,59 @@
   "packOptions": {
     "ignore": [
       {
-        "type": "folder",
-        "value": "docs"
+        "value": "docs",
+        "type": "folder"
       },
       {
-        "type": "folder",
-        "value": "tests"
+        "value": "tests",
+        "type": "folder"
       },
       {
-        "type": "folder",
-        "value": "scripts"
+        "value": "scripts",
+        "type": "folder"
+      },
+      {
+        "value": ".cache",
+        "type": "folder"
+      },
+      {
+        "value": ".devtools-profile-2",
+        "type": "folder"
+      },
+      {
+        "value": ".devtools-profile-3",
+        "type": "folder"
+      },
+      {
+        "value": ".devtools-profile-4",
+        "type": "folder"
+      },
+      {
+        "value": ".devtools-profile-5",
+        "type": "folder"
+      },
+      {
+        "value": "微信web开发者工具",
+        "type": "folder"
+      },
+      {
+        "value": "node_modules",
+        "type": "folder"
+      },
+      {
+        "value": "desktop",
+        "type": "folder"
       }
-    ]
+    ],
+    "include": []
   },
   "setting": {
     "urlCheck": true,
     "es6": true,
-    "enhance": true,
+    "enhance": false,
     "postcss": true,
     "preloadBackgroundData": false,
-    "minified": true,
+    "minified": false,
     "newFeature": true,
     "coverView": true,
     "nodeModules": false,
@@ -38,18 +71,45 @@
     "useApiHook": true,
     "useApiHostProcess": true,
     "useIsolateContext": true,
-    "useCompilerModule": true,
-    "minifyWXSS": true,
-    "minifyWXML": true,
+    "useCompilerModule": false,
+    "minifyWXSS": false,
+    "minifyWXML": false,
     "useCompilerPlugins": [
       "typescript"
-    ]
+    ],
+    "compileWorklet": false,
+    "packNpmManually": false,
+    "packNpmRelationList": [],
+    "localPlugins": false,
+    "disableUseStrict": false,
+    "condition": false,
+    "swc": false,
+    "disableSWC": true,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    }
   },
   "compileType": "miniprogram",
-  "libVersion": "trial",
-  "appid": "touristappid",
+  "libVersion": "2.25.3",
+  "appid": "wxa06c6967d6d1d656",
   "projectname": "guanxiang-miniapp",
   "miniprogramRoot": "miniprogram/",
   "simulatorType": "wechat",
-  "condition": {}
+  "condition": {
+    "miniprogram": {
+      "list": [
+        {
+          "name": "固定启动页",
+          "pathName": "pages/launch/launch",
+          "query": "",
+          "scene": null
+        }
+      ]
+    }
+  },
+  "simulatorPluginLibVersion": {},
+  "editorSetting": {},
+  "srcMiniprogramRoot": "miniprogram/"
 }

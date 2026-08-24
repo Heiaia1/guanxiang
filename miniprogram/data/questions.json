@@ -60,6 +60,36 @@
           "stage": 20,
           "readiness": 20
         }
+      },
+      {
+        "id": "ready_but_blocked",
+        "label": "想行动，但被条件卡住",
+        "note": "方向大致明确，暂时缺少资源、许可或关键配合。",
+        "scores": {
+          "action": 78,
+          "clarity": 62,
+          "control": 32,
+          "risk": 58,
+          "relation": 62,
+          "pressure": 78,
+          "stage": 64,
+          "readiness": 58
+        }
+      },
+      {
+        "id": "paused_review",
+        "label": "已经暂停，正在复盘",
+        "note": "不是没有行动，而是在检查前一步是否值得继续。",
+        "scores": {
+          "action": 32,
+          "clarity": 76,
+          "control": 62,
+          "risk": 42,
+          "relation": 32,
+          "pressure": 32,
+          "stage": 72,
+          "readiness": 68
+        }
       }
     ]
   },
@@ -123,6 +153,36 @@
           "pressure": 70,
           "stage": 20,
           "readiness": 15
+        }
+      },
+      {
+        "id": "conflicting_information",
+        "label": "信息彼此矛盾",
+        "note": "已经收集到一些信息，但不同来源给出的判断不一致。",
+        "scores": {
+          "action": 42,
+          "clarity": 38,
+          "control": 44,
+          "risk": 68,
+          "relation": 52,
+          "pressure": 64,
+          "stage": 52,
+          "readiness": 38
+        }
+      },
+      {
+        "id": "mostly_secondhand",
+        "label": "主要来自他人转述",
+        "note": "信息听起来完整，但还缺少自己能够核实的一手事实。",
+        "scores": {
+          "action": 46,
+          "clarity": 42,
+          "control": 38,
+          "risk": 56,
+          "relation": 66,
+          "pressure": 48,
+          "stage": 46,
+          "readiness": 44
         }
       }
     ]
@@ -188,6 +248,36 @@
           "stage": 35,
           "readiness": 30
         }
+      },
+      {
+        "id": "shared_decision",
+        "label": "需要多人共同决定",
+        "note": "每个人都能影响结果，但没有任何一方可以单独拍板。",
+        "scores": {
+          "action": 48,
+          "clarity": 48,
+          "control": 42,
+          "risk": 56,
+          "relation": 78,
+          "pressure": 58,
+          "stage": 54,
+          "readiness": 48
+        }
+      },
+      {
+        "id": "rules_and_conditions",
+        "label": "受规则或客观条件限制",
+        "note": "关键限制来自制度、时间、资格或其他明确条件。",
+        "scores": {
+          "action": 42,
+          "clarity": 66,
+          "control": 24,
+          "risk": 64,
+          "relation": 42,
+          "pressure": 66,
+          "stage": 58,
+          "readiness": 52
+        }
       }
     ]
   },
@@ -251,6 +341,36 @@
           "pressure": 85,
           "stage": 70,
           "readiness": 30
+        }
+      },
+      {
+        "id": "recoverable_cost",
+        "label": "会有损失，但可以恢复",
+        "note": "需要付出时间或金钱，不过有明确的恢复办法和承受范围。",
+        "scores": {
+          "action": 68,
+          "clarity": 66,
+          "control": 64,
+          "risk": 32,
+          "relation": 32,
+          "pressure": 36,
+          "stage": 58,
+          "readiness": 72
+        }
+      },
+      {
+        "id": "hard_to_reverse",
+        "label": "后果很难逆转",
+        "note": "一旦决定，退出、修复或重新选择的成本都很高。",
+        "scores": {
+          "action": 28,
+          "clarity": 58,
+          "control": 42,
+          "risk": 90,
+          "relation": 58,
+          "pressure": 78,
+          "stage": 82,
+          "readiness": 38
         }
       }
     ]
@@ -343,6 +463,36 @@
           "pressure": 75,
           "stage": 50,
           "readiness": 25
+        }
+      },
+      {
+        "id": "excited",
+        "label": "兴奋",
+        "note": "很想快速推进，也可能暂时低估细节和后续成本。",
+        "scores": {
+          "action": 92,
+          "clarity": 56,
+          "control": 58,
+          "risk": 46,
+          "relation": 48,
+          "pressure": 52,
+          "stage": 62,
+          "readiness": 66
+        }
+      },
+      {
+        "id": "discouraged",
+        "label": "沮丧",
+        "note": "经历了不顺或否定，暂时很难看见已有条件和调整空间。",
+        "scores": {
+          "action": 24,
+          "clarity": 34,
+          "control": 28,
+          "risk": 66,
+          "relation": 46,
+          "pressure": 82,
+          "stage": 56,
+          "readiness": 24
         }
       }
     ]

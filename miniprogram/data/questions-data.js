@@ -1,0 +1,502 @@
+// 此文件由 scripts/generate-data-modules.mjs 根据同名 JSON 自动生成。
+// 微信小程序运行时不能直接 require JSON，因此以 CommonJS 模块提供离线数据。
+module.exports = [
+  {
+    "id": "action_state",
+    "dimension": "action",
+    "title": "你现在更接近哪种状态？",
+    "description": "选择最符合此刻行动准备的状态。",
+    "options": [
+      {
+        "id": "act_now",
+        "label": "想马上行动",
+        "scores": {
+          "action": 90,
+          "clarity": 55,
+          "control": 60,
+          "risk": 45,
+          "relation": 35,
+          "pressure": 70,
+          "stage": 75,
+          "readiness": 45
+        }
+      },
+      {
+        "id": "preparing",
+        "label": "正在准备",
+        "scores": {
+          "action": 70,
+          "clarity": 70,
+          "control": 65,
+          "risk": 40,
+          "relation": 35,
+          "pressure": 45,
+          "stage": 55,
+          "readiness": 75
+        }
+      },
+      {
+        "id": "observing",
+        "label": "还在观察",
+        "scores": {
+          "action": 35,
+          "clarity": 50,
+          "control": 45,
+          "risk": 45,
+          "relation": 40,
+          "pressure": 45,
+          "stage": 35,
+          "readiness": 45
+        }
+      },
+      {
+        "id": "no_direction",
+        "label": "暂时没有方向",
+        "scores": {
+          "action": 20,
+          "clarity": 15,
+          "control": 30,
+          "risk": 55,
+          "relation": 35,
+          "pressure": 65,
+          "stage": 20,
+          "readiness": 20
+        }
+      },
+      {
+        "id": "ready_but_blocked",
+        "label": "想行动，但被条件卡住",
+        "note": "方向大致明确，暂时缺少资源、许可或关键配合。",
+        "scores": {
+          "action": 78,
+          "clarity": 62,
+          "control": 32,
+          "risk": 58,
+          "relation": 62,
+          "pressure": 78,
+          "stage": 64,
+          "readiness": 58
+        }
+      },
+      {
+        "id": "paused_review",
+        "label": "已经暂停，正在复盘",
+        "note": "不是没有行动，而是在检查前一步是否值得继续。",
+        "scores": {
+          "action": 32,
+          "clarity": 76,
+          "control": 62,
+          "risk": 42,
+          "relation": 32,
+          "pressure": 32,
+          "stage": 72,
+          "readiness": 68
+        }
+      }
+    ]
+  },
+  {
+    "id": "information_state",
+    "dimension": "clarity",
+    "title": "目前的信息是否充分？",
+    "description": "根据已掌握的事实判断，而不是根据希望判断。",
+    "options": [
+      {
+        "id": "clear",
+        "label": "已经比较清楚",
+        "scores": {
+          "action": 65,
+          "clarity": 90,
+          "control": 65,
+          "risk": 25,
+          "relation": 30,
+          "pressure": 30,
+          "stage": 70,
+          "readiness": 80
+        }
+      },
+      {
+        "id": "small_gap",
+        "label": "还缺少少量信息",
+        "scores": {
+          "action": 55,
+          "clarity": 65,
+          "control": 55,
+          "risk": 40,
+          "relation": 35,
+          "pressure": 40,
+          "stage": 55,
+          "readiness": 60
+        }
+      },
+      {
+        "id": "many_unknowns",
+        "label": "仍有很多未知情况",
+        "scores": {
+          "action": 35,
+          "clarity": 30,
+          "control": 40,
+          "risk": 70,
+          "relation": 45,
+          "pressure": 60,
+          "stage": 35,
+          "readiness": 35
+        }
+      },
+      {
+        "id": "cannot_judge",
+        "label": "目前无法判断",
+        "scores": {
+          "action": 20,
+          "clarity": 10,
+          "control": 25,
+          "risk": 80,
+          "relation": 45,
+          "pressure": 70,
+          "stage": 20,
+          "readiness": 15
+        }
+      },
+      {
+        "id": "conflicting_information",
+        "label": "信息彼此矛盾",
+        "note": "已经收集到一些信息，但不同来源给出的判断不一致。",
+        "scores": {
+          "action": 42,
+          "clarity": 38,
+          "control": 44,
+          "risk": 68,
+          "relation": 52,
+          "pressure": 64,
+          "stage": 52,
+          "readiness": 38
+        }
+      },
+      {
+        "id": "mostly_secondhand",
+        "label": "主要来自他人转述",
+        "note": "信息听起来完整，但还缺少自己能够核实的一手事实。",
+        "scores": {
+          "action": 46,
+          "clarity": 42,
+          "control": 38,
+          "risk": 56,
+          "relation": 66,
+          "pressure": 48,
+          "stage": 46,
+          "readiness": 44
+        }
+      }
+    ]
+  },
+  {
+    "id": "control_state",
+    "dimension": "control",
+    "title": "这件事主要由谁决定？",
+    "description": "判断推进结果对外部配合的依赖程度。",
+    "options": [
+      {
+        "id": "self",
+        "label": "主要由我决定",
+        "scores": {
+          "action": 70,
+          "clarity": 60,
+          "control": 90,
+          "risk": 35,
+          "relation": 15,
+          "pressure": 40,
+          "stage": 55,
+          "readiness": 65
+        }
+      },
+      {
+        "id": "one_other",
+        "label": "需要另一方配合",
+        "scores": {
+          "action": 55,
+          "clarity": 50,
+          "control": 55,
+          "risk": 45,
+          "relation": 85,
+          "pressure": 50,
+          "stage": 50,
+          "readiness": 55
+        }
+      },
+      {
+        "id": "organization",
+        "label": "受家庭或组织影响",
+        "scores": {
+          "action": 45,
+          "clarity": 45,
+          "control": 40,
+          "risk": 60,
+          "relation": 75,
+          "pressure": 60,
+          "stage": 45,
+          "readiness": 45
+        }
+      },
+      {
+        "id": "mostly_external",
+        "label": "大部分无法控制",
+        "scores": {
+          "action": 25,
+          "clarity": 35,
+          "control": 15,
+          "risk": 75,
+          "relation": 65,
+          "pressure": 75,
+          "stage": 35,
+          "readiness": 30
+        }
+      },
+      {
+        "id": "shared_decision",
+        "label": "需要多人共同决定",
+        "note": "每个人都能影响结果，但没有任何一方可以单独拍板。",
+        "scores": {
+          "action": 48,
+          "clarity": 48,
+          "control": 42,
+          "risk": 56,
+          "relation": 78,
+          "pressure": 58,
+          "stage": 54,
+          "readiness": 48
+        }
+      },
+      {
+        "id": "rules_and_conditions",
+        "label": "受规则或客观条件限制",
+        "note": "关键限制来自制度、时间、资格或其他明确条件。",
+        "scores": {
+          "action": 42,
+          "clarity": 66,
+          "control": 24,
+          "risk": 64,
+          "relation": 42,
+          "pressure": 66,
+          "stage": 58,
+          "readiness": 52
+        }
+      }
+    ]
+  },
+  {
+    "id": "impact_state",
+    "dimension": "risk",
+    "title": "如果失败，影响有多大？",
+    "description": "只评估现实损失，不评估一时的失落感。",
+    "options": [
+      {
+        "id": "low",
+        "label": "影响很小",
+        "scores": {
+          "action": 75,
+          "clarity": 60,
+          "control": 70,
+          "risk": 15,
+          "relation": 25,
+          "pressure": 25,
+          "stage": 55,
+          "readiness": 70
+        }
+      },
+      {
+        "id": "bearable",
+        "label": "可以承受",
+        "scores": {
+          "action": 65,
+          "clarity": 60,
+          "control": 60,
+          "risk": 40,
+          "relation": 35,
+          "pressure": 40,
+          "stage": 55,
+          "readiness": 65
+        }
+      },
+      {
+        "id": "high",
+        "label": "影响比较大",
+        "scores": {
+          "action": 40,
+          "clarity": 50,
+          "control": 45,
+          "risk": 75,
+          "relation": 50,
+          "pressure": 65,
+          "stage": 60,
+          "readiness": 45
+        }
+      },
+      {
+        "id": "basic_life",
+        "label": "可能影响基本生活",
+        "scores": {
+          "action": 20,
+          "clarity": 45,
+          "control": 35,
+          "risk": 95,
+          "relation": 55,
+          "pressure": 85,
+          "stage": 70,
+          "readiness": 30
+        }
+      },
+      {
+        "id": "recoverable_cost",
+        "label": "会有损失，但可以恢复",
+        "note": "需要付出时间或金钱，不过有明确的恢复办法和承受范围。",
+        "scores": {
+          "action": 68,
+          "clarity": 66,
+          "control": 64,
+          "risk": 32,
+          "relation": 32,
+          "pressure": 36,
+          "stage": 58,
+          "readiness": 72
+        }
+      },
+      {
+        "id": "hard_to_reverse",
+        "label": "后果很难逆转",
+        "note": "一旦决定，退出、修复或重新选择的成本都很高。",
+        "scores": {
+          "action": 28,
+          "clarity": 58,
+          "control": 42,
+          "risk": 90,
+          "relation": 58,
+          "pressure": 78,
+          "stage": 82,
+          "readiness": 38
+        }
+      }
+    ]
+  },
+  {
+    "id": "emotion_state",
+    "dimension": "pressure",
+    "title": "你当前的情绪是？",
+    "description": "情绪会影响判断速度，但不会决定事情的结果。",
+    "options": [
+      {
+        "id": "calm",
+        "label": "平静",
+        "scores": {
+          "action": 55,
+          "clarity": 80,
+          "control": 70,
+          "risk": 30,
+          "relation": 35,
+          "pressure": 15,
+          "stage": 50,
+          "readiness": 75
+        }
+      },
+      {
+        "id": "expectant",
+        "label": "期待",
+        "scores": {
+          "action": 75,
+          "clarity": 65,
+          "control": 65,
+          "risk": 35,
+          "relation": 45,
+          "pressure": 30,
+          "stage": 55,
+          "readiness": 70
+        }
+      },
+      {
+        "id": "hesitant",
+        "label": "犹豫",
+        "scores": {
+          "action": 35,
+          "clarity": 40,
+          "control": 45,
+          "risk": 55,
+          "relation": 45,
+          "pressure": 60,
+          "stage": 45,
+          "readiness": 40
+        }
+      },
+      {
+        "id": "anxious",
+        "label": "焦虑",
+        "scores": {
+          "action": 65,
+          "clarity": 30,
+          "control": 35,
+          "risk": 65,
+          "relation": 50,
+          "pressure": 90,
+          "stage": 60,
+          "readiness": 35
+        }
+      },
+      {
+        "id": "angry",
+        "label": "生气",
+        "scores": {
+          "action": 85,
+          "clarity": 30,
+          "control": 30,
+          "risk": 70,
+          "relation": 65,
+          "pressure": 90,
+          "stage": 65,
+          "readiness": 30
+        }
+      },
+      {
+        "id": "tired",
+        "label": "疲惫",
+        "scores": {
+          "action": 20,
+          "clarity": 35,
+          "control": 35,
+          "risk": 60,
+          "relation": 35,
+          "pressure": 75,
+          "stage": 50,
+          "readiness": 25
+        }
+      },
+      {
+        "id": "excited",
+        "label": "兴奋",
+        "note": "很想快速推进，也可能暂时低估细节和后续成本。",
+        "scores": {
+          "action": 92,
+          "clarity": 56,
+          "control": 58,
+          "risk": 46,
+          "relation": 48,
+          "pressure": 52,
+          "stage": 62,
+          "readiness": 66
+        }
+      },
+      {
+        "id": "discouraged",
+        "label": "沮丧",
+        "note": "经历了不顺或否定，暂时很难看见已有条件和调整空间。",
+        "scores": {
+          "action": 24,
+          "clarity": 34,
+          "control": 28,
+          "risk": 66,
+          "relation": 46,
+          "pressure": 82,
+          "stage": 56,
+          "readiness": 24
+        }
+      }
+    ]
+  }
+]

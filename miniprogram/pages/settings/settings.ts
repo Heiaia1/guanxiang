@@ -11,7 +11,7 @@ const {
   storageErrorMessage
 } = require("../../services/storage-service")
 const { getUiPreferences, resolveUiPreferences } = require("../../services/ui-preferences")
-const LEGAL_CONTENT = require("../../data/legal-documents.json") as {
+const LEGAL_CONTENT = require("../../data/legal-documents-data") as {
   documents: LegalDocument[]
 }
 

@@ -6,6 +6,7 @@ type Dimension = 'action' | 'readiness' | 'clarity' | 'control' | 'risk' | 'rela
 interface AssessmentOption {
   id: string
   label: string
+  note?: string
   scores: Record<Dimension, number>
 }
 
@@ -17,7 +18,7 @@ interface AssessmentQuestion {
   options: AssessmentOption[]
 }
 
-const QUESTIONS = require('../data/questions.json') as AssessmentQuestion[]
+const QUESTIONS = require('../data/questions-data') as AssessmentQuestion[]
 const DIMENSIONS: Dimension[] = ['action', 'readiness', 'clarity', 'control', 'risk', 'relation', 'pressure', 'stage']
 
 function clone<T>(value: T): T {

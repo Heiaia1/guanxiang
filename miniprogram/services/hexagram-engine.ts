@@ -32,8 +32,8 @@ interface TrigramContent {
   binary: string
 }
 
-const HEXAGRAMS = require('../data/hexagrams.json') as Hexagram[]
-const TRIGRAMS = require('../data/trigrams.json') as TrigramContent[]
+const HEXAGRAMS = require('../data/hexagrams-data') as Hexagram[]
+const TRIGRAMS = require('../data/trigrams-data') as TrigramContent[]
 const TRIGRAM_ALIASES: Record<string, string> = {
   qian: '乾',
   kun: '坤',

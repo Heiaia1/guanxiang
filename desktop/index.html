@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' data:; script-src 'self'; style-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'">
+  <title>观象录 · 桌面版</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23182020'%2F%3E%3Ctext x='32' y='45' text-anchor='middle' font-size='38' fill='%23c2aa72'%3E%E6%98%93%3C%2Ftext%3E%3C%2Fsvg%3E">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-frame">
+    <aside class="sidebar" aria-label="主导航">
+      <button class="brand" data-route="home" aria-label="返回首页">
+        <span class="brand__seal">易</span>
+        <span><strong>观象录</strong><small>离线桌面版</small></span>
+      </button>
+      <nav class="nav-list">
+        <button class="nav-item is-active" data-route="home"><span>⌂</span>首页</button>
+        <button class="nav-item" data-route="daily"><span>日</span>今日观象</button>
+        <button class="nav-item" data-route="ask"><span>问</span>问一件事</button>
+        <button class="nav-item" data-route="library"><span>卦</span>六十四卦</button>
+        <button class="nav-item" data-route="wisdom"><span>笺</span>观象札记</button>
+        <button class="nav-item" data-route="history"><span>录</span>我的记录</button>
+        <button class="nav-item" data-route="settings"><span>设</span>本地设置</button>
+      </nav>
+      <div class="sidebar__note">传统文化互动 · 现实行动参考<br>所有数据仅保存在本机</div>
+    </aside>
+
+    <main id="app" class="main-view" tabindex="-1" aria-live="polite"></main>
+
+    <nav class="mobile-nav" aria-label="移动导航">
+      <button data-route="home">首页</button>
+      <button data-route="ask">问事</button>
+      <button data-route="library">卦馆</button>
+      <button data-route="history">记录</button>
+      <button data-route="settings">设置</button>
+    </nav>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="core.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

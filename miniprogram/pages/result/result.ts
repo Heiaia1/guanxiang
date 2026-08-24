@@ -14,7 +14,7 @@ const {
   toggleFavorite
 } = require("../../services/storage-service")
 const { getUiPreferences, resolveTrigramScene } = require("../../services/ui-preferences")
-const DOMAIN_RULES = require('../../data/domain-rules.json') as Record<string, { name: string }>
+const DOMAIN_RULES = require('../../data/domain-rules-data') as Record<string, { name: string }>
 const CATEGORY_LABELS = Object.fromEntries(
   Object.entries(DOMAIN_RULES).map(([id, domain]) => [id, domain.name])
 ) as Record<string, string>

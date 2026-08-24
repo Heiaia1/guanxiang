@@ -8,6 +8,7 @@
     "pages/assessment/assessment",
     "pages/casting/casting",
     "pages/result/result",
+    "pages/wisdom/wisdom",
     "pages/library/library",
     "pages/hexagram-detail/hexagram-detail",
     "pages/history/history",
@@ -21,6 +22,5 @@
     "backgroundColor": "#101415"
   },
   "style": "v2",
-  "lazyCodeLoading": "requiredComponents",
   "sitemapLocation": "sitemap.json"
 }
