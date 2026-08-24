@@ -4,6 +4,8 @@
 
 ## 免费下载
 
+- 官方网站：[风后奇门主题 App 下载页](https://guanxiang-app.scfj8gkrzf.chatgpt.site)，手机打开后点击“下载 Android App”即可从 Cloudflare 同源直连下载安装包。
+- GitHub Pages 镜像：[heiaia1.github.io/guanxiang](https://heiaia1.github.io/guanxiang/)，网站源码位于本仓库的 `website` 分支，推送后由 GitHub Actions 自动上线。
 - Windows 用户可从 [GitHub Releases](../../releases/latest) 下载 `Guanxiang-Windows.zip`，解压后双击 `打开观象录桌面版.vbs`。
 - Android 用户可从 [GitHub Releases](../../releases/latest) 下载 `Guanxiang-Android-*.apk`。首次安装 GitHub 下载的 APK 时，Android 会要求仅对当前浏览器允许“安装未知应用”；安装完成后可立即关闭该权限。
 - 微信小程序开发者可下载源码后，在微信开发者工具中导入仓库根目录。
