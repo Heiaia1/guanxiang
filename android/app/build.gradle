@@ -1,0 +1,61 @@
+plugins {
+    id 'com.android.application'
+}
+
+def releaseStorePath = System.getenv('GX_KEYSTORE_FILE')
+def releaseStorePassword = System.getenv('GX_KEYSTORE_PASSWORD')
+def releaseKeyAlias = System.getenv('GX_KEY_ALIAS')
+def releaseKeyPassword = System.getenv('GX_KEY_PASSWORD')
+def hasReleaseSigning = [releaseStorePath, releaseStorePassword, releaseKeyAlias, releaseKeyPassword].every { it }
+
+android {
+    namespace 'com.heiaia1.guanxiang'
+    compileSdk 36
+
+    defaultConfig {
+        applicationId 'com.heiaia1.guanxiang'
+        minSdk 24
+        targetSdk 36
+        versionCode 2
+        versionName '1.1.0'
+    }
+
+    signingConfigs {
+        if (hasReleaseSigning) {
+            release {
+                storeFile file(releaseStorePath)
+                storePassword releaseStorePassword
+                keyAlias releaseKeyAlias
+                keyPassword releaseKeyPassword
+                storeType 'PKCS12'
+            }
+        }
+    }
+
+    buildTypes {
+        debug {
+            applicationIdSuffix '.debug'
+            versionNameSuffix '-debug'
+        }
+        release {
+            minifyEnabled false
+            shrinkResources false
+            signingConfig hasReleaseSigning ? signingConfigs.release : signingConfigs.debug
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    buildFeatures {
+        buildConfig true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    lint {
+        abortOnError true
+        checkReleaseBuilds true
+    }
+}

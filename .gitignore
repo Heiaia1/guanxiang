@@ -10,3 +10,10 @@ project.private.config.json
 output/playwright/
 dist/
 *.log
+android/.gradle/
+android/local.properties
+android/app/build/
+android/signing/
+*.jks
+*.keystore
+*.p12

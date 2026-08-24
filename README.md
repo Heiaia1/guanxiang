@@ -1,10 +1,11 @@
-# 观象录 · 微信小程序与 Windows 桌面版
+# 观象录 · Android、微信小程序与 Windows 桌面版
 
-本仓库包含一套可直接导入微信开发者工具的原生 TypeScript 小程序，以及无需微信开发者工具、可双击运行的 Windows 桌面版。两端共用评估、分析、安全拦截、六十四卦和札记内容，将《周易》用于传统文化学习、现实情境反思和行动记录，不预测未来必然结果。
+本仓库包含可安装的 Android App、可直接导入微信开发者工具的原生 TypeScript 小程序，以及无需微信开发者工具、可双击运行的 Windows 桌面版。三端共用评估、分析、安全拦截、六十四卦和札记内容，将《周易》用于传统文化学习、现实情境反思和行动记录，不预测未来必然结果。
 
 ## 免费下载
 
 - Windows 用户可从 [GitHub Releases](../../releases/latest) 下载 `Guanxiang-Windows.zip`，解压后双击 `打开观象录桌面版.vbs`。
+- Android 用户可从 [GitHub Releases](../../releases/latest) 下载 `Guanxiang-Android-*.apk`。首次安装 GitHub 下载的 APK 时，Android 会要求仅对当前浏览器允许“安装未知应用”；安装完成后可立即关闭该权限。
 - 微信小程序开发者可下载源码后，在微信开发者工具中导入仓库根目录。
 - 当前版本完全免费、无每日次数限制、无登录、无广告、无联网服务，也不会在本机伪造无法可靠执行的付费限制。
 - 软件免费不代表放弃著作权。个人可以免费使用和学习；商业部署、收费分发、换皮上架或把本项目作为付费服务，需要另行获得书面授权，详见 [许可证](LICENSE.md) 与 [商业合作说明](COMMERCIAL.md)。
@@ -13,6 +14,7 @@
 
 - 13 个完整页面：启动、说明、首页、领域选择、问题输入、五题评估、六爻生成、结果、观象札记、文化馆、单卦详情、历史记录和设置。
 - Windows 桌面版：独立应用窗口、完整问事评估、今日观象、铜钱互动、结果、文化馆、札记、历史、收藏与设置。
+- Android App：原生离线 WebView 宿主、手机底部导航、系统返回键、刘海/手势安全区、应用图标、旋转与进程恢复、签名 APK 云构建。
 - 情境观象、今日观象和三枚铜钱六次互动三种流程。
 - 64 卦、384 条爻辞、八卦基础资料、白话文化解释与现实行动建议。
 - 24 篇观象札记，覆盖进退、工作、关系、学习、家庭和自省；首页每日稳定推荐，支持分类、搜索和展开阅读。
@@ -32,6 +34,8 @@ guanxiang
 │  ├─ pages/           # 13 个页面
 │  └─ components/      # 卦象与确认交互组件
 ├─ desktop/              # Windows 桌面版界面与自动生成的共享核心
+├─ android/              # Android 原生宿主、资源、图标和 Gradle 配置
+├─ .github/workflows/    # 免费云构建与 GitHub Release 发布
 ├─ tests/                # Node 行为、覆盖、存储故障与页面契约测试
 ├─ scripts/              # 无外部服务的全项目静态校验
 ├─ docs/                 # 产品、内容、隐私、协议、测试与提审文档
@@ -56,6 +60,7 @@ npm.cmd run validate
 1. 行为与页面契约测试。
 2. TypeScript 全量类型检查。
 3. 13 页四件套、64 卦/384 爻、24 篇札记、JSON、导航、组件、远程资源、禁用文案和主包体积校验。
+4. Android 离线资源同步、宿主安全配置和发布工作流契约校验。
 
 本次干净安装与全量验证的环境、统计和证据见 [本地交付验证报告](docs/validation-report.md)。
 
@@ -75,7 +80,7 @@ npm.cmd run validate
 
 双击项目根目录的 `打开观象录桌面版.vbs`。启动器会把中文项目路径转换成 UTF-8 文件地址，并使用系统已有的 Microsoft Edge 应用窗口模式打开，不需要微信、开发者工具、本地服务器或命令行窗口。
 
-桌面版支持首页、五题问事、今日观象、铜钱互动、结果生成、六十四卦、观象札记、历史记录、收藏和本地设置。记录、收藏和设置保存在当前 Windows 用户的 Edge 本地存储中，与微信小程序数据相互独立，不会自动同步。
+桌面版与 Android App 支持首页、五题问事、今日观象、铜钱互动、结果生成、六十四卦、观象札记、历史记录、收藏和本地设置。记录、收藏和设置保存在各自应用的本地存储中，与微信小程序数据相互独立，不会自动同步。
 
 若系统没有安装 Edge，启动器会退回默认浏览器打开。开发调试时也可以执行：
 
@@ -83,7 +88,9 @@ npm.cmd run validate
 npm.cmd run desktop:serve
 ```
 
-修改 `miniprogram/data` 或共享引擎后，执行 `npm.cmd run generate` 即可同时更新微信运行时数据和桌面共享核心。
+修改 `miniprogram/data` 或共享引擎后，执行 `npm.cmd run generate` 即可同时更新微信运行时数据、桌面共享核心与 Android assets。
+
+Android APK 由 `.github/workflows/android-release.yml` 在 GitHub Actions 免费构建；推送 `v*` 标签后会自动生成 GitHub Release。安装、签名备份和发布步骤见 [Android 发布说明](docs/android-release-readme.md)，可直接复制的商店资料见 [Android 商店资料](docs/android-store-listing.md)。
 
 ## 数据与隐私
 
@@ -111,4 +118,4 @@ npm.cmd run desktop:serve
 
 ## 当前验证边界
 
-已完成 Node 自动测试、TypeScript 检查、页面加载契约、桌面浏览器完整流程、刷新持久化和项目结构校验。当前工作区没有用户的真实 AppID，也没有代替用户完成微信体验版、iOS/Android 真机或平台提审，因此这些项目不属于已验证结论。
+已完成 Node 自动测试、TypeScript 检查、页面加载契约、桌面浏览器完整流程、刷新持久化和项目结构校验。Android 工程继续通过 GitHub Actions 完成真实编译、Lint 和签名 APK 验证。当前工作区没有用户的微信真实 AppID，也没有代替用户完成微信体验版、Android 多品牌真机或第三方商店人工审核，因此这些项目不属于已验证结论。
