@@ -3,8 +3,8 @@ import './globals.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://guanxiang-app.scfj8gkrzf.chatgpt.site'),
-  title: '风后奇门｜免费下载 Android App',
-  description: '以风后奇门的九宫方位与时空秩序为视觉主题。完全免费、无需登录、无广告、断网可用。',
+  title: '风后奇门｜iOS 与 Android App',
+  description: '以风后奇门的九宫方位与时空秩序为视觉主题。Android 可直接下载，iOS 已进入 App Store 上架流程。',
   alternates: { canonical: '/' },
   openGraph: {
     title: '风后奇门｜风起九宫，门开万象。',

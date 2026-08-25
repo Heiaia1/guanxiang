@@ -1,5 +1,5 @@
 const androidDownloadUrl = 'downloads/Guanxiang-Android-v1.1.0.apk';
-const releasePageUrl = 'https://github.com/Heiaia1/guanxiang/releases/latest';
+const iosStatusUrl = 'https://github.com/Heiaia1/guanxiang/blob/main/docs/ios-release-readme.md';
 
 const features = [
   { number: '01', title: '三种观象方式', description: '情境观象、今日观象与三枚铜钱互动，按你的当下需要选择。' },
@@ -15,14 +15,14 @@ export default function Home() {
           <span className="brand-mark" aria-hidden="true">九</span><span>风后奇门</span>
         </a>
         <div className="nav-links">
-          <a href="#features">功能</a><a href="#install">安装说明</a>
+          <a href="#features">功能</a><a href="#install">安装说明</a><a href="#ios">iOS</a>
           <a className="nav-download" href={androidDownloadUrl} download>下载 App</a>
         </div>
       </nav>
 
       <section className="hero shell" id="top">
         <div className="hero-copy">
-          <p className="eyebrow"><span /> 风后奇门主题 · Android 免费版</p>
+          <p className="eyebrow"><span /> 风后奇门主题 · iOS 与 Android</p>
           <h1>风起九宫，<br /><em>门开万象。</em></h1>
           <p className="hero-description">取风后奇门的九宫方位与时空秩序为视觉灵感，帮助你安定心绪、审视处境，找到此刻可以执行的下一步。</p>
           <div className="hero-actions">
@@ -30,7 +30,7 @@ export default function Home() {
               <span className="android-icon" aria-hidden="true">↓</span>
               <span><strong>下载 Android App</strong><small>支持 Android 7.0 及以上</small></span>
             </a>
-            <a className="text-link" href={releasePageUrl} target="_blank" rel="noreferrer">查看版本详情 <span aria-hidden="true">↗</span></a>
+            <a className="text-link" href="#ios">查看 iOS 版 <span aria-hidden="true">↓</span></a>
           </div>
           <ul className="trust-row" aria-label="应用特点"><li>完全免费</li><li>无需登录</li><li>断网可用</li></ul>
         </div>
@@ -52,6 +52,20 @@ export default function Home() {
             </div>
           </div>
           <p className="vertical-note" aria-hidden="true">以古观今 · 知止而后定</p>
+        </div>
+      </section>
+
+      <section className="ios-panel shell" id="ios">
+        <div>
+          <p className="eyebrow"><span /> iPhone · iPad</p>
+          <h2>iOS 原生版<br />已进入上架流程</h2>
+        </div>
+        <div className="ios-copy">
+          <p>iOS 版已完成原生应用工程、离线功能、设备图标、隐私清单和 App Store 自动上传流程。正式下载链接将在 Apple 审核通过后开放。</p>
+          <ul><li>最低支持 iOS 15</li><li>无需登录，断网可用</li><li>记录只保存在当前设备</li></ul>
+          <a className="primary-button ios-button" href={iosStatusUrl} target="_blank" rel="noreferrer">
+            <span className="apple-icon" aria-hidden="true"></span><span><strong>查看 iOS 上架进度</strong><small>App Store 审核通过后开放下载</small></span>
+          </a>
         </div>
       </section>
 
@@ -89,7 +103,7 @@ export default function Home() {
       <footer className="shell footer">
         <div className="brand"><span className="brand-mark" aria-hidden="true">九</span><span>风后奇门</span></div>
         <p>东方时空观主题 · 传统文化学习与个人反思工具<br />不用于预测、诊断或替代专业意见</p>
-        <div className="footer-links"><a href="https://github.com/Heiaia1/guanxiang/blob/main/docs/privacy-policy.md">隐私说明</a><a href="https://github.com/Heiaia1/guanxiang">项目源码</a></div>
+        <div className="footer-links"><a href="https://github.com/Heiaia1/guanxiang/blob/main/docs/privacy-policy-ios.md">iOS 隐私</a><a href="https://github.com/Heiaia1/guanxiang">项目源码</a></div>
       </footer>
     </main>
   );
