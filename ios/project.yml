@@ -1,0 +1,38 @@
+name: Guanxiang
+options:
+  bundleIdPrefix: com.heiaia1
+  deploymentTarget:
+    iOS: "15.0"
+  xcodeVersion: "16.0"
+settings:
+  base:
+    MARKETING_VERSION: 1.1.0
+    CURRENT_PROJECT_VERSION: 2
+    SWIFT_VERSION: 5.0
+    IPHONEOS_DEPLOYMENT_TARGET: 15.0
+targets:
+  Guanxiang:
+    type: application
+    platform: iOS
+    sources:
+      - path: Guanxiang
+        excludes:
+          - Resources
+          - Assets.xcassets
+    resources:
+      - path: Guanxiang/Resources
+      - path: Guanxiang/Assets.xcassets
+    info:
+      path: Guanxiang/Info.plist
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.heiaia1.guanxiang
+        PRODUCT_NAME: 观象录
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        CODE_SIGN_STYLE: Automatic
+        TARGETED_DEVICE_FAMILY: "1,2"
+        SUPPORTS_MACCATALYST: NO
+        GENERATE_INFOPLIST_FILE: NO
+    scheme:
+      gatherCoverageData: false
+      testTargets: []

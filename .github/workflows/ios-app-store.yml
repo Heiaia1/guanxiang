@@ -1,0 +1,120 @@
+name: iOS App Store Upload
+
+on:
+  workflow_dispatch:
+    inputs:
+      upload:
+        description: '验证成功后上传到 App Store Connect'
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  archive-and-upload:
+    runs-on: macos-15
+    env:
+      APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+      IOS_DISTRIBUTION_P12_BASE64: ${{ secrets.IOS_DISTRIBUTION_P12_BASE64 }}
+      IOS_DISTRIBUTION_P12_PASSWORD: ${{ secrets.IOS_DISTRIBUTION_P12_PASSWORD }}
+      IOS_PROVISIONING_PROFILE_BASE64: ${{ secrets.IOS_PROVISIONING_PROFILE_BASE64 }}
+      APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
+      APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+      APP_STORE_CONNECT_API_KEY_BASE64: ${{ secrets.APP_STORE_CONNECT_API_KEY_BASE64 }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Check required Apple credentials
+        run: |
+          for name in APPLE_TEAM_ID IOS_DISTRIBUTION_P12_BASE64 IOS_DISTRIBUTION_P12_PASSWORD IOS_PROVISIONING_PROFILE_BASE64 APP_STORE_CONNECT_KEY_ID APP_STORE_CONNECT_ISSUER_ID APP_STORE_CONNECT_API_KEY_BASE64; do
+            test -n "${!name}" || { echo "Missing GitHub secret: $name" >&2; exit 1; }
+          done
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Generate and validate source
+        run: |
+          npm ci
+          npm run validate
+          brew install xcodegen
+          cd ios
+          xcodegen generate
+
+      - name: Install signing certificate and profile
+        env:
+          KEYCHAIN_PASSWORD: ${{ github.run_id }}-${{ github.run_attempt }}
+        run: |
+          CERTIFICATE_PATH="$RUNNER_TEMP/distribution.p12"
+          PROFILE_PATH="$RUNNER_TEMP/profile.mobileprovision"
+          KEYCHAIN_PATH="$RUNNER_TEMP/guanxiang-signing.keychain-db"
+          echo "$IOS_DISTRIBUTION_P12_BASE64" | base64 --decode > "$CERTIFICATE_PATH"
+          echo "$IOS_PROVISIONING_PROFILE_BASE64" | base64 --decode > "$PROFILE_PATH"
+          security create-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+          security set-keychain-settings -lut 21600 "$KEYCHAIN_PATH"
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+          security import "$CERTIFICATE_PATH" -P "$IOS_DISTRIBUTION_P12_PASSWORD" -A -t cert -f pkcs12 -k "$KEYCHAIN_PATH"
+          security list-keychain -d user -s "$KEYCHAIN_PATH"
+          security set-key-partition-list -S apple-tool:,apple: -k "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+          DECODED_PROFILE="$RUNNER_TEMP/profile.plist"
+          security cms -D -i "$PROFILE_PATH" > "$DECODED_PROFILE"
+          PROFILE_UUID=$(/usr/libexec/PlistBuddy -c 'Print :UUID' "$DECODED_PROFILE")
+          PROFILE_NAME=$(/usr/libexec/PlistBuddy -c 'Print :Name' "$DECODED_PROFILE")
+          mkdir -p "$HOME/Library/MobileDevice/Provisioning Profiles"
+          cp "$PROFILE_PATH" "$HOME/Library/MobileDevice/Provisioning Profiles/$PROFILE_UUID.mobileprovision"
+          echo "PROFILE_UUID=$PROFILE_UUID" >> "$GITHUB_ENV"
+          echo "PROFILE_NAME=$PROFILE_NAME" >> "$GITHUB_ENV"
+
+      - name: Archive signed app
+        run: |
+          set -o pipefail
+          xcodebuild \
+            -project ios/Guanxiang.xcodeproj \
+            -scheme Guanxiang \
+            -configuration Release \
+            -destination 'generic/platform=iOS' \
+            -archivePath "$RUNNER_TEMP/Guanxiang.xcarchive" \
+            DEVELOPMENT_TEAM="$APPLE_TEAM_ID" \
+            CODE_SIGN_STYLE=Manual \
+            PROVISIONING_PROFILE_SPECIFIER="$PROFILE_NAME" \
+            clean archive | tee ios-archive.log
+
+      - name: Export App Store IPA
+        run: |
+          sed -e "s/APPLE_TEAM_ID_PLACEHOLDER/$APPLE_TEAM_ID/g" -e "s/PROFILE_NAME_PLACEHOLDER/$PROFILE_NAME/g" ios/ExportOptions.template.plist > "$RUNNER_TEMP/ExportOptions.plist"
+          xcodebuild -exportArchive \
+            -archivePath "$RUNNER_TEMP/Guanxiang.xcarchive" \
+            -exportPath "$RUNNER_TEMP/export" \
+            -exportOptionsPlist "$RUNNER_TEMP/ExportOptions.plist"
+          test -f "$RUNNER_TEMP/export/观象录.ipa"
+
+      - name: Validate with App Store Connect
+        run: |
+          mkdir -p "$HOME/.appstoreconnect/private_keys"
+          echo "$APP_STORE_CONNECT_API_KEY_BASE64" | base64 --decode > "$HOME/.appstoreconnect/private_keys/AuthKey_${APP_STORE_CONNECT_KEY_ID}.p8"
+          xcrun altool --validate-app \
+            -f "$RUNNER_TEMP/export/观象录.ipa" \
+            -t ios \
+            --apiKey "$APP_STORE_CONNECT_KEY_ID" \
+            --apiIssuer "$APP_STORE_CONNECT_ISSUER_ID"
+
+      - name: Upload to App Store Connect
+        if: ${{ inputs.upload }}
+        run: |
+          xcrun altool --upload-app \
+            -f "$RUNNER_TEMP/export/观象录.ipa" \
+            -t ios \
+            --apiKey "$APP_STORE_CONNECT_KEY_ID" \
+            --apiIssuer "$APP_STORE_CONNECT_ISSUER_ID"
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: Guanxiang-iOS-App-Store
+          path: |
+            ${{ runner.temp }}/export/观象录.ipa
+            ios-archive.log
+          if-no-files-found: error

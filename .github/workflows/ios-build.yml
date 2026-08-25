@@ -1,0 +1,68 @@
+name: iOS Build
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'ios/**'
+      - 'desktop/**'
+      - 'miniprogram/**'
+      - 'scripts/**'
+      - 'tests/**'
+      - 'package*.json'
+      - '.github/workflows/ios-build.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Generate and validate shared app
+        run: |
+          npm ci
+          npm run validate
+
+      - name: Generate Xcode project
+        run: |
+          brew install xcodegen
+          cd ios
+          xcodegen generate
+
+      - name: Build unsigned simulator app
+        run: |
+          set -o pipefail
+          xcodebuild \
+            -project ios/Guanxiang.xcodeproj \
+            -scheme Guanxiang \
+            -configuration Release \
+            -sdk iphonesimulator \
+            -derivedDataPath ios/build \
+            CODE_SIGNING_ALLOWED=NO \
+            clean build | tee ios-build.log
+
+      - name: Package and inspect app
+        run: |
+          APP_PATH="ios/build/Build/Products/Release-iphonesimulator/观象录.app"
+          test -d "$APP_PATH"
+          /usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$APP_PATH/Info.plist" | grep -Fx 'com.heiaia1.guanxiang'
+          test -f "$APP_PATH/web/index.html"
+          ditto -c -k --sequesterRsrc --keepParent "$APP_PATH" Guanxiang-iOS-Simulator.zip
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: Guanxiang-iOS-Simulator
+          path: |
+            Guanxiang-iOS-Simulator.zip
+            ios-build.log
+          if-no-files-found: error
+

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+  <key>method</key><string>app-store-connect</string>
+  <key>destination</key><string>export</string>
+  <key>signingStyle</key><string>manual</string>
+  <key>teamID</key><string>APPLE_TEAM_ID_PLACEHOLDER</string>
+  <key>stripSwiftSymbols</key><true/>
+  <key>uploadBitcode</key><false/>
+  <key>provisioningProfiles</key><dict>
+    <key>com.heiaia1.guanxiang</key><string>PROFILE_NAME_PLACEHOLDER</string>
+  </dict>
+</dict></plist>

@@ -5,8 +5,10 @@
   const app = document.getElementById('app')
   const toast = document.getElementById('toast')
   const isAndroid = /GuanxiangAndroid\//.test(navigator.userAgent)
-  const platformLabel = isAndroid ? '安卓版' : '桌面版'
-  const storageLabel = isAndroid ? '当前手机' : '当前 Windows 用户的浏览器'
+  const isIOS = /GuanxiangIOS\//.test(navigator.userAgent)
+  const isMobile = isAndroid || isIOS
+  const platformLabel = isAndroid ? '安卓版' : isIOS ? 'iOS 版' : '桌面版'
+  const storageLabel = isMobile ? '当前手机' : '当前 Windows 用户的浏览器'
   const STORAGE = {
     records: 'gx_desktop_records',
     favorites: 'gx_desktop_favorites',
@@ -122,7 +124,7 @@
     const favorites = getFavorites()
     const note = core.wisdom.getWisdomOfDay(dateKey())
     return `<section class="view">
-      ${pageHead(isAndroid ? 'GUAN XIANG · ANDROID' : 'GUAN XIANG · DESKTOP', '观象录', `不问远处的定数，只看当下有哪些条件可以改变。${platformLabel}与微信小程序共用同一套离线内容和分析规则。`)}
+      ${pageHead(isAndroid ? 'GUAN XIANG · ANDROID' : isIOS ? 'GUAN XIANG · IOS' : 'GUAN XIANG · DESKTOP', '观象录', `不问远处的定数，只看当下有哪些条件可以改变。${platformLabel}与微信小程序共用同一套离线内容和分析规则。`)}
       <div class="hero panel">
         <div class="hero__label">今日 · ${h(dateKey())}</div>
         <div class="hero__quote">${h(note ? note.principle : '先理解当前条件，再选择一个可验证的现实行动。')}</div>
@@ -472,7 +474,7 @@
       if (window.confirm(`确认清除${platformLabel}全部记录、收藏和设置？此操作无法恢复。`)) {
         Object.values(STORAGE).forEach((key) => localStorage.removeItem(key))
         state.currentRecordId = ''
-        showToast('桌面版本地数据已清除')
+        showToast(`${platformLabel}本地数据已清除`)
         render()
       }
     }
@@ -499,7 +501,7 @@
     app.innerHTML = '<section class="view"><div class="panel empty"><strong>离线核心没有加载</strong>请重新安装应用或运行项目生成命令。</div></section>'
     return
   }
-  window.GX_ANDROID_BACK = function handleAndroidBack() {
+  function handleNativeBack() {
     if (state.legalDoc) {
       state.legalDoc = ''
       navigate('settings')
@@ -522,5 +524,7 @@
     }
     return false
   }
+  window.GX_NATIVE_BACK = handleNativeBack
+  window.GX_ANDROID_BACK = handleNativeBack
   render()
 })()

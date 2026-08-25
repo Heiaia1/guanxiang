@@ -1,6 +1,6 @@
-# 观象录 · Android、微信小程序与 Windows 桌面版
+# 观象录 · iOS、Android、微信小程序与 Windows 桌面版
 
-本仓库包含可安装的 Android App、可直接导入微信开发者工具的原生 TypeScript 小程序，以及无需微信开发者工具、可双击运行的 Windows 桌面版。三端共用评估、分析、安全拦截、六十四卦和札记内容，将《周易》用于传统文化学习、现实情境反思和行动记录，不预测未来必然结果。
+本仓库包含原生 iOS/Android 离线 App、可直接导入微信开发者工具的 TypeScript 小程序，以及无需微信开发者工具、可双击运行的 Windows 桌面版。四端共用评估、分析、安全拦截、六十四卦和札记内容，将《周易》用于传统文化学习、现实情境反思和行动记录，不预测未来必然结果。
 
 ## 免费下载
 
@@ -8,6 +8,7 @@
 - GitHub Pages 镜像：[heiaia1.github.io/guanxiang](https://heiaia1.github.io/guanxiang/)，网站源码位于本仓库的 `website` 分支，推送后由 GitHub Actions 自动上线。
 - Windows 用户可从 [GitHub Releases](../../releases/latest) 下载 `Guanxiang-Windows.zip`，解压后双击 `打开观象录桌面版.vbs`。
 - Android 用户可从 [GitHub Releases](../../releases/latest) 下载 `Guanxiang-Android-*.apk`。首次安装 GitHub 下载的 APK 时，Android 会要求仅对当前浏览器允许“安装未知应用”；安装完成后可立即关闭该权限。
+- iPhone/iPad 版已提供可编译、签名和上传的原生 iOS 工程；正式下载必须在 Apple 审核通过后通过 App Store 提供，普通用户不能像 Android 一样直接安装未签名 IPA。
 - 微信小程序开发者可下载源码后，在微信开发者工具中导入仓库根目录。
 - 当前版本完全免费、无每日次数限制、无登录、无广告、无联网服务，也不会在本机伪造无法可靠执行的付费限制。
 - 软件免费不代表放弃著作权。个人可以免费使用和学习；商业部署、收费分发、换皮上架或把本项目作为付费服务，需要另行获得书面授权，详见 [许可证](LICENSE.md) 与 [商业合作说明](COMMERCIAL.md)。
@@ -17,6 +18,7 @@
 - 13 个完整页面：启动、说明、首页、领域选择、问题输入、五题评估、六爻生成、结果、观象札记、文化馆、单卦详情、历史记录和设置。
 - Windows 桌面版：独立应用窗口、完整问事评估、今日观象、铜钱互动、结果、文化馆、札记、历史、收藏与设置。
 - Android App：原生离线 WebView 宿主、手机底部导航、系统返回键、刘海/手势安全区、应用图标、旋转与进程恢复、签名 APK 云构建。
+- iOS App：UIKit + WKWebView 原生宿主、安装包内离线页面、持久本地数据、左侧返回手势、刘海/灵动岛安全区、iPhone/iPad 图标、隐私清单、macOS 云构建与 App Store 签名上传流水线。
 - 情境观象、今日观象和三枚铜钱六次互动三种流程。
 - 64 卦、384 条爻辞、八卦基础资料、白话文化解释与现实行动建议。
 - 24 篇观象札记，覆盖进退、工作、关系、学习、家庭和自省；首页每日稳定推荐，支持分类、搜索和展开阅读。
@@ -37,6 +39,7 @@ guanxiang
 │  └─ components/      # 卦象与确认交互组件
 ├─ desktop/              # Windows 桌面版界面与自动生成的共享核心
 ├─ android/              # Android 原生宿主、资源、图标和 Gradle 配置
+├─ ios/                  # iOS UIKit 宿主、XcodeGen 配置、资源、图标和隐私清单
 ├─ .github/workflows/    # 免费云构建与 GitHub Release 发布
 ├─ tests/                # Node 行为、覆盖、存储故障与页面契约测试
 ├─ scripts/              # 无外部服务的全项目静态校验
@@ -62,7 +65,7 @@ npm.cmd run validate
 1. 行为与页面契约测试。
 2. TypeScript 全量类型检查。
 3. 13 页四件套、64 卦/384 爻、24 篇札记、JSON、导航、组件、远程资源、禁用文案和主包体积校验。
-4. Android 离线资源同步、宿主安全配置和发布工作流契约校验。
+4. Android/iOS 离线资源同步、宿主安全配置、图标尺寸和发布工作流契约校验。
 
 本次干净安装与全量验证的环境、统计和证据见 [本地交付验证报告](docs/validation-report.md)。
 
@@ -90,9 +93,11 @@ npm.cmd run validate
 npm.cmd run desktop:serve
 ```
 
-修改 `miniprogram/data` 或共享引擎后，执行 `npm.cmd run generate` 即可同时更新微信运行时数据、桌面共享核心与 Android assets。
+修改 `miniprogram/data` 或共享引擎后，执行 `npm.cmd run generate` 即可同时更新微信运行时数据、桌面共享核心与 Android/iOS assets。
 
 Android APK 由 `.github/workflows/android-release.yml` 在 GitHub Actions 免费构建；推送 `v*` 标签后会自动生成 GitHub Release。安装、签名备份和发布步骤见 [Android 发布说明](docs/android-release-readme.md)，可直接复制的商店资料见 [Android 商店资料](docs/android-store-listing.md)。
+
+iOS 无签名模拟器包由 `.github/workflows/ios-build.yml` 自动编译验证；`.github/workflows/ios-app-store.yml` 在配置 Apple 证书、描述文件和 App Store Connect API Key 后生成正式 IPA、执行 Apple 服务端验证，并可选择上传。完整操作见 [iOS 上架说明](docs/ios-release-readme.md)，商店文案见 [iOS 商店资料](docs/ios-store-listing.md)，iOS 隐私页见 [iOS 隐私说明](docs/privacy-policy-ios.md)。
 
 ## 数据与隐私
 
@@ -120,4 +125,4 @@ Android APK 由 `.github/workflows/android-release.yml` 在 GitHub Actions 免�
 
 ## 当前验证边界
 
-已完成 Node 自动测试、TypeScript 检查、页面加载契约、桌面浏览器完整流程、刷新持久化和项目结构校验。Android 工程继续通过 GitHub Actions 完成真实编译、Lint 和签名 APK 验证。当前工作区没有用户的微信真实 AppID，也没有代替用户完成微信体验版、Android 多品牌真机或第三方商店人工审核，因此这些项目不属于已验证结论。
+已完成 Node 自动测试、TypeScript 检查、页面加载契约、桌面浏览器完整流程、刷新持久化和项目结构校验。Android 与 iOS 工程通过 GitHub Actions 分别执行真实 Gradle/Xcode 编译。当前工作区没有用户的 Apple Developer 凭据、App Store Connect 应用记录和 iOS 真机，因此尚未完成正式 IPA 签名上传、TestFlight 真机和 Apple 人工审核；这些项目不属于已验证结论。
