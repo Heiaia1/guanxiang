@@ -55,7 +55,7 @@ jobs:
           APP_PATH="ios/build/Build/Products/Release-iphonesimulator/观象录.app"
           test -d "$APP_PATH"
           /usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$APP_PATH/Info.plist" | grep -Fx 'com.heiaia1.guanxiang'
-          test -f "$APP_PATH/web/index.html"
+          test -f "$APP_PATH/index.html"
           ditto -c -k --sequesterRsrc --keepParent "$APP_PATH" Guanxiang-iOS-Simulator.zip
 
       - uses: actions/upload-artifact@v7
@@ -65,4 +65,3 @@ jobs:
             Guanxiang-iOS-Simulator.zip
             ios-build.log
           if-no-files-found: error
-

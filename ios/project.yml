@@ -19,9 +19,10 @@ targets:
         excludes:
           - Resources
           - Assets.xcassets
-    resources:
-      - path: Guanxiang/Resources
       - path: Guanxiang/Assets.xcassets
+        buildPhase: resources
+      - path: Guanxiang/Resources/web
+        buildPhase: resources
     info:
       path: Guanxiang/Info.plist
     settings:

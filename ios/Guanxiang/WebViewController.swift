@@ -48,8 +48,8 @@ final class WebViewController: UIViewController, WKNavigationDelegate, UIGesture
     }
 
     private func loadBundledApp() {
-        guard let indexURL = Bundle.main.url(forResource: "index", withExtension: "html", subdirectory: "web"),
-              let webRoot = Bundle.main.url(forResource: "web", withExtension: nil) else {
+        guard let indexURL = Bundle.main.url(forResource: "index", withExtension: "html"),
+              let webRoot = Bundle.main.resourceURL else {
             showLoadError()
             return
         }
