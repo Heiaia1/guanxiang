@@ -1,5 +1,7 @@
 # 免费使用与商业合作
 
+项目作者与维护者：**风后奇门**
+
 ## 当前免费范围
 
 - Windows 桌面版可供个人永久免费使用。
@@ -19,3 +21,7 @@
 项目基础能力继续免费时，可以通过商业授权、定制版本、专题内容包、跨设备同步和团队管理功能获得收入。付费能力必须保持清晰边界，不以“预测准确”“转运”“保证结果”等方式营销。
 
 有商业合作需求时，请在 GitHub Issues 中创建标题以“商业合作”开头的议题，说明主体、使用场景、预计用户量和希望获得的授权范围。不要在公开议题中提交身份证、证书、密钥或其他敏感信息。
+
+## English
+
+Guanxiang is maintained by **Fenghou Qimen (风后奇门)**. Personal and non-commercial use is free. Commercial deployment, paid redistribution, rebranding, institutional use, or integration into another product requires a separate written license. Please open a GitHub Issue whose title begins with `Commercial Inquiry` and describe the intended use without posting credentials or other sensitive information.

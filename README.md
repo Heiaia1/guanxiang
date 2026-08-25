@@ -2,6 +2,25 @@
 
 本仓库包含原生 iOS/Android 离线 App、可直接导入微信开发者工具的 TypeScript 小程序，以及无需微信开发者工具、可双击运行的 Windows 桌面版。四端共用评估、分析、安全拦截、六十四卦和札记内容，将《周易》用于传统文化学习、现实情境反思和行动记录，不预测未来必然结果。
 
+作者与维护者：**风后奇门**
+
+## English Introduction
+
+**Guanxiang** is a free, offline-first I Ching culture and personal reflection application maintained by **Fenghou Qimen (风后奇门)**. It helps users organize real-life situations, review changing conditions, and turn reflection into practical next steps. It does not claim to predict fixed outcomes and is not a substitute for medical, legal, financial, or safety advice.
+
+The project currently provides:
+
+- native offline apps for Android and iOS;
+- a native TypeScript WeChat Mini Program;
+- a Windows desktop edition that runs locally through Microsoft Edge;
+- three reflection flows: situational assessment, daily observation, and traditional three-coin interaction;
+- all 64 hexagrams, 384 line texts, modern cultural explanations, and 24 practical reflection notes;
+- local-only history, favorites, and preferences, with no account, advertising, payment, analytics, or remote AI service.
+
+Android and Windows builds are available from [GitHub Releases](../../releases/latest). The iOS project includes a build and App Store delivery pipeline, but public installation requires Apple review and an official App Store release. Developers can import the repository root directly into WeChat DevTools for local Mini Program testing.
+
+Personal, educational, and non-commercial use is free. Commercial deployment, paid redistribution, rebranding, or integration into another paid product requires prior written permission. See [LICENSE.md](LICENSE.md) and [COMMERCIAL.md](COMMERCIAL.md).
+
 ## 免费下载
 
 - 官方网站：[风后奇门主题 App 下载页](https://guanxiang-app.scfj8gkrzf.chatgpt.site)，手机打开后点击“下载 Android App”即可从 Cloudflare 同源直连下载安装包。

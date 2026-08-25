@@ -1,6 +1,6 @@
 # 观象录个人免费与非商业源码许可
 
-版权所有 © 2026 观象录项目作者。保留所有未明确授予的权利。
+版权所有 © 2026 风后奇门。保留所有未明确授予的权利。
 
 在遵守本许可的前提下，任何个人均可免费获得并使用本软件，用于个人学习、研究、评价和非商业体验，也可以为上述目的在自己的设备上修改源代码。
 
@@ -18,4 +18,4 @@
 
 商业使用、定制开发、机构部署、内容授权或再分发许可，请通过本仓库的 GitHub Issues 联系并说明用途。
 
-This project is source-available, not open source under an OSI-approved license. Personal, educational and non-commercial use is permitted subject to the terms above. Commercial use and redistribution require prior written permission.
+Copyright © 2026 Fenghou Qimen (风后奇门). This project is source-available, not open source under an OSI-approved license. Personal, educational and non-commercial use is permitted subject to the terms above. Commercial use and redistribution require prior written permission.
