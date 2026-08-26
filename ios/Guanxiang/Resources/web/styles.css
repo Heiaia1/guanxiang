@@ -116,6 +116,12 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
 .content-grid { margin-top: 30px; }
 .card-button { min-height: 154px; padding: 24px; text-align: left; transition: 160ms ease; }
 .card-button__mark { color: var(--gold); font: 30px "KaiTi", serif; }
+.review-banner { display: flex; align-items: center; gap: 16px; width: 100%; margin-top: 16px; padding: 18px 22px; color: var(--text); text-align: left; background: rgba(120, 149, 138, 0.1); }
+.review-banner span:nth-child(2) { display: grid; flex: 1; gap: 4px; }
+.review-banner small { color: var(--muted); }
+.support-card { padding: 24px; }
+.support-card h3 { margin: 14px 0 8px; }
+.support-card p { min-height: 58px; color: var(--muted); line-height: 1.65; }
 .card-button h3 { margin: 24px 0 7px; font-size: 18px; }
 .card-button p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.55; }
 .stat { padding: 22px; }
@@ -200,6 +206,10 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
 .wisdom-detail p + strong { display: block; margin-top: 16px; }
 .history-card { display: grid; grid-template-columns: 1fr auto; gap: 18px; align-items: center; }
 .history-actions { display: flex; gap: 8px; }
+.review-status { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 14px; border-radius: 12px; color: #b9d0c7; font-size: 12px; background: rgba(120, 149, 138, 0.1); }
+.review-status--due { color: #ead49e; background: rgba(194, 170, 114, 0.12); }
+.review-status--completed { color: var(--muted); }
+.review-status button { width: auto; color: inherit; }
 
 .empty { margin-top: 28px; padding: 60px 28px; color: var(--muted); text-align: center; }
 .empty strong { display: block; margin-bottom: 8px; color: var(--text); font-size: 20px; }

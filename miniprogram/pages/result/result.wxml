@@ -140,6 +140,10 @@
         >
           {{saved ? "已保存 · 再次更新" : "保存本次观象"}}
         </button>
+        <button class="review-button" disabled="{{saving}}" bindtap="scheduleThirtyDayReview">
+          {{reviewState === "pending" || reviewState === "due" ? "已安排 · " + reviewDate + " 回看" : reviewState === "completed" ? "重新安排 30 天回看" : "30 天后提醒我回看"}}
+        </button>
+        <view class="review-note">提醒保存在本机；下次打开观象录时显示，不申请系统通知权限。</view>
         <view class="result-actions__row">
           <button class="secondary-button" bindtap="toggleFavorite">
             {{isFavorite ? "已收藏此卦" : "收藏此卦"}}

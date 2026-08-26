@@ -15,7 +15,7 @@ The project currently provides:
 - a Windows desktop edition that runs locally through Microsoft Edge;
 - three reflection flows: situational assessment, daily observation, and traditional three-coin interaction;
 - all 64 hexagrams, 384 line texts, modern cultural explanations, and 24 practical reflection notes;
-- local-only history, favorites, and preferences, with no account, advertising, payment, analytics, or remote AI service.
+- local-only history, favorites, 30-day review reminders, and preferences, with no account, advertising, payment, analytics, or remote AI service.
 
 Android and Windows builds are available from [GitHub Releases](../../releases/latest). The iOS project includes a build and App Store delivery pipeline, but public installation requires Apple review and an official App Store release. Developers can import the repository root directly into WeChat DevTools for local Mini Program testing.
 
@@ -34,7 +34,7 @@ Personal, educational, and non-commercial use is free. Commercial deployment, pa
 
 ## 已实现
 
-- 13 个完整页面：启动、说明、首页、领域选择、问题输入、五题评估、六爻生成、结果、观象札记、文化馆、单卦详情、历史记录和设置。
+- 14 个完整页面：启动、说明、首页、领域选择、问题输入、五题评估、六爻生成、结果、观象札记、文化馆、单卦详情、历史记录、支持项目和设置。
 - Windows 桌面版：独立应用窗口、完整问事评估、今日观象、铜钱互动、结果、文化馆、札记、历史、收藏与设置。
 - Android App：原生离线 WebView 宿主、手机底部导航、系统返回键、刘海/手势安全区、应用图标、旋转与进程恢复、签名 APK 云构建。
 - iOS App：UIKit + WKWebView 原生宿主、安装包内离线页面、持久本地数据、左侧返回手势、刘海/灵动岛安全区、iPhone/iPad 图标、隐私清单、macOS 云构建与 App Store 签名上传流水线。
@@ -46,6 +46,8 @@ Personal, educational, and non-commercial use is free. Commercial deployment, pa
 - 全本地草稿、历史、收藏和设置；无账号、无服务器、无 AI API、无支付、无广告。
 - CSS 水墨/粒子/六爻动效、程序音效、轻震动、省电模式和 Canvas 隐私分享卡。
 - 分享卡只绘制卦名、关键词和行动提醒，不包含用户原问题或结构化答案。
+- 结果可安排 30 天本地回看；到期后在首页和记录页提示并可标记完成，不申请系统通知权限。
+- 支持项目页提供自愿分享、GitHub 关注和商业授权/定制合作入口，分享不与结果解锁绑定。
 
 ## 项目结构
 
@@ -54,7 +56,7 @@ guanxiang
 ├─ miniprogram/          # 小程序运行代码、页面、组件和本地内容
 │  ├─ data/            # 六十四卦、观象札记、评估、领域、子场景与安全词库
 │  ├─ services/        # 评估、观象、卦象和本地存储深模块
-│  ├─ pages/           # 13 个页面
+│  ├─ pages/           # 14 个页面
 │  └─ components/      # 卦象与确认交互组件
 ├─ desktop/              # Windows 桌面版界面与自动生成的共享核心
 ├─ android/              # Android 原生宿主、资源、图标和 Gradle 配置
@@ -83,7 +85,7 @@ npm.cmd run validate
 
 1. 行为与页面契约测试。
 2. TypeScript 全量类型检查。
-3. 13 页四件套、64 卦/384 爻、24 篇札记、JSON、导航、组件、远程资源、禁用文案和主包体积校验。
+3. 14 页四件套、64 卦/384 爻、24 篇札记、JSON、导航、组件、远程资源、禁用文案和主包体积校验。
 4. Android/iOS 离线资源同步、宿主安全配置、图标尺寸和发布工作流契约校验。
 
 本次干净安装与全量验证的环境、统计和证据见 [本地交付验证报告](docs/validation-report.md)。
@@ -141,6 +143,8 @@ iOS 无签名模拟器包由 `.github/workflows/ios-build.yml` 自动编译验�
 ## 免费发布与后续商业化
 
 当前阶段以零服务器成本积累真实用户和反馈，不接支付、不设置容易绕过的本地次数墙。未来具备合规主体与支付条件后，可以继续保留基础版本免费，并将新增的跨设备同步、专题内容包、团队版或商业授权作为可选付费能力。任何付费版本都不应把文化反思内容宣传为预测、诊断或保证结果。
+
+完整的当前增长链路、合作收益方向、平台支付前置条件与合规边界见 [零成本增长与商业化路线](docs/monetization-roadmap.md)。
 
 ## 当前验证边界
 

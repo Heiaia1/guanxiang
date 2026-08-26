@@ -21,6 +21,8 @@ interface ObservationRecord {
   hexagramId: number
   favorite?: boolean
   createdAt: number
+  reviewAt?: number
+  reviewedAt?: number
   [key: string]: unknown
 }
 
@@ -176,6 +178,11 @@ function normalizeRecord(value: unknown): ObservationRecord {
   }
   if ('favorite' in value && typeof value.favorite !== 'boolean') {
     throw new StorageServiceError('CORRUPT_DATA', `本地记录 ${value.id} 的收藏状态无效`)
+  }
+  for (const field of ['reviewAt', 'reviewedAt']) {
+    if (field in value && (!Number.isFinite(value[field]) || Number(value[field]) < 0)) {
+      throw new StorageServiceError('CORRUPT_DATA', `本地记录 ${value.id} 的回看时间无效`)
+    }
   }
   return clone(value) as ObservationRecord
 }

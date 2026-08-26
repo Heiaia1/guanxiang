@@ -14,6 +14,7 @@ const {
   toggleFavorite
 } = require("../../services/storage-service")
 const { getUiPreferences, resolveTrigramScene } = require("../../services/ui-preferences")
+const { scheduleReview, getReviewState, formatReviewDate } = require("../../services/review-service")
 const DOMAIN_RULES = require('../../data/domain-rules-data') as Record<string, { name: string }>
 const CATEGORY_LABELS = Object.fromEntries(
   Object.entries(DOMAIN_RULES).map(([id, domain]) => [id, domain.name])
@@ -93,6 +94,8 @@ Page({
     shareCardPath: "",
     sharePreviewVisible: false,
     motionOff: false
+    ,reviewState: "none",
+    reviewDate: ""
   },
 
   draft: null as any,
@@ -215,7 +218,9 @@ Page({
           "先看清条件，再完成一个可以验证的小行动。",
         isFavorite: favorites.includes(hexagramId),
         saved: Boolean(record),
-        doNotSave: draft.doNotSave === true
+        doNotSave: draft.doNotSave === true,
+        reviewState: record ? getReviewState(record) : "none",
+        reviewDate: record?.reviewAt ? formatReviewDate(record.reviewAt) : ""
       })
       this.setShareAvailability(true)
 
@@ -275,7 +280,9 @@ Page({
       dailyState: draft.dailyState || "",
       dailyStateLabel: draft.dailyStateLabel || "",
       createdAt,
-      favorite: this.data.isFavorite
+      favorite: this.data.isFavorite,
+      reviewAt: Number(draft.reviewAt || 0),
+      reviewedAt: Number(draft.reviewedAt || 0)
     }
   },
 
@@ -308,6 +315,29 @@ Page({
 
   manualSave() {
     this.saveCurrent(false)
+  },
+
+  scheduleThirtyDayReview() {
+    if (this.data.blocked || this.data.error || this.data.saving) return
+    this.setData({ saving: true })
+    try {
+      const record = saveRecord(scheduleReview(this.buildRecord()))
+      this.recordId = record.id
+      this.draft = record
+      const persisted = (getRecords() || []).find((item: any) => item.id === record.id)
+      if (!persisted?.reviewAt) throw new Error("review not persisted")
+      this.setData({
+        saved: true,
+        saving: false,
+        doNotSave: false,
+        reviewState: getReviewState(persisted),
+        reviewDate: formatReviewDate(persisted.reviewAt)
+      })
+      wx.showToast({ title: "已安排 30 天后回看", icon: "success" })
+    } catch (_error) {
+      this.setData({ saving: false })
+      wx.showToast({ title: "回看计划保存失败", icon: "none" })
+    }
   },
 
   askRemoveRecord() {

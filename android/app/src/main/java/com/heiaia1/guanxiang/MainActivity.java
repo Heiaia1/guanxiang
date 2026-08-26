@@ -49,7 +49,7 @@ public final class MainActivity extends Activity {
         settings.setBlockNetworkLoads(true);
         settings.setMixedContentMode(WebSettings.MIXED_CONTENT_NEVER_ALLOW);
         settings.setMediaPlaybackRequiresUserGesture(true);
-        settings.setUserAgentString(settings.getUserAgentString() + " GuanxiangAndroid/1.1.0");
+        settings.setUserAgentString(settings.getUserAgentString() + " GuanxiangAndroid/1.2.0");
 
         WebView.setWebContentsDebuggingEnabled(BuildConfig.DEBUG);
         webView.setWebChromeClient(new WebChromeClient());

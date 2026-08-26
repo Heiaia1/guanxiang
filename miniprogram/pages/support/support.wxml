@@ -1,0 +1,32 @@
+<view class="page-shell support-page {{motionOff ? 'motion-off' : ''}}">
+  <view class="ink-orb ink-orb--one"></view>
+  <view class="page-content">
+    <view class="eyebrow">FENGHOU QIMEN · OPEN PROJECT</view>
+    <view class="page-title">让这个项目走得更远</view>
+    <view class="support-intro">观象录的核心文化内容与本地反思功能保持免费。你可以自然分享、关注开源进展，或联系商业授权与定制合作。</view>
+
+    <view class="support-grid">
+      <view class="panel support-card">
+        <view class="support-card__mark">享</view>
+        <view class="support-card__title">推荐给需要的朋友</view>
+        <view class="support-card__text">分享不会解锁额外结果，也不会上传你的问题和记录。</view>
+        <button class="primary-button" open-type="share">分享小程序</button>
+      </view>
+      <view class="panel support-card">
+        <view class="support-card__mark">源</view>
+        <view class="support-card__title">关注开源项目</view>
+        <view class="support-card__text">复制 GitHub 地址，查看多端版本、更新说明与安装包。</view>
+        <button class="secondary-button" data-kind="github" bindtap="copyLink">复制 GitHub 地址</button>
+      </view>
+      <view class="panel support-card">
+        <view class="support-card__mark">合</view>
+        <view class="support-card__title">商业授权与定制合作</view>
+        <view class="support-card__text">适合品牌联名、私有部署、内容定制与界面授权；当前不在小程序内直接收款。</view>
+        <button class="secondary-button" data-kind="cooperation" bindtap="copyLink">复制合作联系地址</button>
+      </view>
+    </view>
+
+    <button class="site-link" data-kind="site" bindtap="copyLink">复制风后奇门官网地址</button>
+    <view class="support-note">传统文化互动 · 不预测必然未来 · 不替代专业建议</view>
+  </view>
+</view>

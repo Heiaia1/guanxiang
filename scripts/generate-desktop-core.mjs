@@ -23,6 +23,7 @@ const serviceNames = [
   ['assessment', 'assessment-engine'],
   ['analysis', 'analysis-engine'],
   ['hexagrams', 'hexagram-engine'],
+  ['review', 'review-service'],
   ['wisdom', 'wisdom-service']
 ]
 
@@ -77,6 +78,7 @@ parts.push(
   '    assessment,',
   '    analysis,',
   '    hexagrams,',
+  '    review,',
   '    wisdom,',
   '    domains: data["domain-rules"],',
   '    legalDocuments: data["legal-documents"],',

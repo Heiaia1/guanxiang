@@ -271,6 +271,22 @@
   font-size: 19rpx;
 }
 
+.record-card__review {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16rpx;
+  padding: 13rpx 15rpx;
+  border-radius: 12rpx;
+  color: rgba(185, 208, 199, 0.8);
+  font-size: 19rpx;
+  background: rgba(102, 132, 122, 0.1);
+}
+
+.record-card__review--due { color: #ead49e; background: rgba(179, 154, 101, 0.14); }
+.record-card__review--completed { color: rgba(234, 229, 216, 0.4); }
+.record-card__review button { padding: 10rpx 14rpx; color: #b9d0c7; font-size: 18rpx; }
+
 .history-empty {
   padding: 86rpx 30rpx 40rpx;
   text-align: center;

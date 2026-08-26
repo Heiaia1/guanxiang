@@ -34,9 +34,9 @@ function boundMethods(wxml) {
   return [...methods]
 }
 
-test('app.json 中的十三个页面均能加载，WXML 交互处理器全部存在', () => {
+test('app.json 中的十四个页面均能加载，WXML 交互处理器全部存在', () => {
   const appConfig = require('../miniprogram/app.json')
-  assert.equal(appConfig.pages.length, 13)
+  assert.equal(appConfig.pages.length, 14)
 
   for (const page of appConfig.pages) {
     let definition = null

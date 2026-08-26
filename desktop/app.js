@@ -27,6 +27,11 @@
     ['relationship', '关系'], ['study', '学习'], ['family', '家庭'], ['self', '自省']
   ]
   const DEFAULT_SETTINGS = { animations: true, autoSave: true }
+  const LINKS = {
+    site: ['https:', '//guanxiang-app.scfj8gkrzf.chatgpt.site'].join(''),
+    github: ['https:', '//github.com/Heiaia1/guanxiang'].join(''),
+    cooperation: ['https:', '//github.com/Heiaia1/guanxiang/issues/new?title=', encodeURIComponent('商业合作')].join('')
+  }
   const state = {
     route: 'home',
     category: '',
@@ -103,6 +108,22 @@
     return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`
   }
 
+  function copyText(value, successMessage) {
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(value).then(() => showToast(successMessage)).catch(() => showToast('复制失败，请手动记录'))
+      return
+    }
+    const input = document.createElement('textarea')
+    input.value = value
+    input.style.position = 'fixed'
+    input.style.opacity = '0'
+    document.body.appendChild(input)
+    input.select()
+    const copied = document.execCommand('copy')
+    input.remove()
+    showToast(copied ? successMessage : '复制失败，请手动记录')
+  }
+
   function pageHead(eyebrow, title, subtitle) {
     return `<div class="view__eyebrow">${h(eyebrow)}</div><h1 class="view__title">${h(title)}</h1><p class="view__subtitle">${h(subtitle)}</p>`
   }
@@ -123,6 +144,7 @@
     const records = getRecords()
     const favorites = getFavorites()
     const note = core.wisdom.getWisdomOfDay(dateKey())
+    const dueReviews = core.review.getDueReviews(records)
     return `<section class="view">
       ${pageHead(isAndroid ? 'GUAN XIANG · ANDROID' : isIOS ? 'GUAN XIANG · IOS' : 'GUAN XIANG · DESKTOP', '观象录', `不问远处的定数，只看当下有哪些条件可以改变。${platformLabel}与微信小程序共用同一套离线内容和分析规则。`)}
       <div class="hero panel">
@@ -134,11 +156,13 @@
           <button class="ghost" data-action="coin">铜钱互动</button>
         </div>
       </div>
+      ${dueReviews.length ? `<button class="panel review-banner" data-route="history"><span class="card-button__mark">回</span><span><strong>${dueReviews.length} 条记录到回看时间</strong><small>对照事实变化，检查当时的判断是否有效。</small></span><b>→</b></button>` : ''}
       <div class="section-head"><h2>继续探索</h2><span>完全离线可用</span></div>
       <div class="quick-grid">
         <button class="card card-button" data-route="library"><span class="card-button__mark">卦</span><h3>六十四卦文化馆</h3><p>完整卦辞、六爻、现代解释与行动启示。</p></button>
         <button class="card card-button" data-route="wisdom"><span class="card-button__mark">笺</span><h3>观象札记</h3><p>24 篇关于进退、工作、关系、学习、家庭与自省的短札。</p></button>
         <button class="card card-button" data-route="history"><span class="card-button__mark">录</span><h3>我的记录</h3><p>${records.length} 次反思 · ${favorites.length} 个卦象收藏，仅保存在本机。</p></button>
+        <button class="card card-button" data-route="support"><span class="card-button__mark">风</span><h3>支持项目</h3><p>自然分享、关注开源进展，或联系商业授权与定制合作。</p></button>
       </div>
       <div class="section-head"><h2>本地概览</h2><span>不上传任何问题或结果</span></div>
       <div class="stats-grid">
@@ -205,6 +229,9 @@
     const labels = ['今天', '七天内', '重新判断']
     const favorite = getFavorites().includes(Number(result.hexagramId))
     const saved = Boolean(state.currentRecordId)
+    const savedRecord = getRecords().find((item) => item.id === state.currentRecordId)
+    const reviewState = savedRecord ? core.review.getReviewState(savedRecord) : 'none'
+    const reviewDate = savedRecord && savedRecord.reviewAt ? core.review.formatReviewDate(savedRecord.reviewAt) : ''
     return `<section class="view">
       ${pageHead(state.resultMode, '看清当前条件，再决定下一步', result.disclaimer || '传统文化互动与个人反思参考。')}
       <div class="panel result-hero"><div class="result-symbol">${h(result.symbol || '易')}</div><div><h2 class="result-name">${h(result.name)}</h2><p class="view__subtitle">${h(result.upperTrigram)}上 · ${h(result.lowerTrigram)}下 · 第${h(result.changingLine || 0)}爻</p><div class="tags">${(result.keywords || []).map((tag) => `<span class="tag">${h(tag)}</span>`).join('')}</div></div></div>
@@ -217,7 +244,7 @@
         <article class="card result-card"><h3>下一步行动</h3><ol class="action-list">${(result.actions || []).map((action, index) => `<li><b>${labels[index] || `第${index + 1}步`}</b><span>${h(action)}</span></li>`).join('')}</ol></article>
         <article class="card result-card"><h3>文化原意</h3><p>${h(result.traditional)}</p><p>${h(result.culturalPlain || result.plain)}</p></article>
       </div>
-      <div class="hero__actions"><button class="primary" data-action="save-result">${saved ? '更新本地记录' : '保存本次观象'}</button><button class="secondary" data-action="toggle-result-favorite">${favorite ? '◆ 已收藏此卦' : '◇ 收藏此卦'}</button><button class="ghost" data-detail="${h(result.hexagramId)}">查看完整六爻</button><button class="ghost" data-route="home">完成，回到首页</button></div>
+      <div class="hero__actions"><button class="primary" data-action="save-result">${saved ? '更新本地记录' : '保存本次观象'}</button><button class="secondary" data-action="schedule-review">${reviewState === 'pending' || reviewState === 'due' ? `已安排 · ${h(reviewDate)} 回看` : reviewState === 'completed' ? '重新安排 30 天回看' : '30 天后提醒我回看'}</button><button class="secondary" data-action="toggle-result-favorite">${favorite ? '◆ 已收藏此卦' : '◇ 收藏此卦'}</button><button class="ghost" data-detail="${h(result.hexagramId)}">查看完整六爻</button><button class="ghost" data-route="home">完成，回到首页</button></div><p class="form-note">提醒保存在本机；下次打开观象录时显示，不申请系统通知权限。</p>
     </section>`
   }
 
@@ -269,7 +296,19 @@
     return `<section class="view">
       ${pageHead('我的记录', '在事实变化后回看当时的判断', `记录只保存在${storageLabel}本地存储中。`)}
       <div class="toolbar"><button class="danger" data-action="clear-history" ${records.length ? '' : 'disabled'}>清空全部记录</button></div>
-      ${records.length ? `<div class="history-list">${records.map((record) => `<article class="card history-card"><button data-record="${h(record.id)}"><div class="wisdom-meta">${h(record.mode)} · ${h(formatDate(record.createdAt))}</div><h3>${h(record.result.name)} · ${h(record.categoryLabel || '个人反思')}</h3><p>${h(record.result.summary)}</p></button><div class="history-actions"><button class="ghost" data-record="${h(record.id)}">查看</button><button class="danger" data-delete-record="${h(record.id)}">删除</button></div></article>`).join('')}</div>` : `<div class="panel empty"><strong>还没有保存记录</strong>完成一次观象后，可在结果页选择保存。</div>`}
+      ${records.length ? `<div class="history-list">${records.map((record) => { const reviewState = core.review.getReviewState(record); const reviewDate = record.reviewAt ? core.review.formatReviewDate(record.reviewAt) : ''; return `<article class="card history-card"><button data-record="${h(record.id)}"><div class="wisdom-meta">${h(record.mode)} · ${h(formatDate(record.createdAt))}</div><h3>${h(record.result.name)} · ${h(record.categoryLabel || '个人反思')}</h3><p>${h(record.result.summary)}</p></button>${reviewState !== 'none' ? `<div class="review-status review-status--${reviewState}"><span>${reviewState === 'completed' ? '已完成回看' : reviewState === 'due' ? '现在适合回看' : `${h(reviewDate)} 回看`}</span>${reviewState === 'completed' ? '' : `<button class="ghost" data-complete-review="${h(record.id)}">标记完成</button>`}</div>` : ''}<div class="history-actions"><button class="ghost" data-record="${h(record.id)}">查看</button><button class="danger" data-delete-record="${h(record.id)}">删除</button></div></article>` }).join('')}</div>` : `<div class="panel empty"><strong>还没有保存记录</strong>完成一次观象后，可在结果页选择保存。</div>`}
+    </section>`
+  }
+
+  function renderSupport() {
+    return `<section class="view">
+      ${pageHead('FENGHOU QIMEN · OPEN PROJECT', '让这个项目走得更远', '核心文化内容与本地反思功能保持免费；支持不与结果数量或内容深度绑定。')}
+      <div class="quick-grid">
+        <article class="card support-card"><span class="card-button__mark">享</span><h3>推荐给需要的朋友</h3><p>只分享项目介绍，不上传你的问题、结果或本地记录。</p><button class="secondary" data-copy="site">复制官网地址</button></article>
+        <article class="card support-card"><span class="card-button__mark">源</span><h3>关注开源进展</h3><p>查看多端版本、更新说明和已验证的安装包。</p><button class="secondary" data-copy="github">复制 GitHub 地址</button></article>
+        <article class="card support-card"><span class="card-button__mark">合</span><h3>商业授权与定制合作</h3><p>品牌联名、私有部署、内容定制与界面授权；当前不在软件内直接收款。</p><button class="secondary" data-copy="cooperation">复制合作联系地址</button></article>
+      </div>
+      <div class="panel result-card boundary-card"><h3>透明说明</h3><p>分享不会解锁额外结果。收费能力需分别接入微信支付、Apple 应用内购买或 Google Play Billing，并完成对应主体与商店配置后才会上线。</p></div>
     </section>`
   }
 
@@ -304,6 +343,7 @@
       library: renderLibrary,
       wisdom: renderWisdom,
       history: renderHistory,
+      support: renderSupport,
       settings: renderSettings
     }
     app.innerHTML = (views[state.route] || renderHome)()
@@ -315,7 +355,9 @@
     const records = getRecords()
     const id = state.currentRecordId || `desktop-${Date.now()}`
     const categoryLabel = core.domains[state.category]?.name || (state.resultMode === '今日观象' ? '今日状态' : '传统互动')
+    const existing = records.find((item) => item.id === id) || {}
     const record = {
+      ...existing,
       id,
       mode: state.resultMode,
       category: state.category,
@@ -423,6 +465,20 @@
       render()
       return
     }
+    if (target.dataset.completeReview) {
+      const records = getRecords()
+      const record = records.find((item) => item.id === target.dataset.completeReview)
+      if (record && writeStore(STORAGE.records, records.map((item) => item.id === record.id ? core.review.completeReview(item) : item))) {
+        showToast('已完成本次回看')
+        render()
+      }
+      return
+    }
+    if (target.dataset.copy) {
+      const value = LINKS[target.dataset.copy]
+      if (value) copyText(value, '链接已复制')
+      return
+    }
     if (target.dataset.setting) {
       const settings = getSettings()
       settings[target.dataset.setting] = !settings[target.dataset.setting]
@@ -461,6 +517,12 @@
       finishResult(core.analysis.analyzeSituation({ category: state.category, question: state.question, answers: scored.scores }), '情境观象')
     }
     if (action === 'save-result') { saveResult(true); render() }
+    if (action === 'schedule-review') {
+      if (!state.currentRecordId && !saveResult(false)) return
+      const records = getRecords()
+      const next = records.map((item) => item.id === state.currentRecordId ? core.review.scheduleReview(item) : item)
+      if (writeStore(STORAGE.records, next)) { showToast('已安排 30 天后回看'); render() }
+    }
     if (action === 'toggle-result-favorite') toggleFavorite(state.result.hexagramId)
     if (action === 'back-library') { state.detailId = 0; navigate('library') }
     if (action === 'clear-history') {

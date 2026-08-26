@@ -8,6 +8,7 @@ const {
 } = require("../../services/storage-service")
 const { getUiPreferences } = require("../../services/ui-preferences")
 const { getAllWisdomNotes, getWisdomOfDay } = require("../../services/wisdom-service")
+const { getDueReviews } = require("../../services/review-service")
 
 const DAILY_STATES = [
   { id: "calm", label: "平静", note: "让清晰继续生长" },
@@ -29,6 +30,7 @@ Page({
   data: {
     recordCount: 0,
     favoriteCount: 0,
+    dueReviewCount: 0,
     dailyVisible: false,
     dailyStates: DAILY_STATES,
     creatingDaily: false,
@@ -60,6 +62,7 @@ Page({
       this.setData({
         recordCount: records.length,
         favoriteCount: favorites.length,
+        dueReviewCount: getDueReviews(records).length,
         navigating: false,
         animationsEnabled: visual.animationsEnabled,
         lowPower: visual.lowPower,
@@ -72,7 +75,7 @@ Page({
           "夜深宜静，回看今日得失"
       })
     } catch (_error) {
-      this.setData({ recordCount: 0, favoriteCount: 0 })
+      this.setData({ recordCount: 0, favoriteCount: 0, dueReviewCount: 0 })
     }
   },
 
@@ -139,6 +142,10 @@ Page({
 
   openHistory() {
     this.navigate("/pages/history/history")
+  },
+
+  openSupport() {
+    this.navigate("/pages/support/support")
   },
 
   openSettings() {

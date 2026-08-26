@@ -12,6 +12,7 @@
     "pages/library/library",
     "pages/hexagram-detail/hexagram-detail",
     "pages/history/history",
+    "pages/support/support",
     "pages/settings/settings"
   ],
   "window": {

@@ -38,6 +38,15 @@
       <view class="ask-card__arrow">↗</view>
     </button>
 
+    <button wx:if="{{dueReviewCount}}" class="review-alert panel pressable" disabled="{{navigating}}" bindtap="openHistory">
+      <view class="review-alert__mark">回</view>
+      <view class="review-alert__body">
+        <view class="review-alert__title">有 {{dueReviewCount}} 条记录到回看时间</view>
+        <view class="review-alert__text">对照事实变化，检查当时的判断是否有效。</view>
+      </view>
+      <view class="review-alert__arrow">→</view>
+    </button>
+
     <button
       wx:if="{{todayWisdom}}"
       class="wisdom-preview pressable"
@@ -75,6 +84,11 @@
         </view>
         <view class="path-card__title">我的记录</view>
         <view class="path-card__meta">{{recordCount}} 次反思</view>
+      </button>
+      <button class="path-card pressable" disabled="{{navigating}}" bindtap="openSupport">
+        <view class="path-card__visual path-card__visual--support">风</view>
+        <view class="path-card__title">支持项目</view>
+        <view class="path-card__meta">分享 · 合作 · 开源</view>
       </button>
     </view>
 

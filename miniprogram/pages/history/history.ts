@@ -12,6 +12,7 @@ const {
   storageErrorMessage
 } = require("../../services/storage-service")
 const { getUiPreferences } = require("../../services/ui-preferences")
+const { completeReview, getReviewState, formatReviewDate } = require("../../services/review-service")
 
 const DOMAIN_RULES = require('../../data/domain-rules-data') as Record<string, { name: string }>
 const CATEGORY_LABELS = Object.fromEntries(
@@ -34,6 +35,7 @@ Page({
     scope: "all",
     recordCount: 0,
     favoriteCount: 0,
+    dueReviewCount: 0,
     error: "",
     storageFailed: false,
     confirmVisible: false,
@@ -77,12 +79,15 @@ Page({
           year: date.year,
           time: date.time,
           isFavorite: record.favorite === true
+          ,reviewState: getReviewState(record),
+          reviewDate: record.reviewAt ? formatReviewDate(record.reviewAt) : ""
         }
       })
       this.setData({
         records,
         recordCount: records.length,
         favoriteCount: records.filter((item) => item.isFavorite).length,
+        dueReviewCount: records.filter((item) => item.reviewState === "due").length,
         error: "",
         storageFailed: false
       })
@@ -101,7 +106,8 @@ Page({
   },
 
   setScope(event: WechatMiniprogram.BaseEvent) {
-    const scope = event.currentTarget.dataset.scope === "favorites" ? "favorites" : "all"
+    const requested = String(event.currentTarget.dataset.scope || "all")
+    const scope = requested === "favorites" || requested === "reviews" ? requested : "all"
     this.setData({ scope })
     this.applyScope(this.data.records, scope)
   },
@@ -110,7 +116,9 @@ Page({
     this.setData({
       visibleRecords: scope === "favorites"
         ? records.filter((record) => record.isFavorite)
-        : records
+        : scope === "reviews"
+          ? records.filter((record) => record.reviewState === "due" || record.reviewState === "pending")
+          : records
     })
   },
 
@@ -142,6 +150,19 @@ Page({
       this.loadRecords()
     } catch (_error) {
       wx.showToast({ title: "记录收藏更新失败", icon: "none" })
+    }
+  },
+
+  completeRecordReview(event: WechatMiniprogram.BaseEvent) {
+    const id = String(event.currentTarget.dataset.id || "")
+    const raw = this.rawRecords.find((record) => record.id === id)
+    if (!raw || getReviewState(raw) === "none") return
+    try {
+      saveRecord(completeReview(raw))
+      this.loadRecords()
+      wx.showToast({ title: "已完成本次回看", icon: "success" })
+    } catch (_error) {
+      wx.showToast({ title: "回看状态更新失败", icon: "none" })
     }
   },
 

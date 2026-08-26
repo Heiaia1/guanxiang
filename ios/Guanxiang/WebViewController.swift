@@ -13,7 +13,7 @@ final class WebViewController: UIViewController, WKNavigationDelegate, UIGesture
         view.scrollView.backgroundColor = view.backgroundColor
         view.scrollView.contentInsetAdjustmentBehavior = .never
         view.allowsBackForwardNavigationGestures = false
-        view.customUserAgent = "GuanxiangIOS/1.1.0"
+        view.customUserAgent = "GuanxiangIOS/1.2.0"
         return view
     }()
 

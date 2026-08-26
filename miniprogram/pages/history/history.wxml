@@ -36,6 +36,11 @@
         data-scope="favorites"
         bindtap="setScope"
       >重点回看</button>
+      <button
+        class="scope-tab {{scope === 'reviews' ? 'scope-tab--active' : ''}}"
+        data-scope="reviews"
+        bindtap="setScope"
+      >30 天回看 {{dueReviewCount ? dueReviewCount : ''}}</button>
     </view>
 
     <view wx:if="{{error}}" class="history-error panel">
@@ -84,6 +89,10 @@
             </view>
           </view>
           <view class="record-card__summary">{{item.resultSummary}}</view>
+          <view wx:if="{{item.reviewState !== 'none'}}" class="record-card__review record-card__review--{{item.reviewState}}">
+            <text>{{item.reviewState === "completed" ? "已完成回看" : item.reviewState === "due" ? "现在适合回看" : item.reviewDate + " 回看"}}</text>
+            <button wx:if="{{item.reviewState === 'due' || item.reviewState === 'pending'}}" data-id="{{item.id}}" catchtap="completeRecordReview">标记完成</button>
+          </view>
           <view class="record-card__open">查看完整记录 →</view>
         </view>
       </view>
@@ -92,10 +101,10 @@
     <view wx:else class="history-empty">
       <view class="history-empty__rings"><view></view><view></view><view></view></view>
       <view class="history-empty__title">
-        {{scope === "favorites" ? "还没有重点记录" : "还没有观象记录"}}
+        {{scope === "favorites" ? "还没有重点记录" : scope === "reviews" ? "还没有回看计划" : "还没有观象记录"}}
       </view>
       <view class="history-empty__text">
-        {{scope === "favorites" ? "在记录右上角点击菱形，标记需要继续回看的内容。" : "完成一次情境观象或今日观象后，可以将结果保存在这里。"}}
+        {{scope === "favorites" ? "在记录右上角点击菱形，标记需要继续回看的内容。" : scope === "reviews" ? "在结果页安排 30 天回看，这里会在到期后提示。" : "完成一次情境观象或今日观象后，可以将结果保存在这里。"}}
       </view>
       <button wx:if="{{scope === 'all'}}" class="primary-button" bindtap="startObservation">问一件事</button>
       <button wx:else class="secondary-button" data-scope="all" bindtap="setScope">查看全部记录</button>

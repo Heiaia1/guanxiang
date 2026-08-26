@@ -17,7 +17,7 @@ test('桌面版包含可直接打开的完整离线入口和主要功能导航',
   }
 
   const html = read('index.html')
-  for (const route of ['home', 'daily', 'ask', 'library', 'wisdom', 'history', 'settings']) {
+  for (const route of ['home', 'daily', 'ask', 'library', 'wisdom', 'history', 'support', 'settings']) {
     assert.match(html, new RegExp(`data-route=["']${route}["']`), `桌面版缺少 ${route} 入口`)
   }
   assert.match(html, /Content-Security-Policy/)
@@ -40,6 +40,7 @@ test('桌面版共享小程序的评估、分析、卦象和札记核心', () =>
   assert.equal(core.assessment.getAssessmentQuestions().length, 5)
   assert.equal(core.hexagrams.getAllHexagrams().length, 64)
   assert.equal(core.wisdom.getAllWisdomNotes().length, 24)
+  assert.equal(core.review.REVIEW_DELAY_DAYS, 30)
   assert.equal(Object.keys(core.domains).length, 6)
   assert.equal(core.legalDocuments.documents.length, 2)
 
